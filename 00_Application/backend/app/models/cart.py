@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Integer, UniqueConstraint
+from sqlalchemy import ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -9,6 +9,7 @@ class Cart(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), unique=True, nullable=False)
+    coupon_code: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
     user = relationship("User", back_populates="cart")
     items = relationship("CartItem", back_populates="cart", cascade="all, delete-orphan")
