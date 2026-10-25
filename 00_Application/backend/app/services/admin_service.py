@@ -10,7 +10,7 @@ from app.core.errors import BadRequestError, NotFoundError
 from app.models.catalog import Category, Product
 from app.models.coupon import Coupon
 from app.models.enums import OrderStatus, UserStatus
-from app.models.order import Order, OrderAudit
+from app.models.order import Order, OrderAudit, OrderItem
 from app.models.user import User
 
 # --- R8.1 product management -------------------------------------------------
@@ -73,7 +73,7 @@ async def set_product_active(db: AsyncSession, product_id: int, active: bool, no
 
 
 async def list_orders(db: AsyncSession, status_filter: OrderStatus | None, order_date: date | None) -> list[Order]:
-    query = select(Order).options(selectinload(Order.items))
+    query = select(Order).options(selectinload(Order.items).selectinload(OrderItem.product))
     if status_filter is not None:
         query = query.where(Order.status == status_filter)
     if order_date is not None:
