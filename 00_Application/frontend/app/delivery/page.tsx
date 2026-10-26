@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import RoleGuard from "@/components/RoleGuard";
 import { api, errorMessage } from "@/lib/api";
-import { money, formatDateTime } from "@/lib/format";
+import { money, formatDateTime, statusBadgeClasses } from "@/lib/format";
 import type { Order } from "@/lib/types";
 
 function DeliveryPageContent() {
@@ -80,7 +80,7 @@ function DeliveryPageContent() {
       )}
       <ul id="delivery-orders-list" data-testid="delivery-orders-list" className="space-y-4">
         {orders.map((o) => (
-          <li key={o.id} id={`delivery-order-${o.id}`} data-testid={`delivery-order-${o.id}`} className="rounded border border-gray-200 bg-white p-4">
+          <li key={o.id} id={`delivery-order-${o.id}`} data-testid={`delivery-order-${o.id}`} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="font-medium text-gray-900">{o.order_number}</p>
@@ -89,7 +89,7 @@ function DeliveryPageContent() {
                 </p>
                 <p className="text-sm text-gray-500">Slot: {formatDateTime(o.slot_start)}</p>
               </div>
-              <span data-testid={`delivery-order-status-${o.id}`} className="rounded bg-green-100 px-2 py-1 text-sm font-medium text-green-800">
+              <span data-testid={`delivery-order-status-${o.id}`} className={`rounded-full px-2 py-1 text-sm font-medium ${statusBadgeClasses(o.status)}`}>
                 {o.status}
               </span>
               <span className="font-semibold text-gray-900">{money(o.total)}</span>
@@ -101,7 +101,7 @@ function DeliveryPageContent() {
                 data-testid={`delivery-dispatch-button-${o.id}`}
                 onClick={() => dispatchOrder(o.id)}
                 disabled={busyId === o.id}
-                className="mt-3 rounded bg-green-700 px-3 py-2 text-sm font-medium text-white hover:bg-green-800 disabled:opacity-50"
+                className="mt-3 rounded-full bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
               >
                 Mark out for delivery
               </button>
@@ -117,14 +117,14 @@ function DeliveryPageContent() {
                   placeholder="4-digit OTP"
                   value={otpInputs[o.id] ?? ""}
                   onChange={(e) => setOtpInputs((prev) => ({ ...prev, [o.id]: e.target.value }))}
-                  className="w-32 rounded border border-gray-300 px-3 py-2"
+                  className="w-32 rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
                 />
                 <button
                   id={`delivery-deliver-button-${o.id}`}
                   data-testid={`delivery-deliver-button-${o.id}`}
                   onClick={() => deliverOrder(o.id)}
                   disabled={busyId === o.id}
-                  className="rounded bg-green-700 px-3 py-2 text-sm font-medium text-white hover:bg-green-800 disabled:opacity-50"
+                  className="rounded-full bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
                 >
                   Confirm delivery
                 </button>

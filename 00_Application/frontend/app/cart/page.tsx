@@ -119,7 +119,7 @@ function CartPageContent() {
       {!cart || cart.items.length === 0 ? (
         <p id="cart-empty" data-testid="cart-empty" className="text-gray-500">
           Your cart is empty.{" "}
-          <Link href="/" className="text-green-700 underline">
+          <Link href="/" className="text-brand-700 underline">
             Browse products
           </Link>
           .
@@ -132,7 +132,7 @@ function CartPageContent() {
                 key={item.id}
                 id={`cart-item-${item.id}`}
                 data-testid={`cart-item-${item.id}`}
-                className="flex flex-wrap items-center justify-between gap-3 rounded border border-gray-200 bg-white p-4"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
               >
                 <div>
                   <p className="font-medium text-gray-900">{item.product_name}</p>
@@ -147,7 +147,7 @@ function CartPageContent() {
                     value={item.quantity}
                     disabled={busy}
                     onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
-                    className="rounded border border-gray-300 px-2 py-1"
+                    className="rounded-lg border border-gray-300 px-2 py-1 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
                   >
                     {Array.from({ length: Math.min(10, item.stock) }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>
@@ -161,7 +161,7 @@ function CartPageContent() {
                     data-testid={`cart-item-remove-${item.id}`}
                     disabled={busy}
                     onClick={() => removeItem(item.id)}
-                    className="rounded border border-red-300 px-2 py-1 text-sm text-red-600 hover:bg-red-50"
+                    className="rounded-full border border-red-300 px-2 py-1 text-sm text-red-600 hover:bg-red-50"
                   >
                     Remove
                   </button>
@@ -191,7 +191,7 @@ function CartPageContent() {
                 type="text"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
-                className="w-full rounded border border-gray-300 px-3 py-2"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
               />
             </div>
             <button
@@ -199,7 +199,7 @@ function CartPageContent() {
               data-testid="coupon-apply-button"
               type="submit"
               disabled={busy || !couponCode}
-              className="rounded bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 disabled:opacity-50"
+              className="rounded-full bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
             >
               Apply
             </button>
@@ -210,7 +210,7 @@ function CartPageContent() {
                 type="button"
                 disabled={busy}
                 onClick={removeCoupon}
-                className="rounded border border-gray-300 px-4 py-2 text-sm"
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
               >
                 Remove coupon
               </button>
@@ -222,12 +222,12 @@ function CartPageContent() {
             </p>
           )}
           {cart.coupon_code && (
-            <p id="coupon-applied" data-testid="coupon-applied" className="mt-2 text-sm text-green-700">
+            <p id="coupon-applied" data-testid="coupon-applied" className="mt-2 text-sm text-brand-700">
               Applied coupon: {cart.coupon_code}
             </p>
           )}
 
-          <div id="cart-summary" data-testid="cart-summary" className="mt-6 rounded border border-gray-200 bg-white p-4">
+          <div id="cart-summary" data-testid="cart-summary" className="mt-6 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
             <div className="flex justify-between py-1">
               <span>Subtotal</span>
               <span data-testid="cart-subtotal">{money(cart.subtotal)}</span>
@@ -250,7 +250,7 @@ function CartPageContent() {
             id="cart-checkout-link"
             data-testid="cart-checkout-link"
             href="/checkout"
-            className="mt-6 block w-full rounded bg-green-700 px-4 py-3 text-center font-medium text-white hover:bg-green-800"
+            className="mt-6 block w-full rounded-full bg-brand-700 px-4 py-3 text-center font-medium text-white hover:bg-brand-800"
           >
             Proceed to checkout
           </Link>

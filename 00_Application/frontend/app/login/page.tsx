@@ -43,7 +43,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
         </div>
 
@@ -58,7 +58,7 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
         </div>
 
@@ -73,14 +73,14 @@ export default function LoginPage() {
           data-testid="login-submit-button"
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-green-700 px-4 py-2 font-medium text-white hover:bg-green-800 disabled:opacity-50"
+          className="w-full rounded-full bg-brand-700 px-4 py-2 font-medium text-white hover:bg-brand-800 disabled:opacity-50"
         >
           {submitting ? "Logging in..." : "Log in"}
         </button>
       </form>
       <p className="mt-4 text-sm text-gray-600">
         No account yet?{" "}
-        <Link id="login-register-link" data-testid="login-register-link" href="/register" className="text-green-700 underline">
+        <Link id="login-register-link" data-testid="login-register-link" href="/register" className="text-brand-700 underline">
           Register
         </Link>
       </p>

@@ -82,7 +82,7 @@ export default function CatalogPage() {
             setPage(1);
             setSearch(e.target.value);
           }}
-          className="flex-1 min-w-[200px] rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+          className="flex-1 min-w-[200px] rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
         />
         <select
           id="catalog-category-select"
@@ -92,7 +92,7 @@ export default function CatalogPage() {
             setPage(1);
             setCategoryId(e.target.value);
           }}
-          className="rounded border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
         >
           <option value="">All categories</option>
           {categories.map((c) => (
@@ -109,7 +109,7 @@ export default function CatalogPage() {
             setPage(1);
             setSort(e.target.value);
           }}
-          className="rounded border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
         >
           <option value="">Sort: default</option>
           <option value="price_asc">Price: low to high</option>
@@ -118,7 +118,7 @@ export default function CatalogPage() {
       </div>
 
       {addMessage && (
-        <p id="catalog-add-message" data-testid="catalog-add-message" className="mb-4 text-sm text-green-700">
+        <p id="catalog-add-message" data-testid="catalog-add-message" className="mb-4 text-sm text-brand-700">
           {addMessage}
         </p>
       )}
@@ -145,7 +145,7 @@ export default function CatalogPage() {
             key={p.id}
             id={`product-card-${p.id}`}
             data-testid={`product-card-${p.id}`}
-            className="flex flex-col justify-between rounded border border-gray-200 bg-white p-4 shadow-sm"
+            className="flex flex-col justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
           >
             <div>
               <Link href={`/product/${p.id}`} id={`product-link-${p.id}`} data-testid={`product-link-${p.id}`}>
@@ -154,7 +154,7 @@ export default function CatalogPage() {
               <p className="text-sm text-gray-500">
                 {p.category_name} &middot; {p.unit}
               </p>
-              <p className="mt-2 text-lg font-bold text-green-700">{money(p.price)}</p>
+              <p className="mt-2 text-lg font-bold text-brand-700">{money(p.price)}</p>
               {p.avg_rating != null && <p className="text-sm text-yellow-600">★ {p.avg_rating.toFixed(1)}</p>}
               {p.stock === 0 ? (
                 <p data-testid={`product-out-of-stock-${p.id}`} className="mt-1 text-sm font-medium text-red-600">
@@ -169,7 +169,7 @@ export default function CatalogPage() {
               data-testid={`add-to-cart-button-${p.id}`}
               disabled={p.stock === 0 || addingId === p.id}
               onClick={() => handleAddToCart(p.id)}
-              className="mt-3 rounded bg-green-700 px-3 py-2 text-sm font-medium text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-gray-300"
+              className="mt-3 rounded-full bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-gray-300"
             >
               {p.stock === 0 ? "Out of stock" : addingId === p.id ? "Adding..." : "Add to cart"}
             </button>
@@ -184,7 +184,7 @@ export default function CatalogPage() {
             data-testid="catalog-prev-page"
             disabled={page <= 1}
             onClick={() => setPage((p) => p - 1)}
-            className="rounded border border-gray-300 px-3 py-1 disabled:opacity-50"
+            className="rounded-full border border-gray-300 px-3 py-1 disabled:opacity-50"
           >
             Previous
           </button>
@@ -196,7 +196,7 @@ export default function CatalogPage() {
             data-testid="catalog-next-page"
             disabled={page >= totalPages}
             onClick={() => setPage((p) => p + 1)}
-            className="rounded border border-gray-300 px-3 py-1 disabled:opacity-50"
+            className="rounded-full border border-gray-300 px-3 py-1 disabled:opacity-50"
           >
             Next
           </button>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import RoleGuard from "@/components/RoleGuard";
 import { api, errorMessage } from "@/lib/api";
-import { money, formatDateTime } from "@/lib/format";
+import { money, formatDateTime, statusBadgeClasses } from "@/lib/format";
 import type { Order } from "@/lib/types";
 
 function OrdersPageContent() {
@@ -48,13 +48,13 @@ function OrdersPageContent() {
               id={`order-row-${o.id}`}
               data-testid={`order-row-${o.id}`}
               href={`/orders/${o.id}`}
-              className="flex flex-wrap items-center justify-between gap-2 rounded border border-gray-200 bg-white p-4 hover:bg-gray-50"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gray-100 bg-white p-4 hover:bg-gray-50 shadow-sm"
             >
               <div>
                 <p className="font-medium text-gray-900">{o.order_number}</p>
                 <p className="text-sm text-gray-500">{formatDateTime(o.created_at)}</p>
               </div>
-              <span data-testid={`order-status-${o.id}`} className="rounded bg-green-100 px-2 py-1 text-sm font-medium text-green-800">
+              <span data-testid={`order-status-${o.id}`} className={`rounded-full px-2 py-1 text-sm font-medium ${statusBadgeClasses(o.status)}`}>
                 {o.status}
               </span>
               <span className="font-semibold text-gray-900">{money(o.total)}</span>

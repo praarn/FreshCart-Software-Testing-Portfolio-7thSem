@@ -14,12 +14,13 @@ export default function Navbar() {
   }
 
   return (
-    <nav id="navbar" data-testid="navbar" className="bg-green-700 text-white">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-        <Link id="nav-brand" data-testid="nav-brand" href="/" className="text-lg font-bold">
+    <nav id="navbar" data-testid="navbar" className="bg-brand-700 text-white shadow-md">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
+        <Link id="nav-brand" data-testid="nav-brand" href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-50 text-brand-700">🌿</span>
           FreshCart
         </Link>
-        <div className="flex flex-wrap items-center gap-4 text-sm">
+        <div className="flex flex-wrap items-center gap-5 text-sm font-medium">
           <Link id="nav-catalog" data-testid="nav-catalog" href="/" className="hover:underline">
             Catalog
           </Link>
@@ -52,7 +53,7 @@ export default function Navbar() {
                 id="nav-logout-button"
                 data-testid="nav-logout-button"
                 onClick={handleLogout}
-                className="rounded bg-green-900 px-3 py-1 hover:bg-green-950"
+                className="rounded-full bg-brand-900 px-4 py-1.5 transition-colors hover:bg-brand-950"
               >
                 Logout
               </button>
@@ -66,7 +67,7 @@ export default function Navbar() {
                 id="nav-register"
                 data-testid="nav-register"
                 href="/register"
-                className="rounded bg-green-900 px-3 py-1 hover:bg-green-950"
+                className="rounded-full bg-brand-900 px-4 py-1.5 transition-colors hover:bg-brand-950"
               >
                 Register
               </Link>
