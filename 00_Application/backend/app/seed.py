@@ -13,6 +13,7 @@ from sqlalchemy import select
 from app.core.security import hash_password
 from app.database import AsyncSessionLocal, Base, engine
 from app.models import (
+    Banner,
     Cart,
     Category,
     Coupon,
@@ -88,6 +89,15 @@ COUPONS = [
          expires_at=datetime(2020, 1, 1)),
 ]
 
+BANNERS = [
+    dict(title="Fresh fruits, up to 20% off", image_url="https://picsum.photos/seed/freshcart-fruits/1200/400",
+         link_url="/?category_id=1", display_order=1, active=True),
+    dict(title="Daily essentials delivered fast", image_url="https://picsum.photos/seed/freshcart-daily/1200/400",
+         link_url=None, display_order=2, active=True),
+    dict(title="Bakery favorites, baked fresh", image_url="https://picsum.photos/seed/freshcart-bakery/1200/400",
+         link_url="/?category_id=4", display_order=3, active=True),
+]
+
 
 async def _get_or_create_category(db, name: str) -> Category:
     cat = await db.scalar(select(Category).where(Category.name == name))
@@ -126,6 +136,16 @@ async def _get_or_create_coupon(db, **kwargs):
     db.add(coupon)
     await db.flush()
     return coupon
+
+
+async def _get_or_create_banner(db, title: str, now: datetime, **kwargs):
+    banner = await db.scalar(select(Banner).where(Banner.title == title))
+    if banner:
+        return banner
+    banner = Banner(title=title, created_at=now, updated_at=now, **kwargs)
+    db.add(banner)
+    await db.flush()
+    return banner
 
 
 async def _get_or_create_user(db, name: str, email: str, password: str, phone: str, role: Role, now: datetime) -> User:
@@ -168,6 +188,11 @@ async def seed() -> None:
 
         for coupon in COUPONS:
             await _get_or_create_coupon(db, **coupon)
+
+        for banner in BANNERS:
+            title = banner.pop("title")
+            await _get_or_create_banner(db, title, now, **banner)
+            banner["title"] = title  # restore for idempotent re-runs within the same process
 
         existing_order = await db.scalar(
             select(Order).where(Order.user_id == customer1.id, Order.status == OrderStatus.DELIVERED)

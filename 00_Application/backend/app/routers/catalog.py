@@ -1,12 +1,20 @@
 import math
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, Query
 
 from app.database import get_db
+from app.deps import get_now
 from app.schemas.catalog import CategoryOut, ProductListOut, ProductOut
-from app.services import catalog_service
+from app.schemas.coupon import PublicCouponOut
+from app.services import catalog_service, coupon_service
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
+
+
+@router.get("/offers", response_model=list[PublicCouponOut], summary="List active public coupon offers")
+async def list_offers(db=Depends(get_db), now: datetime = Depends(get_now)):
+    return await coupon_service.list_active_public_coupons(db, now)
 
 
 @router.get("/categories", response_model=list[CategoryOut], summary="List all categories (R2.1)")

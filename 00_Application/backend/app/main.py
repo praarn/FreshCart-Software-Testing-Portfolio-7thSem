@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.core.errors import register_error_handlers
-from app.routers import admin, auth, cart, catalog, checkout, delivery, health, orders, reviews, ws
+from app.routers import admin, auth, banners, cart, catalog, checkout, delivery, health, orders, reviews, wishlist, ws
 
 settings = get_settings()
 
@@ -32,6 +32,8 @@ app.include_router(orders.router, prefix="/api")
 app.include_router(reviews.router, prefix="/api")
 app.include_router(admin.router, prefix="/api")
 app.include_router(delivery.router, prefix="/api")
+app.include_router(wishlist.router, prefix="/api")
+app.include_router(banners.router, prefix="/api")
 app.include_router(ws.router)
 
 if settings.APP_ENV == "test":
