@@ -90,6 +90,20 @@ in the relevant service/model code), the frontend routes, and the REST/WebSocket
 
 ---
 
+## M9 — Wishlist, banners and offers (additions beyond the original spec)
+
+Added later at the user's request, inspired by the reference app
+[quickcart](https://github.com/mujju-212/quickcart). Built as ordinary FreshCart modules on the
+existing FastAPI/Next.js stack — not ported from that repo's Flask/React backend.
+
+| ID | Rule |
+|---|---|
+| R9.1 | Wishlist: a customer can save/remove products for later. One entry per product per customer (409 on duplicate add), 404 on an unknown product or on removing something not saved. |
+| R9.2 | Banners: admin-managed promotional banners (title, image URL, optional link URL, display order, active flag). Only active banners are returned by the public endpoint, ordered by display order. |
+| R9.3 | Public offers: active, non-expired coupons are listed publicly (for a homepage "Special Offers" section) without exposing admin-only coupon management fields. |
+
+---
+
 ## Frontend routes
 
 | Route | Access | Purpose |
@@ -108,7 +122,9 @@ in the relevant service/model code), the frontend routes, and the REST/WebSocket
 | `/admin/coupons` | ADMIN | Coupon enable/disable |
 | `/admin/users` | ADMIN | User lock/unlock |
 | `/admin/audit-log` | ADMIN | Audit log viewer |
+| `/admin/banners` | ADMIN | Banner CRUD |
 | `/delivery` | DELIVERY_PARTNER | Assigned orders, dispatch, OTP delivery |
+| `/wishlist` | CUSTOMER | Saved-for-later products |
 
 ---
 
@@ -139,6 +155,21 @@ Full interactive docs with request/response examples: **Swagger UI at `/docs`**.
 | GET | `/catalog/categories` | none | - | 200 list |
 | GET | `/catalog/products` | none | query: `search, category_id, sort, page` | 200 paginated list |
 | GET | `/catalog/products/{id}` | none | - | 200 product, 404 |
+| GET | `/catalog/offers` | none | - | 200 list of active, non-expired coupons (R9.3) |
+
+### Wishlist (M9)
+
+| Method | Path | Auth | Request | Responses |
+|---|---|---|---|---|
+| GET | `/wishlist` | CUSTOMER | - | 200 list |
+| POST | `/wishlist/items` | CUSTOMER | `{product_id}` | 201 item, 404 product, 409 duplicate |
+| DELETE | `/wishlist/items/{product_id}` | CUSTOMER | - | 204, 404 |
+
+### Banners (M9)
+
+| Method | Path | Auth | Request | Responses |
+|---|---|---|---|---|
+| GET | `/banners` | none | - | 200 list (active only) |
 
 ### Cart (M3, M4)
 
@@ -203,6 +234,10 @@ Full interactive docs with request/response examples: **Swagger UI at `/docs`**.
 | POST | `/admin/users/{id}/unlock` | ADMIN | - | 200 user |
 | GET | `/admin/dashboard` | ADMIN | - | 200 metrics |
 | GET | `/admin/audit-log` | ADMIN | query: `order_id, actor_id` | 200 list |
+| GET | `/admin/banners` | ADMIN | - | 200 list (incl. inactive) |
+| POST | `/admin/banners` | ADMIN | `{title, image_url, link_url, display_order, active}` | 201 banner, 422 validation |
+| PUT | `/admin/banners/{id}` | ADMIN | partial banner fields | 200 banner, 404 |
+| DELETE | `/admin/banners/{id}` | ADMIN | - | 204, 404 |
 
 All admin endpoints require role `ADMIN`; non-admins get 403. All `/delivery/**` endpoints require role `DELIVERY_PARTNER`.
 
