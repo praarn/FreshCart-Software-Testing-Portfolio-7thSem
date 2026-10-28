@@ -149,3 +149,26 @@ export interface FieldError {
   field: string;
   message: string;
 }
+
+export interface WishlistItem {
+  id: number;
+  product: Product;
+}
+
+export interface Banner {
+  id: number;
+  title: string;
+  image_url: string;
+  link_url: string | null;
+  display_order: number;
+  active: boolean;
+}
+
+export interface PublicCoupon {
+  code: string;
+  type: CouponType;
+  value: string;
+  min_subtotal: string;
+  max_discount: string | null;
+  first_order_only: boolean;
+}

@@ -1,17 +1,43 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { api, errorMessage } from "@/lib/api";
 import { money } from "@/lib/format";
 import { useAuth } from "@/lib/auth";
-import type { Category, Product, ProductListResponse } from "@/lib/types";
+import type { Banner, Category, Product, ProductListResponse, PublicCoupon, WishlistItem } from "@/lib/types";
+
+const CATEGORY_ICONS: Record<string, string> = {
+  Fruits: "🍎",
+  Vegetables: "🥦",
+  Dairy: "🥛",
+  Bakery: "🍞",
+  Beverages: "🥤",
+  Snacks: "🍿",
+};
 
 export default function CatalogPage() {
+  return (
+    <Suspense
+      fallback={
+        <p id="catalog-loading" data-testid="catalog-loading" className="p-8 text-center text-gray-500">
+          Loading...
+        </p>
+      }
+    >
+      <CatalogPageContent />
+    </Suspense>
+  );
+}
+
+function CatalogPageContent() {
   const { user } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [categories, setCategories] = useState<Category[]>([]);
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [offers, setOffers] = useState<PublicCoupon[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState("");
@@ -22,10 +48,56 @@ export default function CatalogPage() {
   const [error, setError] = useState<string | null>(null);
   const [addingId, setAddingId] = useState<number | null>(null);
   const [addMessage, setAddMessage] = useState<string | null>(null);
+  const [wishlistIds, setWishlistIds] = useState<Set<number>>(new Set());
+  const [wishlistBusyId, setWishlistBusyId] = useState<number | null>(null);
 
   useEffect(() => {
     api.get<Category[]>("/catalog/categories").then(setCategories).catch(() => {});
+    api.get<Banner[]>("/banners").then(setBanners).catch(() => {});
+    api.get<PublicCoupon[]>("/catalog/offers").then(setOffers).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (user?.role !== "CUSTOMER") {
+      setWishlistIds(new Set());
+      return;
+    }
+    api
+      .get<WishlistItem[]>("/wishlist")
+      .then((items) => setWishlistIds(new Set(items.map((i) => i.product.id))))
+      .catch(() => {});
+  }, [user]);
+
+  async function toggleWishlist(productId: number) {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    setWishlistBusyId(productId);
+    try {
+      if (wishlistIds.has(productId)) {
+        await api.delete(`/wishlist/items/${productId}`);
+        setWishlistIds((prev) => {
+          const next = new Set(prev);
+          next.delete(productId);
+          return next;
+        });
+      } else {
+        await api.post("/wishlist/items", { product_id: productId });
+        setWishlistIds((prev) => new Set(prev).add(productId));
+      }
+    } catch {
+      // best-effort toggle; ignore transient errors
+    } finally {
+      setWishlistBusyId(null);
+    }
+  }
+
+  useEffect(() => {
+    setSearch(searchParams.get("search") ?? "");
+    setCategoryId(searchParams.get("category_id") ?? "");
+    setPage(1);
+  }, [searchParams]);
 
   const loadProducts = useCallback(async () => {
     setLoading(true);
@@ -67,8 +139,85 @@ export default function CatalogPage() {
     }
   }
 
+  function selectCategory(id: string) {
+    setPage(1);
+    setCategoryId((prev) => (prev === id ? "" : id));
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      {banners.length > 0 && (
+        <div id="banner-carousel" data-testid="banner-carousel" className="mb-8 flex gap-4 overflow-x-auto pb-2">
+          {banners.map((b) => {
+            const content = (
+              <div
+                className="relative flex h-32 w-72 shrink-0 items-end overflow-hidden rounded-xl bg-cover bg-center shadow-sm sm:h-40 sm:w-96"
+                style={{ backgroundImage: `url(${b.image_url})` }}
+              >
+                <div className="w-full bg-gradient-to-t from-black/70 to-transparent p-3">
+                  <p className="font-semibold text-white">{b.title}</p>
+                </div>
+              </div>
+            );
+            return b.link_url ? (
+              <Link key={b.id} href={b.link_url} id={`banner-${b.id}`} data-testid={`banner-${b.id}`}>
+                {content}
+              </Link>
+            ) : (
+              <div key={b.id} id={`banner-${b.id}`} data-testid={`banner-${b.id}`}>
+                {content}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {categories.length > 0 && (
+        <div className="mb-8">
+          <h2 className="mb-3 text-lg font-bold text-gray-900">Shop by Category</h2>
+          <div id="category-showcase" data-testid="category-showcase" className="flex flex-wrap gap-3">
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                id={`category-card-${c.id}`}
+                data-testid={`category-card-${c.id}`}
+                onClick={() => selectCategory(String(c.id))}
+                className={`flex flex-col items-center gap-1 rounded-xl border px-5 py-3 text-sm font-medium transition-colors ${
+                  categoryId === String(c.id)
+                    ? "border-accent-500 bg-accent-50 text-gray-900"
+                    : "border-gray-100 bg-white text-gray-700 shadow-sm hover:border-accent-300"
+                }`}
+              >
+                <span className="text-2xl">{CATEGORY_ICONS[c.name] ?? "🛒"}</span>
+                {c.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {offers.length > 0 && (
+        <div className="mb-8">
+          <h2 className="mb-3 text-lg font-bold text-gray-900">Special Offers</h2>
+          <div id="offers-section" data-testid="offers-section" className="flex flex-wrap gap-3">
+            {offers.map((o) => (
+              <div
+                key={o.code}
+                data-testid={`offer-${o.code}`}
+                className="rounded-xl border border-accent-200 bg-accent-50 px-4 py-3 text-sm"
+              >
+                <p className="font-mono text-base font-bold text-gray-900">{o.code}</p>
+                <p className="text-gray-700">
+                  {o.type === "PERCENT" ? `${o.value}% off` : `${money(o.value)} off`}
+                  {o.max_discount ? ` (up to ${money(o.max_discount)})` : ""} on orders over {money(o.min_subtotal)}
+                  {o.first_order_only ? " — first order only" : ""}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <h1 className="mb-6 text-2xl font-bold text-gray-900">Shop Fresh Groceries</h1>
 
       <div id="catalog-filters" data-testid="catalog-filters" className="mb-6 flex flex-wrap gap-3">
@@ -82,7 +231,7 @@ export default function CatalogPage() {
             setPage(1);
             setSearch(e.target.value);
           }}
-          className="flex-1 min-w-[200px] rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+          className="flex-1 min-w-[200px] rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
         />
         <select
           id="catalog-category-select"
@@ -92,7 +241,7 @@ export default function CatalogPage() {
             setPage(1);
             setCategoryId(e.target.value);
           }}
-          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
         >
           <option value="">All categories</option>
           {categories.map((c) => (
@@ -109,7 +258,7 @@ export default function CatalogPage() {
             setPage(1);
             setSort(e.target.value);
           }}
-          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
         >
           <option value="">Sort: default</option>
           <option value="price_asc">Price: low to high</option>
@@ -118,7 +267,7 @@ export default function CatalogPage() {
       </div>
 
       {addMessage && (
-        <p id="catalog-add-message" data-testid="catalog-add-message" className="mb-4 text-sm text-brand-700">
+        <p id="catalog-add-message" data-testid="catalog-add-message" className="mb-4 text-sm text-emerald-700">
           {addMessage}
         </p>
       )}
@@ -145,16 +294,28 @@ export default function CatalogPage() {
             key={p.id}
             id={`product-card-${p.id}`}
             data-testid={`product-card-${p.id}`}
-            className="flex flex-col justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
+            className="relative flex flex-col justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
           >
+            {user?.role !== "ADMIN" && user?.role !== "DELIVERY_PARTNER" && (
+              <button
+                id={`wishlist-toggle-${p.id}`}
+                data-testid={`wishlist-toggle-${p.id}`}
+                onClick={() => toggleWishlist(p.id)}
+                disabled={wishlistBusyId === p.id}
+                aria-label="Toggle wishlist"
+                className="absolute right-3 top-3 text-lg"
+              >
+                {wishlistIds.has(p.id) ? "❤️" : "🤍"}
+              </button>
+            )}
             <div>
               <Link href={`/product/${p.id}`} id={`product-link-${p.id}`} data-testid={`product-link-${p.id}`}>
-                <h2 className="font-semibold text-gray-900 hover:underline">{p.name}</h2>
+                <h2 className="pr-6 font-semibold text-gray-900 hover:underline">{p.name}</h2>
               </Link>
               <p className="text-sm text-gray-500">
                 {p.category_name} &middot; {p.unit}
               </p>
-              <p className="mt-2 text-lg font-bold text-brand-700">{money(p.price)}</p>
+              <p className="mt-2 text-lg font-bold text-gray-900">{money(p.price)}</p>
               {p.avg_rating != null && <p className="text-sm text-yellow-600">★ {p.avg_rating.toFixed(1)}</p>}
               {p.stock === 0 ? (
                 <p data-testid={`product-out-of-stock-${p.id}`} className="mt-1 text-sm font-medium text-red-600">
@@ -169,7 +330,7 @@ export default function CatalogPage() {
               data-testid={`add-to-cart-button-${p.id}`}
               disabled={p.stock === 0 || addingId === p.id}
               onClick={() => handleAddToCart(p.id)}
-              className="mt-3 rounded-full bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-gray-300"
+              className="mt-3 rounded-full bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-300"
             >
               {p.stock === 0 ? "Out of stock" : addingId === p.id ? "Adding..." : "Add to cart"}
             </button>

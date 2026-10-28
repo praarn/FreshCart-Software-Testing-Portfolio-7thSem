@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdf8f0;
-  --foreground: #1c1917;
+  --background: #ffffff;
+  --foreground: #11131a;
 }
 
 @theme inline {
@@ -11,20 +11,22 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* "Fresh Market" brand palette: deep emerald primary on a warm cream background. */
-  --color-brand-50: #f0f7f2;
-  --color-brand-100: #d9ece0;
-  --color-brand-200: #b3d9c1;
-  --color-brand-300: #8cc6a2;
-  --color-brand-400: #5ca87a;
-  --color-brand-500: #2f8657;
-  --color-brand-600: #1f6b44;
-  --color-brand-700: #0f5132;
-  --color-brand-800: #0b3d26;
-  --color-brand-900: #082a1a;
-  --color-brand-950: #051a10;
+  /* QuickCart-inspired palette: a bold gold/yellow CTA accent on a clean white
+     storefront, with a near-black header/footer. Every shade stays light enough
+     that dark text reads on it, so filled accent buttons always use dark text. */
+  --color-accent-50: #fffdf2;
+  --color-accent-100: #fff8d6;
+  --color-accent-200: #ffeea3;
+  --color-accent-300: #ffe066;
+  --color-accent-400: #ffd23f;
+  --color-accent-500: #f7c600;
+  --color-accent-600: #e0b400;
+  --color-accent-700: #c29b00;
+  --color-accent-800: #9c7d00;
+  --color-accent-900: #7a6200;
+  --color-accent-950: #5c4a00;
 
-  --color-cream: #fdf8f0;
+  --color-ink: #11131a;
 }
 
 body {

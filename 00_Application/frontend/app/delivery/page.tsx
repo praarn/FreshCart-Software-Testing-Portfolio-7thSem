@@ -101,7 +101,7 @@ function DeliveryPageContent() {
                 data-testid={`delivery-dispatch-button-${o.id}`}
                 onClick={() => dispatchOrder(o.id)}
                 disabled={busyId === o.id}
-                className="mt-3 rounded-full bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
+                className="mt-3 rounded-full bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
               >
                 Mark out for delivery
               </button>
@@ -117,14 +117,14 @@ function DeliveryPageContent() {
                   placeholder="4-digit OTP"
                   value={otpInputs[o.id] ?? ""}
                   onChange={(e) => setOtpInputs((prev) => ({ ...prev, [o.id]: e.target.value }))}
-                  className="w-32 rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                  className="w-32 rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                 />
                 <button
                   id={`delivery-deliver-button-${o.id}`}
                   data-testid={`delivery-deliver-button-${o.id}`}
                   onClick={() => deliverOrder(o.id)}
                   disabled={busyId === o.id}
-                  className="rounded-full bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
+                  className="rounded-full bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
                 >
                   Confirm delivery
                 </button>

@@ -93,7 +93,7 @@ export default function AdminUsersPage() {
                       id={`admin-user-unlock-${u.id}`}
                       data-testid={`admin-user-unlock-${u.id}`}
                       onClick={() => unlock(u.id)}
-                      className="rounded-full border border-brand-300 px-2 py-1 text-xs text-brand-700 hover:bg-brand-50"
+                      className="rounded-full border border-emerald-300 px-2 py-1 text-xs text-emerald-700 hover:bg-emerald-50"
                     >
                       Unlock
                     </button>
