@@ -6,16 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { api, errorMessage } from "@/lib/api";
 import { money } from "@/lib/format";
 import { useAuth } from "@/lib/auth";
+import { HeartIcon } from "@/components/icons";
 import type { Banner, Category, Product, ProductListResponse, PublicCoupon, WishlistItem } from "@/lib/types";
-
-const CATEGORY_ICONS: Record<string, string> = {
-  Fruits: "🍎",
-  Vegetables: "🥦",
-  Dairy: "🥛",
-  Bakery: "🍞",
-  Beverages: "🥤",
-  Snacks: "🍿",
-};
 
 export default function CatalogPage() {
   return (
@@ -174,21 +166,20 @@ function CatalogPageContent() {
 
       {categories.length > 0 && (
         <div className="mb-8">
-          <h2 className="mb-3 text-lg font-bold text-gray-900">Shop by Category</h2>
-          <div id="category-showcase" data-testid="category-showcase" className="flex flex-wrap gap-3">
+          <h2 className="mb-3 text-lg font-semibold text-gray-900">Shop by Category</h2>
+          <div id="category-showcase" data-testid="category-showcase" className="flex flex-wrap gap-2">
             {categories.map((c) => (
               <button
                 key={c.id}
                 id={`category-card-${c.id}`}
                 data-testid={`category-card-${c.id}`}
                 onClick={() => selectCategory(String(c.id))}
-                className={`flex flex-col items-center gap-1 rounded-xl border px-5 py-3 text-sm font-medium transition-colors ${
+                className={`rounded-md border px-4 py-2 text-sm font-medium transition-colors ${
                   categoryId === String(c.id)
-                    ? "border-accent-500 bg-accent-50 text-gray-900"
-                    : "border-gray-100 bg-white text-gray-700 shadow-sm hover:border-accent-300"
+                    ? "border-ink bg-ink text-white"
+                    : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
                 }`}
               >
-                <span className="text-2xl">{CATEGORY_ICONS[c.name] ?? "🛒"}</span>
                 {c.name}
               </button>
             ))}
@@ -204,7 +195,7 @@ function CatalogPageContent() {
               <div
                 key={o.code}
                 data-testid={`offer-${o.code}`}
-                className="rounded-xl border border-accent-200 bg-accent-50 px-4 py-3 text-sm"
+                className="rounded-lg border border-accent-200 bg-accent-50 px-4 py-3 text-sm"
               >
                 <p className="font-mono text-base font-bold text-gray-900">{o.code}</p>
                 <p className="text-gray-700">
@@ -294,7 +285,7 @@ function CatalogPageContent() {
             key={p.id}
             id={`product-card-${p.id}`}
             data-testid={`product-card-${p.id}`}
-            className="relative flex flex-col justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
+            className="relative flex flex-col justify-between rounded-lg border border-gray-200 bg-white p-4"
           >
             {user?.role !== "ADMIN" && user?.role !== "DELIVERY_PARTNER" && (
               <button
@@ -303,9 +294,9 @@ function CatalogPageContent() {
                 onClick={() => toggleWishlist(p.id)}
                 disabled={wishlistBusyId === p.id}
                 aria-label="Toggle wishlist"
-                className="absolute right-3 top-3 text-lg"
+                className={`absolute right-3 top-3 ${wishlistIds.has(p.id) ? "text-red-500" : "text-gray-300 hover:text-gray-400"}`}
               >
-                {wishlistIds.has(p.id) ? "❤️" : "🤍"}
+                <HeartIcon className="h-5 w-5" filled={wishlistIds.has(p.id)} />
               </button>
             )}
             <div>
@@ -316,7 +307,7 @@ function CatalogPageContent() {
                 {p.category_name} &middot; {p.unit}
               </p>
               <p className="mt-2 text-lg font-bold text-gray-900">{money(p.price)}</p>
-              {p.avg_rating != null && <p className="text-sm text-yellow-600">★ {p.avg_rating.toFixed(1)}</p>}
+              {p.avg_rating != null && <p className="text-sm text-amber-600">★ {p.avg_rating.toFixed(1)}</p>}
               {p.stock === 0 ? (
                 <p data-testid={`product-out-of-stock-${p.id}`} className="mt-1 text-sm font-medium text-red-600">
                   Out of stock
@@ -330,7 +321,7 @@ function CatalogPageContent() {
               data-testid={`add-to-cart-button-${p.id}`}
               disabled={p.stock === 0 || addingId === p.id}
               onClick={() => handleAddToCart(p.id)}
-              className="mt-3 rounded-full bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-300"
+              className="mt-3 rounded-md bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
             >
               {p.stock === 0 ? "Out of stock" : addingId === p.id ? "Adding..." : "Add to cart"}
             </button>
@@ -345,7 +336,7 @@ function CatalogPageContent() {
             data-testid="catalog-prev-page"
             disabled={page <= 1}
             onClick={() => setPage((p) => p - 1)}
-            className="rounded-full border border-gray-300 px-3 py-1 disabled:opacity-50"
+            className="rounded-md border border-gray-300 px-3 py-1 disabled:opacity-50"
           >
             Previous
           </button>
@@ -357,7 +348,7 @@ function CatalogPageContent() {
             data-testid="catalog-next-page"
             disabled={page >= totalPages}
             onClick={() => setPage((p) => p + 1)}
-            className="rounded-full border border-gray-300 px-3 py-1 disabled:opacity-50"
+            className="rounded-md border border-gray-300 px-3 py-1 disabled:opacity-50"
           >
             Next
           </button>

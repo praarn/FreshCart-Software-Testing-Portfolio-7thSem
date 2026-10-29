@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { api, errorMessage } from "@/lib/api";
 import { money, formatDateTime } from "@/lib/format";
 import { useAuth } from "@/lib/auth";
+import { HeartIcon } from "@/components/icons";
 import type { Product, Review, WishlistItem } from "@/lib/types";
 
 export default function ProductDetailPage() {
@@ -130,7 +131,7 @@ export default function ProductDetailPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <div id="product-detail" data-testid="product-detail" className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+      <div id="product-detail" data-testid="product-detail" className="relative rounded-lg border border-gray-200 bg-white p-6">
         {user?.role !== "ADMIN" && user?.role !== "DELIVERY_PARTNER" && (
           <button
             id="product-detail-wishlist-toggle"
@@ -138,9 +139,9 @@ export default function ProductDetailPage() {
             onClick={toggleWishlist}
             disabled={wishlistBusy}
             aria-label="Toggle wishlist"
-            className="absolute right-6 top-6 text-xl"
+            className={`absolute right-6 top-6 ${inWishlist ? "text-red-500" : "text-gray-300 hover:text-gray-400"}`}
           >
-            {inWishlist ? "❤️" : "🤍"}
+            <HeartIcon className="h-6 w-6" filled={inWishlist} />
           </button>
         )}
         <h1 className="pr-8 text-2xl font-bold text-gray-900">{product.name}</h1>
@@ -150,7 +151,7 @@ export default function ProductDetailPage() {
         {product.description && <p className="mt-3 text-gray-700">{product.description}</p>}
         <p className="mt-4 text-2xl font-bold text-gray-900">{money(product.price)}</p>
         {product.avg_rating != null && (
-          <p id="product-avg-rating" data-testid="product-avg-rating" className="mt-1 text-yellow-600">
+          <p id="product-avg-rating" data-testid="product-avg-rating" className="mt-1 text-amber-600">
             ★ {product.avg_rating.toFixed(1)} average rating
           </p>
         )}
@@ -173,7 +174,7 @@ export default function ProductDetailPage() {
           data-testid="product-detail-add-to-cart"
           disabled={product.stock === 0 || adding}
           onClick={handleAddToCart}
-          className="mt-4 rounded-full bg-accent-500 px-4 py-2 font-medium text-gray-900 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="mt-4 rounded-md bg-accent-500 px-4 py-2 font-medium text-gray-900 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-300"
         >
           {product.stock === 0 ? "Out of stock" : adding ? "Adding..." : "Add to cart"}
         </button>
@@ -183,7 +184,7 @@ export default function ProductDetailPage() {
         <h2 className="mb-3 text-xl font-semibold text-gray-900">Reviews</h2>
 
         {user?.role === "CUSTOMER" && (
-          <form id="review-form" data-testid="review-form" onSubmit={handleReviewSubmit} className="mb-6 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+          <form id="review-form" data-testid="review-form" onSubmit={handleReviewSubmit} className="mb-6 rounded-lg border border-gray-200 bg-white p-4">
             <label htmlFor="review-rating" className="mb-1 block text-sm font-medium text-gray-700">
               Rating
             </label>
@@ -221,7 +222,7 @@ export default function ProductDetailPage() {
               data-testid="review-submit-button"
               type="submit"
               disabled={reviewSubmitting}
-              className="rounded-full bg-accent-500 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
+              className="rounded-md bg-accent-500 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
             >
               {reviewSubmitting ? "Submitting..." : "Submit review"}
             </button>
@@ -235,7 +236,7 @@ export default function ProductDetailPage() {
         ) : (
           <ul id="product-reviews-list" data-testid="product-reviews-list" className="space-y-3">
             {reviews.map((r) => (
-              <li key={r.id} data-testid={`review-row-${r.id}`} className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
+              <li key={r.id} data-testid={`review-row-${r.id}`} className="rounded-lg border border-gray-200 bg-white p-3">
                 <p className="font-medium text-gray-900">
                   {r.user_name} &middot; ★ {r.rating}
                 </p>

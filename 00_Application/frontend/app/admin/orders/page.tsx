@@ -107,7 +107,7 @@ export default function AdminOrdersPage() {
 
       <ul id="admin-orders-list" data-testid="admin-orders-list" className="space-y-3">
         {orders.map((o) => (
-          <li key={o.id} id={`admin-order-row-${o.id}`} data-testid={`admin-order-row-${o.id}`} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+          <li key={o.id} id={`admin-order-row-${o.id}`} data-testid={`admin-order-row-${o.id}`} className="rounded-lg border border-gray-200 bg-white p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="font-medium text-gray-900">{o.order_number}</p>
@@ -125,7 +125,7 @@ export default function AdminOrdersPage() {
                   id={`admin-order-confirm-${o.id}`}
                   data-testid={`admin-order-confirm-${o.id}`}
                   onClick={() => advance(o.id, "CONFIRMED")}
-                  className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
+                  className="rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
                 >
                   Confirm
                 </button>
@@ -135,7 +135,7 @@ export default function AdminOrdersPage() {
                   id={`admin-order-pack-${o.id}`}
                   data-testid={`admin-order-pack-${o.id}`}
                   onClick={() => advance(o.id, "PACKED")}
-                  className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
+                  className="rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
                 >
                   Mark packed
                 </button>
@@ -161,7 +161,7 @@ export default function AdminOrdersPage() {
                     data-testid={`admin-order-assign-${o.id}`}
                     onClick={() => assignPartner(o.id)}
                     disabled={!partnerSelect[o.id]}
-                    className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50 disabled:opacity-50"
+                    className="rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50 disabled:opacity-50"
                   >
                     Assign
                   </button>
@@ -172,7 +172,7 @@ export default function AdminOrdersPage() {
                   id={`admin-order-reset-otp-${o.id}`}
                   data-testid={`admin-order-reset-otp-${o.id}`}
                   onClick={() => resetOtp(o.id)}
-                  className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
+                  className="rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
                 >
                   Reset OTP attempts
                 </button>
@@ -182,7 +182,7 @@ export default function AdminOrdersPage() {
                   id={`admin-order-cancel-${o.id}`}
                   data-testid={`admin-order-cancel-${o.id}`}
                   onClick={() => cancelOrder(o.id)}
-                  className="rounded-full border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
+                  className="rounded-md border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
                 >
                   Cancel
                 </button>

@@ -11,12 +11,6 @@ export default function Footer() {
           <p className="mt-3 text-sm text-gray-400">
             Fresh groceries, delivered. Quality products, fair prices, and reliable delivery slots you can count on.
           </p>
-          <div className="mt-4 flex gap-3 text-gray-400">
-            <span aria-hidden>📘</span>
-            <span aria-hidden>🐦</span>
-            <span aria-hidden>📷</span>
-            <span aria-hidden>💼</span>
-          </div>
         </div>
 
         <div>

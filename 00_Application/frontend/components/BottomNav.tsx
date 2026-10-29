@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
+import { BoxIcon, CartIcon, DashboardIcon, HeartIcon, HomeIcon, TruckIcon, UserIcon } from "@/components/icons";
+import type { ComponentType } from "react";
 
 interface NavItem {
   href: string;
   label: string;
-  icon: string;
+  Icon: ComponentType<{ className?: string }>;
   testid: string;
 }
 
@@ -15,29 +17,29 @@ export default function BottomNav() {
   const { user } = useAuth();
   const pathname = usePathname();
 
-  let items: NavItem[] = [{ href: "/", label: "Home", icon: "🏠", testid: "bottom-nav-home" }];
+  let items: NavItem[] = [{ href: "/", label: "Home", Icon: HomeIcon, testid: "bottom-nav-home" }];
 
   if (user?.role === "CUSTOMER") {
     items = [
-      { href: "/", label: "Home", icon: "🏠", testid: "bottom-nav-home" },
-      { href: "/wishlist", label: "Wishlist", icon: "❤️", testid: "bottom-nav-wishlist" },
-      { href: "/cart", label: "Cart", icon: "🛒", testid: "bottom-nav-cart" },
-      { href: "/orders", label: "Orders", icon: "📦", testid: "bottom-nav-orders" },
+      { href: "/", label: "Home", Icon: HomeIcon, testid: "bottom-nav-home" },
+      { href: "/wishlist", label: "Wishlist", Icon: HeartIcon, testid: "bottom-nav-wishlist" },
+      { href: "/cart", label: "Cart", Icon: CartIcon, testid: "bottom-nav-cart" },
+      { href: "/orders", label: "Orders", Icon: BoxIcon, testid: "bottom-nav-orders" },
     ];
   } else if (user?.role === "ADMIN") {
     items = [
-      { href: "/", label: "Home", icon: "🏠", testid: "bottom-nav-home" },
-      { href: "/admin", label: "Admin", icon: "📊", testid: "bottom-nav-admin" },
+      { href: "/", label: "Home", Icon: HomeIcon, testid: "bottom-nav-home" },
+      { href: "/admin", label: "Admin", Icon: DashboardIcon, testid: "bottom-nav-admin" },
     ];
   } else if (user?.role === "DELIVERY_PARTNER") {
     items = [
-      { href: "/", label: "Home", icon: "🏠", testid: "bottom-nav-home" },
-      { href: "/delivery", label: "Deliveries", icon: "🚚", testid: "bottom-nav-delivery" },
+      { href: "/", label: "Home", Icon: HomeIcon, testid: "bottom-nav-home" },
+      { href: "/delivery", label: "Deliveries", Icon: TruckIcon, testid: "bottom-nav-delivery" },
     ];
   } else {
     items = [
-      { href: "/", label: "Home", icon: "🏠", testid: "bottom-nav-home" },
-      { href: "/login", label: "Login", icon: "👤", testid: "bottom-nav-login" },
+      { href: "/", label: "Home", Icon: HomeIcon, testid: "bottom-nav-home" },
+      { href: "/login", label: "Login", Icon: UserIcon, testid: "bottom-nav-login" },
     ];
   }
 
@@ -56,10 +58,10 @@ export default function BottomNav() {
             data-testid={item.testid}
             href={item.href}
             className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-xs font-medium ${
-              active ? "text-gray-900" : "text-gray-500"
+              active ? "text-gray-900" : "text-gray-400"
             }`}
           >
-            <span className="text-lg leading-none">{item.icon}</span>
+            <item.Icon className="h-5 w-5" />
             {item.label}
           </Link>
         );
