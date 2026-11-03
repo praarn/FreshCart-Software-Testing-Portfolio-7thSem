@@ -1,7 +1,9 @@
-# Screenshots
+# 07 — Screenshots
 
 Evidence captured during development/verification and test execution against the running
 application (`APP_ENV=test`, `FIXED_NOW=2026-11-10T09:00:00`).
+
+## Index
 
 | File | Shows |
 |---|---|
@@ -18,3 +20,24 @@ application (`APP_ENV=test`, `FIXED_NOW=2026-11-10T09:00:00`).
 
 See [`../03_Test_Execution/Execution_Log.md`](../03_Test_Execution/Execution_Log.md) for the
 test run these relate to, and [`../06_Test_Reports`](../06_Test_Reports) for the summary report.
+
+## How they were captured
+
+All ten were taken against the running application in test mode, using the seeded accounts
+listed in [`../00_Application/README.md`](../00_Application/README.md). They show working
+behavior. The six failing automated cases are covered in the Execution Log, not here.
+
+## Coverage
+
+| Area | Screenshots |
+|---|---|
+| Customer storefront | 01, 02, 03, 04, 05 |
+| Admin | 06 |
+| Order tracking and live updates | 07, 08 |
+| Delivery partner | 09 |
+| Docker Compose verification | 10 |
+
+## Adding a screenshot
+
+Name it `NN_short_description.png` with the next free number, add a row to the index, and
+cite the rule ID it demonstrates where there is one.

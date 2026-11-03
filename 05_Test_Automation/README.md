@@ -1,10 +1,34 @@
-# Test Automation
+# 05 — Test Automation
 
 A Selenium + pytest suite (Page Object Model) automating 86 of the 95 test cases in
 [`../02_Test_Case_Design/Test_Cases.csv`](../02_Test_Case_Design/Test_Cases.csv), covering
 every module M1–M9. The remaining 9 are manual/exploratory (rate limiting, cross-session
 timing, a rounding edge case, etc. — see the CSV's `Automated` column and
 [`../02_Test_Case_Design/Traceability_Matrix.md`](../02_Test_Case_Design/Traceability_Matrix.md)).
+
+## At a glance
+
+| | |
+|---|---|
+| Stack | Selenium 4.27, pytest 8.3, requests, pytest-html |
+| Pattern | Page Object Model; locators use the frontend's `data-testid` attributes |
+| Tests | 86 automated cases across 9 files, one per business module |
+| Latest result | 80 passed, 6 failed (Selenium/chromedriver timeouts, not app defects) |
+
+| Test file | Module | Tests |
+|---|---|---|
+| `tests/test_m1_auth.py` | Registration and login | 17 |
+| `tests/test_m2_catalog.py` | Catalog | 7 |
+| `tests/test_m3_cart.py` | Cart | 8 |
+| `tests/test_m4_coupons.py` | Coupons and pricing | 10 |
+| `tests/test_m5_checkout.py` | Checkout | 13 |
+| `tests/test_m6_order_lifecycle.py` | Order lifecycle | 12 |
+| `tests/test_m7_reviews.py` | Reviews | 3 |
+| `tests/test_m8_admin.py` | Admin | 10 |
+| `tests/test_m9_wishlist_banners_offers.py` | Wishlist, banners, offers | 6 |
+
+Page objects in `pages/`: `base_page`, `auth_pages`, `catalog_pages`, `cart_checkout_pages`,
+`orders_pages`, `admin_pages`, `delivery_page`, `wishlist_page`.
 
 ## Structure
 
@@ -66,3 +90,27 @@ independent of each other and of execution order.
   Each test still starts from a clean app/browser state via the autouse `reset_state` fixture.
 - **No fixed sleeps.** All waits are explicit (`WebDriverWait` on a `data-testid`) except a
   couple of short settle delays after a non-reactive admin table refresh, called out inline.
+
+## Running a subset
+
+```bash
+pytest tests/test_m4_coupons.py            # one module
+pytest -k "TC_M4_007 or wishlist"          # by name
+pytest -x                                  # stop at the first failure
+```
+
+## Known failures
+
+Six tests fail with a `TimeoutException` in the Selenium setup used for the recorded run:
+four in `test_m5_checkout.py` (the `/checkout` page), one in `test_m8_admin.py` (the
+`/admin/users` page) and one in `test_m9_wishlist_banners_offers.py` (the wishlist grid). The
+same flows pass when driven with Playwright, so they are tracked as a tooling issue. See the
+[Execution Log](../03_Test_Execution/Execution_Log.md) and
+[Test Summary Report](../06_Test_Reports/Test_Summary_Report.md).
+
+## Prerequisites
+
+- The backend running with `APP_ENV=test` and `FIXED_NOW=2026-11-10T09:00:00`, and the
+  frontend running (see [`../commands.md`](../commands.md)).
+- Google Chrome installed. Selenium Manager fetches the matching driver.
+- Python 3.11+.
