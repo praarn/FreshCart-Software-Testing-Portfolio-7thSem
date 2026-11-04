@@ -19,7 +19,7 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 ### 2.1 In scope
 
-- All 44 business rules R1.1–R9.3 across modules M1–M9 (auth, catalog, cart, coupons,
+- All 42 business rules R1.1–R9.3 across modules M1–M9 (auth, catalog, cart, coupons,
   checkout, order lifecycle, reviews, admin, wishlist/banners/offers).
 - REST API contract: status codes, the `{status, error, message, field_errors}` error shape,
   role-based access control (401 vs 403).
