@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api, errorMessage } from "@/lib/api";
@@ -91,7 +91,10 @@ function CatalogPageContent() {
     setPage(1);
   }, [searchParams]);
 
+  const latestRequest = useRef(0);
+
   const loadProducts = useCallback(async () => {
+    const requestId = ++latestRequest.current; // DEF-007: only the newest request may update the list
     setLoading(true);
     setError(null);
     try {
@@ -101,12 +104,14 @@ function CatalogPageContent() {
       if (sort) params.set("sort", sort);
       params.set("page", String(page));
       const data = await api.get<ProductListResponse>(`/catalog/products?${params.toString()}`);
+      if (requestId !== latestRequest.current) return;
       setProducts(data.items);
       setTotalPages(data.total_pages);
     } catch (err) {
+      if (requestId !== latestRequest.current) return;
       setError(errorMessage(err));
     } finally {
-      setLoading(false);
+      if (requestId === latestRequest.current) setLoading(false);
     }
   }, [search, categoryId, sort, page]);
 
