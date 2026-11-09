@@ -24,7 +24,7 @@ async def _avg_ratings(db: AsyncSession, product_ids: list[int]) -> dict[int, fl
     return {pid: round(float(avg), 1) for pid, avg in rows.all()}
 
 
-def _to_product_out_dict(product: Product, avg_rating: float | None) -> dict:
+def to_product_dict(product: Product, avg_rating: float | None) -> dict:
     return {
         "id": product.id,
         "name": product.name,
@@ -72,7 +72,7 @@ async def list_products(
     products = list(result.all())
 
     ratings = await _avg_ratings(db, [p.id for p in products])
-    items = [_to_product_out_dict(p, ratings.get(p.id)) for p in products]
+    items = [to_product_dict(p, ratings.get(p.id)) for p in products]
     return items, total or 0
 
 
@@ -83,4 +83,4 @@ async def get_product(db: AsyncSession, product_id: int, include_inactive: bool 
     if product is None or (not include_inactive and not product.active):
         raise NotFoundError("Product not found.")
     ratings = await _avg_ratings(db, [product.id])
-    return _to_product_out_dict(product, ratings.get(product.id))
+    return to_product_dict(product, ratings.get(product.id))

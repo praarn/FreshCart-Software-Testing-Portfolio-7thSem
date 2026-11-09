@@ -52,9 +52,7 @@ async def authenticate_user(db: AsyncSession, now: datetime, email: str, passwor
             user.failed_login_count = 0
             user.locked_until = None
         else:
-            raise UnauthorizedError(
-                "This account is locked due to too many failed login attempts. Try again later or contact an admin."
-            )
+            raise UnauthorizedError("This account is locked. Try again later or contact an admin to unlock it.")
 
     if not verify_password(password, user.password_hash):
         user.failed_login_count += 1
