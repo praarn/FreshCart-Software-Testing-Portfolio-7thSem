@@ -1,3 +1,4 @@
+from app.models.banner import Banner
 from app.models.cart import Cart, CartItem
 from app.models.catalog import Category, Product
 from app.models.coupon import Coupon
@@ -6,6 +7,7 @@ from app.models.order import Order, OrderAudit, OrderItem
 from app.models.review import Review
 from app.models.token_denylist import TokenDenylist
 from app.models.user import User
+from app.models.wishlist import WishlistItem
 
 __all__ = [
     "User",
@@ -19,6 +21,8 @@ __all__ = [
     "OrderAudit",
     "Review",
     "TokenDenylist",
+    "Banner",
+    "WishlistItem",
     "Role",
     "UserStatus",
     "ProductUnit",

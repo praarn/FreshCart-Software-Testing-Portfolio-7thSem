@@ -8,11 +8,12 @@ from app.database import get_db
 from app.deps import get_now, require_admin
 from app.models.enums import OrderStatus
 from app.schemas.admin import ActiveUpdateRequest, AuditLogOut, DashboardOut, StockUpdateRequest
+from app.schemas.banner import BannerCreate, BannerOut, BannerUpdate
 from app.schemas.catalog import ProductCreate, ProductOut, ProductUpdate
 from app.schemas.coupon import CouponOut, CouponUpdate
 from app.schemas.order import AssignPartnerRequest, OrderOut, UpdateOrderStatusRequest
 from app.schemas.user import UserOut
-from app.services import admin_service, catalog_service, order_service
+from app.services import admin_service, banner_service, catalog_service, order_service
 
 router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(require_admin)])
 
@@ -127,6 +128,31 @@ async def lock_user(user_id: int, db=Depends(get_db)):
 @router.post("/users/{user_id}/unlock", response_model=UserOut, summary="Unlock a user account (R1.5, R8.3)")
 async def unlock_user(user_id: int, db=Depends(get_db)):
     return await admin_service.unlock_user(db, user_id)
+
+
+# --- banners -----------------------------------------------------------------------
+
+
+@router.get("/banners", response_model=list[BannerOut], summary="List all banners, including inactive")
+async def list_all_banners(db=Depends(get_db)):
+    return await banner_service.list_all_banners(db)
+
+
+@router.post("/banners", response_model=BannerOut, status_code=201, summary="Create a promotional banner")
+async def create_banner(payload: BannerCreate, db=Depends(get_db), now: datetime = Depends(get_now)):
+    return await banner_service.create_banner(
+        db, payload.title, payload.image_url, payload.link_url, payload.display_order, payload.active, now
+    )
+
+
+@router.put("/banners/{banner_id}", response_model=BannerOut, summary="Update a banner")
+async def update_banner(banner_id: int, payload: BannerUpdate, db=Depends(get_db), now: datetime = Depends(get_now)):
+    return await banner_service.update_banner(db, banner_id, payload.model_dump(exclude_unset=True), now)
+
+
+@router.delete("/banners/{banner_id}", status_code=204, summary="Delete a banner")
+async def delete_banner(banner_id: int, db=Depends(get_db)):
+    await banner_service.delete_banner(db, banner_id)
 
 
 # --- dashboard (R8.4) ------------------------------------------------------------

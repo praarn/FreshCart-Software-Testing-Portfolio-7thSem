@@ -29,3 +29,16 @@ class CouponOut(BaseModel):
 
 class CouponUpdate(BaseModel):
     active: bool
+
+
+class PublicCouponOut(BaseModel):
+    """Minimal coupon info surfaced to customers (e.g. the homepage offers section)."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    code: str
+    type: CouponType
+    value: Decimal
+    min_subtotal: Decimal
+    max_discount: Decimal | None
+    first_order_only: bool
