@@ -85,7 +85,7 @@ export default function AdminBannersPage() {
         id="admin-banner-create-form"
         data-testid="admin-banner-create-form"
         onSubmit={handleCreate}
-        className="mb-6 grid grid-cols-1 gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:grid-cols-2"
+        className="mb-6 grid grid-cols-1 gap-3 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2"
       >
         <div>
           <label htmlFor="admin-banner-title" className="mb-1 block text-sm font-medium text-gray-700">
@@ -150,7 +150,7 @@ export default function AdminBannersPage() {
           data-testid="admin-banner-create-button"
           type="submit"
           disabled={creating}
-          className="sm:col-span-2 rounded-full bg-accent-500 px-4 py-2 font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
+          className="sm:col-span-2 rounded-md bg-accent-500 px-4 py-2 font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
         >
           {creating ? "Creating..." : "Create banner"}
         </button>
@@ -173,7 +173,7 @@ export default function AdminBannersPage() {
             key={b.id}
             id={`admin-banner-row-${b.id}`}
             data-testid={`admin-banner-row-${b.id}`}
-            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white p-4"
           >
             <div className="flex items-center gap-3">
               <img src={b.image_url} alt={b.title} className="h-12 w-20 rounded-lg object-cover" />
@@ -195,7 +195,7 @@ export default function AdminBannersPage() {
                 id={`admin-banner-delete-${b.id}`}
                 data-testid={`admin-banner-delete-${b.id}`}
                 onClick={() => remove(b.id)}
-                className="rounded-full border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
+                className="rounded-md border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
               >
                 Delete
               </button>

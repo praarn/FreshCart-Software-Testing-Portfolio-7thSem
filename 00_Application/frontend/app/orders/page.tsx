@@ -48,7 +48,7 @@ function OrdersPageContent() {
               id={`order-row-${o.id}`}
               data-testid={`order-row-${o.id}`}
               href={`/orders/${o.id}`}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gray-100 bg-white p-4 hover:bg-gray-50 shadow-sm"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-gray-200 bg-white p-4 hover:bg-gray-50"
             >
               <div>
                 <p className="font-medium text-gray-900">{o.order_number}</p>

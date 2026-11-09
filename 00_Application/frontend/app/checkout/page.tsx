@@ -64,7 +64,7 @@ function CheckoutPageContent() {
     <div className="mx-auto max-w-2xl px-4 py-8">
       <h1 className="mb-6 text-2xl font-bold text-gray-900">Checkout</h1>
       <form id="checkout-form" data-testid="checkout-form" onSubmit={handleSubmit} className="space-y-6">
-        <fieldset className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+        <fieldset className="rounded-lg border border-gray-200 bg-white p-4">
           <legend className="mb-2 font-semibold text-gray-900">Delivery address</legend>
           <label htmlFor="checkout-line1" className="mb-1 block text-sm font-medium text-gray-700">
             Address line 1
@@ -105,7 +105,7 @@ function CheckoutPageContent() {
           <p className="mt-1 text-xs text-gray-500">Serviceable pincodes: 560001-560100.</p>
         </fieldset>
 
-        <fieldset className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+        <fieldset className="rounded-lg border border-gray-200 bg-white p-4">
           <legend className="mb-2 font-semibold text-gray-900">Delivery slot</legend>
           <select
             id="checkout-slot-select"
@@ -124,7 +124,7 @@ function CheckoutPageContent() {
           </select>
         </fieldset>
 
-        <fieldset className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+        <fieldset className="rounded-lg border border-gray-200 bg-white p-4">
           <legend className="mb-2 font-semibold text-gray-900">Payment</legend>
           <select
             id="checkout-payment-method"
@@ -218,7 +218,7 @@ function CheckoutPageContent() {
           data-testid="checkout-submit-button"
           type="submit"
           disabled={submitting}
-          className="w-full rounded-full bg-accent-500 px-4 py-3 font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
+          className="w-full rounded-md bg-accent-500 px-4 py-3 font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
         >
           {submitting ? "Placing order..." : "Place order"}
         </button>

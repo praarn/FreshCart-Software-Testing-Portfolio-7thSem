@@ -84,7 +84,7 @@ export default function AdminUsersPage() {
                       id={`admin-user-lock-${u.id}`}
                       data-testid={`admin-user-lock-${u.id}`}
                       onClick={() => lock(u.id)}
-                      className="rounded-full border border-red-300 px-2 py-1 text-xs text-red-600 hover:bg-red-50"
+                      className="rounded-md border border-red-300 px-2 py-1 text-xs text-red-600 hover:bg-red-50"
                     >
                       Lock
                     </button>
@@ -93,7 +93,7 @@ export default function AdminUsersPage() {
                       id={`admin-user-unlock-${u.id}`}
                       data-testid={`admin-user-unlock-${u.id}`}
                       onClick={() => unlock(u.id)}
-                      className="rounded-full border border-emerald-300 px-2 py-1 text-xs text-emerald-700 hover:bg-emerald-50"
+                      className="rounded-md border border-emerald-300 px-2 py-1 text-xs text-emerald-700 hover:bg-emerald-50"
                     >
                       Unlock
                     </button>

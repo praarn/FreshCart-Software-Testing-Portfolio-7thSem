@@ -80,7 +80,7 @@ function DeliveryPageContent() {
       )}
       <ul id="delivery-orders-list" data-testid="delivery-orders-list" className="space-y-4">
         {orders.map((o) => (
-          <li key={o.id} id={`delivery-order-${o.id}`} data-testid={`delivery-order-${o.id}`} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+          <li key={o.id} id={`delivery-order-${o.id}`} data-testid={`delivery-order-${o.id}`} className="rounded-lg border border-gray-200 bg-white p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="font-medium text-gray-900">{o.order_number}</p>
@@ -101,7 +101,7 @@ function DeliveryPageContent() {
                 data-testid={`delivery-dispatch-button-${o.id}`}
                 onClick={() => dispatchOrder(o.id)}
                 disabled={busyId === o.id}
-                className="mt-3 rounded-full bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
+                className="mt-3 rounded-md bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
               >
                 Mark out for delivery
               </button>
@@ -124,7 +124,7 @@ function DeliveryPageContent() {
                   data-testid={`delivery-deliver-button-${o.id}`}
                   onClick={() => deliverOrder(o.id)}
                   disabled={busyId === o.id}
-                  className="rounded-full bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
+                  className="rounded-md bg-accent-500 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
                 >
                   Confirm delivery
                 </button>
