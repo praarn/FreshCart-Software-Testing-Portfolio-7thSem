@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.core.errors import register_error_handlers
-from app.routers import health
+from app.routers import auth, health
 
 settings = get_settings()
 
@@ -24,6 +24,7 @@ app.add_middleware(
 register_error_handlers(app)
 
 app.include_router(health.router, prefix="/api")
+app.include_router(auth.router, prefix="/api")
 
 if settings.APP_ENV == "test":
     from app.routers import test_utils
