@@ -119,7 +119,7 @@ function CartPageContent() {
       {!cart || cart.items.length === 0 ? (
         <p id="cart-empty" data-testid="cart-empty" className="text-gray-500">
           Your cart is empty.{" "}
-          <Link href="/" className="text-brand-700 underline">
+          <Link href="/" className="text-gray-900 underline hover:text-accent-700">
             Browse products
           </Link>
           .
@@ -147,7 +147,7 @@ function CartPageContent() {
                     value={item.quantity}
                     disabled={busy}
                     onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
-                    className="rounded-lg border border-gray-300 px-2 py-1 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                    className="rounded-lg border border-gray-300 px-2 py-1 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                   >
                     {Array.from({ length: Math.min(10, item.stock) }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>
@@ -191,7 +191,7 @@ function CartPageContent() {
                 type="text"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
               />
             </div>
             <button
@@ -199,7 +199,7 @@ function CartPageContent() {
               data-testid="coupon-apply-button"
               type="submit"
               disabled={busy || !couponCode}
-              className="rounded-full bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
+              className="rounded-full bg-accent-500 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
             >
               Apply
             </button>
@@ -210,7 +210,7 @@ function CartPageContent() {
                 type="button"
                 disabled={busy}
                 onClick={removeCoupon}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
               >
                 Remove coupon
               </button>
@@ -222,7 +222,7 @@ function CartPageContent() {
             </p>
           )}
           {cart.coupon_code && (
-            <p id="coupon-applied" data-testid="coupon-applied" className="mt-2 text-sm text-brand-700">
+            <p id="coupon-applied" data-testid="coupon-applied" className="mt-2 text-sm text-emerald-700">
               Applied coupon: {cart.coupon_code}
             </p>
           )}
@@ -250,7 +250,7 @@ function CartPageContent() {
             id="cart-checkout-link"
             data-testid="cart-checkout-link"
             href="/checkout"
-            className="mt-6 block w-full rounded-full bg-brand-700 px-4 py-3 text-center font-medium text-white hover:bg-brand-800"
+            className="mt-6 block w-full rounded-full bg-accent-500 px-4 py-3 text-center font-medium text-gray-900 hover:bg-accent-600"
           >
             Proceed to checkout
           </Link>

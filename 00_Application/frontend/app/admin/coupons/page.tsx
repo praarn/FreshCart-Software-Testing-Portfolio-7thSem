@@ -72,7 +72,7 @@ export default function AdminCouponsPage() {
                     id={`admin-coupon-toggle-${c.id}`}
                     data-testid={`admin-coupon-toggle-${c.id}`}
                     onClick={() => toggle(c)}
-                    className={`rounded-full px-2 py-1 text-xs font-medium ${c.active ? "bg-brand-100 text-brand-800" : "bg-gray-200 text-gray-600"}`}
+                    className={`rounded-full px-2 py-1 text-xs font-medium ${c.active ? "bg-emerald-100 text-emerald-800" : "bg-gray-200 text-gray-600"}`}
                   >
                     {c.active ? "Enabled" : "Disabled"}
                   </button>

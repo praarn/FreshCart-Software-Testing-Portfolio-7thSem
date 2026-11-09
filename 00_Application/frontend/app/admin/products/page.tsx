@@ -106,7 +106,7 @@ export default function AdminProductsPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
           {createErrors.name && <p data-testid="admin-product-name-error" className="text-sm text-red-600">{createErrors.name}</p>}
         </div>
@@ -120,7 +120,7 @@ export default function AdminProductsPage() {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
           {createErrors.price && <p data-testid="admin-product-price-error" className="text-sm text-red-600">{createErrors.price}</p>}
         </div>
@@ -134,7 +134,7 @@ export default function AdminProductsPage() {
             value={stock}
             onChange={(e) => setStock(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
           {createErrors.stock && <p data-testid="admin-product-stock-error" className="text-sm text-red-600">{createErrors.stock}</p>}
         </div>
@@ -147,7 +147,7 @@ export default function AdminProductsPage() {
             data-testid="admin-product-unit-select"
             value={unit}
             onChange={(e) => setUnit(e.target.value as ProductUnit)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           >
             {UNITS.map((u) => (
               <option key={u} value={u}>
@@ -166,7 +166,7 @@ export default function AdminProductsPage() {
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           >
             <option value="">Select category</option>
             {categories.map((c) => (
@@ -185,7 +185,7 @@ export default function AdminProductsPage() {
             data-testid="admin-product-description-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
         </div>
         {createError && (
@@ -198,7 +198,7 @@ export default function AdminProductsPage() {
           data-testid="admin-product-create-button"
           type="submit"
           disabled={creating}
-          className="sm:col-span-2 rounded-full bg-brand-700 px-4 py-2 font-medium text-white hover:bg-brand-800 disabled:opacity-50"
+          className="sm:col-span-2 rounded-full bg-accent-500 px-4 py-2 font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
         >
           {creating ? "Creating..." : "Create product"}
         </button>
@@ -239,7 +239,7 @@ export default function AdminProductsPage() {
                       data-testid={`admin-product-stock-input-${p.id}`}
                       defaultValue={p.stock}
                       onChange={(e) => setStockEdits((prev) => ({ ...prev, [p.id]: e.target.value }))}
-                      className="w-20 rounded-lg border border-gray-300 px-2 py-1 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                      className="w-20 rounded-lg border border-gray-300 px-2 py-1 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                     />
                     <button
                       id={`admin-product-stock-save-${p.id}`}
@@ -256,7 +256,7 @@ export default function AdminProductsPage() {
                     id={`admin-product-active-toggle-${p.id}`}
                     data-testid={`admin-product-active-toggle-${p.id}`}
                     onClick={() => toggleActive(p)}
-                    className={`rounded-full px-2 py-1 text-xs font-medium ${p.active ? "bg-brand-100 text-brand-800" : "bg-gray-200 text-gray-600"}`}
+                    className={`rounded-full px-2 py-1 text-xs font-medium ${p.active ? "bg-emerald-100 text-emerald-800" : "bg-gray-200 text-gray-600"}`}
                   >
                     {p.active ? "Active" : "Inactive"}
                   </button>

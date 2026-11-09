@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { api, errorMessage } from "@/lib/api";
 import { money, formatDateTime } from "@/lib/format";
 import { useAuth } from "@/lib/auth";
-import type { Product, Review } from "@/lib/types";
+import type { Product, Review, WishlistItem } from "@/lib/types";
 
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
@@ -19,6 +19,8 @@ export default function ProductDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [addMessage, setAddMessage] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
+  const [inWishlist, setInWishlist] = useState(false);
+  const [wishlistBusy, setWishlistBusy] = useState(false);
 
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -45,6 +47,38 @@ export default function ProductDetailPage() {
   useEffect(() => {
     load();
   }, [load]);
+
+  useEffect(() => {
+    if (user?.role !== "CUSTOMER") {
+      setInWishlist(false);
+      return;
+    }
+    api
+      .get<WishlistItem[]>("/wishlist")
+      .then((items) => setInWishlist(items.some((i) => i.product.id === Number(productId))))
+      .catch(() => {});
+  }, [user, productId]);
+
+  async function toggleWishlist() {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    setWishlistBusy(true);
+    try {
+      if (inWishlist) {
+        await api.delete(`/wishlist/items/${productId}`);
+        setInWishlist(false);
+      } else {
+        await api.post("/wishlist/items", { product_id: Number(productId) });
+        setInWishlist(true);
+      }
+    } catch {
+      // best-effort toggle; ignore transient errors
+    } finally {
+      setWishlistBusy(false);
+    }
+  }
 
   async function handleAddToCart() {
     if (!user) {
@@ -96,13 +130,25 @@ export default function ProductDetailPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <div id="product-detail" data-testid="product-detail" className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
+      <div id="product-detail" data-testid="product-detail" className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+        {user?.role !== "ADMIN" && user?.role !== "DELIVERY_PARTNER" && (
+          <button
+            id="product-detail-wishlist-toggle"
+            data-testid="product-detail-wishlist-toggle"
+            onClick={toggleWishlist}
+            disabled={wishlistBusy}
+            aria-label="Toggle wishlist"
+            className="absolute right-6 top-6 text-xl"
+          >
+            {inWishlist ? "❤️" : "🤍"}
+          </button>
+        )}
+        <h1 className="pr-8 text-2xl font-bold text-gray-900">{product.name}</h1>
         <p className="mt-1 text-sm text-gray-500">
           {product.category_name} &middot; {product.unit}
         </p>
         {product.description && <p className="mt-3 text-gray-700">{product.description}</p>}
-        <p className="mt-4 text-2xl font-bold text-brand-700">{money(product.price)}</p>
+        <p className="mt-4 text-2xl font-bold text-gray-900">{money(product.price)}</p>
         {product.avg_rating != null && (
           <p id="product-avg-rating" data-testid="product-avg-rating" className="mt-1 text-yellow-600">
             ★ {product.avg_rating.toFixed(1)} average rating
@@ -117,7 +163,7 @@ export default function ProductDetailPage() {
         )}
 
         {addMessage && (
-          <p id="product-detail-add-message" data-testid="product-detail-add-message" className="mt-2 text-sm text-brand-700">
+          <p id="product-detail-add-message" data-testid="product-detail-add-message" className="mt-2 text-sm text-emerald-700">
             {addMessage}
           </p>
         )}
@@ -127,7 +173,7 @@ export default function ProductDetailPage() {
           data-testid="product-detail-add-to-cart"
           disabled={product.stock === 0 || adding}
           onClick={handleAddToCart}
-          className="mt-4 rounded-full bg-brand-700 px-4 py-2 font-medium text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="mt-4 rounded-full bg-accent-500 px-4 py-2 font-medium text-gray-900 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-300"
         >
           {product.stock === 0 ? "Out of stock" : adding ? "Adding..." : "Add to cart"}
         </button>
@@ -146,7 +192,7 @@ export default function ProductDetailPage() {
               data-testid="review-rating-select"
               value={rating}
               onChange={(e) => setRating(Number(e.target.value))}
-              className="mb-3 rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              className="mb-3 rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
             >
               {[5, 4, 3, 2, 1].map((n) => (
                 <option key={n} value={n}>
@@ -163,7 +209,7 @@ export default function ProductDetailPage() {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               maxLength={300}
-              className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
             />
             {reviewError && (
               <p id="review-form-error" data-testid="review-form-error" className="mb-3 text-sm text-red-600">
@@ -175,7 +221,7 @@ export default function ProductDetailPage() {
               data-testid="review-submit-button"
               type="submit"
               disabled={reviewSubmitting}
-              className="rounded-full bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-800 disabled:opacity-50"
+              className="rounded-full bg-accent-500 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
             >
               {reviewSubmitting ? "Submitting..." : "Submit review"}
             </button>

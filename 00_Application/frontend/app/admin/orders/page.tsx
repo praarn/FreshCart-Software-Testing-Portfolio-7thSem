@@ -84,7 +84,7 @@ export default function AdminOrdersPage() {
         data-testid="admin-order-status-filter"
         value={statusFilter}
         onChange={(e) => setStatusFilter(e.target.value)}
-        className="mb-4 rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+        className="mb-4 rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
       >
         <option value="">All statuses</option>
         {STATUS_OPTIONS.map((s) => (
@@ -147,7 +147,7 @@ export default function AdminOrdersPage() {
                     data-testid={`admin-order-partner-select-${o.id}`}
                     value={partnerSelect[o.id] ?? ""}
                     onChange={(e) => setPartnerSelect((prev) => ({ ...prev, [o.id]: e.target.value }))}
-                    className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                    className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                   >
                     <option value="">Select delivery partner</option>
                     {partners.map((p) => (

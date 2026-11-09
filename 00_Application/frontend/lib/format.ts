@@ -12,7 +12,7 @@ const STATUS_BADGE_CLASSES: Record<string, string> = {
   CONFIRMED: "bg-sky-100 text-sky-800",
   PACKED: "bg-violet-100 text-violet-800",
   OUT_FOR_DELIVERY: "bg-blue-100 text-blue-800",
-  DELIVERED: "bg-brand-100 text-brand-800",
+  DELIVERED: "bg-emerald-100 text-emerald-800",
   CANCELLED: "bg-red-100 text-red-700",
 };
 

@@ -76,7 +76,7 @@ function CheckoutPageContent() {
             value={line1}
             onChange={(e) => setLine1(e.target.value)}
             required
-            className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
           <label htmlFor="checkout-city" className="mb-1 block text-sm font-medium text-gray-700">
             City
@@ -88,7 +88,7 @@ function CheckoutPageContent() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
             required
-            className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
           <label htmlFor="checkout-pincode" className="mb-1 block text-sm font-medium text-gray-700">
             Pincode
@@ -100,7 +100,7 @@ function CheckoutPageContent() {
             value={pincode}
             onChange={(e) => setPincode(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           />
           <p className="mt-1 text-xs text-gray-500">Serviceable pincodes: 560001-560100.</p>
         </fieldset>
@@ -113,7 +113,7 @@ function CheckoutPageContent() {
             value={slotStart}
             onChange={(e) => setSlotStart(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           >
             <option value="">Select a slot</option>
             {slots.map((s) => (
@@ -131,7 +131,7 @@ function CheckoutPageContent() {
             data-testid="checkout-payment-method-select"
             value={method}
             onChange={(e) => setMethod(e.target.value as PaymentMethod)}
-            className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="mb-3 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
           >
             <option value="COD">Cash on Delivery</option>
             <option value="UPI">UPI</option>
@@ -151,7 +151,7 @@ function CheckoutPageContent() {
                 value={upiId}
                 onChange={(e) => setUpiId(e.target.value)}
                 required
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
               />
             </div>
           )}
@@ -169,7 +169,7 @@ function CheckoutPageContent() {
                   value={cardNumber}
                   onChange={(e) => setCardNumber(e.target.value)}
                   required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                 />
               </div>
               <div className="flex gap-3">
@@ -185,7 +185,7 @@ function CheckoutPageContent() {
                     value={cardExpiry}
                     onChange={(e) => setCardExpiry(e.target.value)}
                     required
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                   />
                 </div>
                 <div className="flex-1">
@@ -199,7 +199,7 @@ function CheckoutPageContent() {
                     value={cvv}
                     onChange={(e) => setCvv(e.target.value)}
                     required
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100"
                   />
                 </div>
               </div>
@@ -218,7 +218,7 @@ function CheckoutPageContent() {
           data-testid="checkout-submit-button"
           type="submit"
           disabled={submitting}
-          className="w-full rounded-full bg-brand-700 px-4 py-3 font-medium text-white hover:bg-brand-800 disabled:opacity-50"
+          className="w-full rounded-full bg-accent-500 px-4 py-3 font-medium text-gray-900 hover:bg-accent-600 disabled:opacity-50"
         >
           {submitting ? "Placing order..." : "Place order"}
         </button>
