@@ -1,13 +1,17 @@
-"""M3 cart business logic: R3.1-R3.5."""
-from sqlalchemy import select
+"""M3 cart business logic (R3.1-R3.5) plus M4 coupon application (R4.1-R4.2)."""
+from datetime import datetime
+
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.core.errors import BadRequestError, NotFoundError
 from app.models.cart import Cart, CartItem
 from app.models.catalog import Product
+from app.models.coupon import Coupon
+from app.models.order import Order
 from app.models.user import User
-from app.services.pricing_service import ZERO, compute_delivery_fee, round2
+from app.services.pricing_service import ZERO, compute_delivery_fee, compute_discount, round2, validate_coupon
 
 MAX_DISTINCT_ITEMS = 20
 MAX_QTY_PER_ITEM = 10
@@ -28,7 +32,12 @@ async def _get_or_create_cart(db: AsyncSession, user: User) -> Cart:
     return cart
 
 
-def build_cart_view(cart: Cart) -> dict:
+async def is_first_order(db: AsyncSession, user: User) -> bool:
+    count = await db.scalar(select(func.count()).select_from(Order).where(Order.user_id == user.id))
+    return (count or 0) == 0
+
+
+def _item_totals(cart: Cart) -> tuple[list[dict], "Decimal"]:  # noqa: F821
     item_dicts = []
     subtotal = ZERO
     for item in cart.items:
@@ -44,14 +53,32 @@ def build_cart_view(cart: Cart) -> dict:
             "stock": item.product.stock,
             "line_total": line_total,
         })
-    subtotal = round2(subtotal)
-    discount = ZERO  # R4 coupon discount applied in M4
+    return item_dicts, round2(subtotal)
+
+
+async def _cart_view(db: AsyncSession, user: User, cart: Cart, now: datetime) -> dict:
+    item_dicts, subtotal = _item_totals(cart)
+
+    discount = ZERO
+    coupon_code = cart.coupon_code
+    if coupon_code:
+        coupon = await db.scalar(select(Coupon).where(Coupon.code == coupon_code))
+        try:
+            first_order = await is_first_order(db, user)
+            validate_coupon(coupon, coupon_code, subtotal, first_order, now)
+            discount = compute_discount(coupon, subtotal)
+        except BadRequestError:
+            # The coupon no longer applies (e.g. cart total dropped, or day changed) -> drop it silently.
+            cart.coupon_code = None
+            coupon_code = None
+            await db.commit()
+
     after_discount = subtotal - discount
     delivery_fee = compute_delivery_fee(after_discount) if subtotal > ZERO else ZERO
     total = round2(after_discount + delivery_fee)
     return {
         "items": item_dicts,
-        "coupon_code": None,
+        "coupon_code": coupon_code,
         "subtotal": subtotal,
         "discount": discount,
         "delivery_fee": delivery_fee,
@@ -59,12 +86,12 @@ def build_cart_view(cart: Cart) -> dict:
     }
 
 
-async def get_cart(db: AsyncSession, user: User) -> dict:
+async def get_cart(db: AsyncSession, user: User, now: datetime) -> dict:
     cart = await _get_or_create_cart(db, user)
-    return build_cart_view(cart)
+    return await _cart_view(db, user, cart, now)
 
 
-async def add_item(db: AsyncSession, user: User, product_id: int, quantity: int) -> dict:
+async def add_item(db: AsyncSession, user: User, product_id: int, quantity: int, now: datetime) -> dict:
     product = await db.get(Product, product_id)
     if product is None or not product.active:
         raise NotFoundError("Product not found.")
@@ -90,10 +117,10 @@ async def add_item(db: AsyncSession, user: User, product_id: int, quantity: int)
 
     await db.commit()
     cart = await _get_or_create_cart(db, user)
-    return build_cart_view(cart)
+    return await _cart_view(db, user, cart, now)
 
 
-async def update_item(db: AsyncSession, user: User, item_id: int, quantity: int) -> dict:
+async def update_item(db: AsyncSession, user: User, item_id: int, quantity: int, now: datetime) -> dict:
     cart = await _get_or_create_cart(db, user)
     item = next((i for i in cart.items if i.id == item_id), None)
     if item is None:
@@ -103,10 +130,10 @@ async def update_item(db: AsyncSession, user: User, item_id: int, quantity: int)
     item.quantity = quantity
     await db.commit()
     cart = await _get_or_create_cart(db, user)
-    return build_cart_view(cart)
+    return await _cart_view(db, user, cart, now)
 
 
-async def remove_item(db: AsyncSession, user: User, item_id: int) -> dict:
+async def remove_item(db: AsyncSession, user: User, item_id: int, now: datetime) -> dict:
     cart = await _get_or_create_cart(db, user)
     item = next((i for i in cart.items if i.id == item_id), None)
     if item is None:
@@ -114,13 +141,39 @@ async def remove_item(db: AsyncSession, user: User, item_id: int) -> dict:
     await db.delete(item)
     await db.commit()
     cart = await _get_or_create_cart(db, user)
-    return build_cart_view(cart)
+    return await _cart_view(db, user, cart, now)
 
 
-async def clear_cart(db: AsyncSession, user: User) -> dict:
+async def clear_cart(db: AsyncSession, user: User, now: datetime) -> dict:
     cart = await _get_or_create_cart(db, user)
     for item in list(cart.items):
         await db.delete(item)
+    cart.coupon_code = None
     await db.commit()
     cart = await _get_or_create_cart(db, user)
-    return build_cart_view(cart)
+    return await _cart_view(db, user, cart, now)
+
+
+async def apply_coupon(db: AsyncSession, user: User, code: str, now: datetime) -> dict:
+    code = code.strip().upper()
+    cart = await _get_or_create_cart(db, user)
+    _items, subtotal = _item_totals(cart)
+    if subtotal <= ZERO:
+        raise BadRequestError("Your cart is empty.")
+
+    coupon = await db.scalar(select(Coupon).where(Coupon.code == code))
+    first_order = await is_first_order(db, user)
+    validate_coupon(coupon, code, subtotal, first_order, now)  # R4.1/R4.2
+
+    cart.coupon_code = coupon.code
+    await db.commit()
+    cart = await _get_or_create_cart(db, user)
+    return await _cart_view(db, user, cart, now)
+
+
+async def remove_coupon(db: AsyncSession, user: User, now: datetime) -> dict:
+    cart = await _get_or_create_cart(db, user)
+    cart.coupon_code = None
+    await db.commit()
+    cart = await _get_or_create_cart(db, user)
+    return await _cart_view(db, user, cart, now)
