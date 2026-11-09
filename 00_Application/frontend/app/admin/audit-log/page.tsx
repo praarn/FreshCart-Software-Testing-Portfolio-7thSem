@@ -38,7 +38,7 @@ export default function AdminAuditLogPage() {
         placeholder="Filter by order ID"
         value={orderIdFilter}
         onChange={(e) => setOrderIdFilter(e.target.value)}
-        className="mb-4 rounded border border-gray-300 px-3 py-2"
+        className="mb-4 rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
       />
       {loading && (
         <p id="admin-audit-log-loading" data-testid="admin-audit-log-loading" className="text-gray-500">

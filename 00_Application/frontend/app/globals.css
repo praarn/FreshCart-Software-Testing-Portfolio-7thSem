@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdf8f0;
+  --foreground: #1c1917;
 }
 
 @theme inline {
@@ -10,13 +10,21 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* "Fresh Market" brand palette: deep emerald primary on a warm cream background. */
+  --color-brand-50: #f0f7f2;
+  --color-brand-100: #d9ece0;
+  --color-brand-200: #b3d9c1;
+  --color-brand-300: #8cc6a2;
+  --color-brand-400: #5ca87a;
+  --color-brand-500: #2f8657;
+  --color-brand-600: #1f6b44;
+  --color-brand-700: #0f5132;
+  --color-brand-800: #0b3d26;
+  --color-brand-900: #082a1a;
+  --color-brand-950: #051a10;
+
+  --color-cream: #fdf8f0;
 }
 
 body {

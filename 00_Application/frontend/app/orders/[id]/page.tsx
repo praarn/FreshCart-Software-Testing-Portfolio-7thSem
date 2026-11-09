@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import RoleGuard from "@/components/RoleGuard";
 import { api, errorMessage, getToken } from "@/lib/api";
-import { money, formatDateTime } from "@/lib/format";
+import { money, formatDateTime, statusBadgeClasses } from "@/lib/format";
 import type { Order } from "@/lib/types";
 
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000";
@@ -85,7 +85,7 @@ function OrderDetailContent() {
       <h1 id="order-detail-number" data-testid="order-detail-number" className="mb-1 text-2xl font-bold text-gray-900">
         {order.order_number}
       </h1>
-      <p id="order-detail-status" data-testid="order-detail-status" className="mb-4 inline-block rounded bg-green-100 px-2 py-1 text-sm font-medium text-green-800">
+      <p id="order-detail-status" data-testid="order-detail-status" className={`mb-4 inline-block rounded-full px-2 py-1 text-sm font-medium ${statusBadgeClasses(order.status)}`}>
         {order.status}
       </p>
 
@@ -96,12 +96,12 @@ function OrderDetailContent() {
       )}
 
       {order.delivery_otp && (
-        <p id="order-delivery-otp" data-testid="order-delivery-otp" className="mb-4 rounded bg-yellow-50 p-3 text-sm text-yellow-800">
+        <p id="order-delivery-otp" data-testid="order-delivery-otp" className="mb-4 rounded-xl bg-yellow-50 p-3 text-sm text-yellow-800">
           Delivery OTP: <span className="font-mono font-bold">{order.delivery_otp}</span> — share this with your delivery partner.
         </p>
       )}
 
-      <div className="rounded border border-gray-200 bg-white p-4">
+      <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
         <h2 className="mb-2 font-semibold text-gray-900">Items</h2>
         <ul data-testid="order-detail-items" className="space-y-1">
           {order.items.map((it) => (
@@ -133,7 +133,7 @@ function OrderDetailContent() {
         </div>
       </div>
 
-      <div className="mt-4 rounded border border-gray-200 bg-white p-4 text-sm text-gray-700">
+      <div className="mt-4 rounded-xl border border-gray-100 bg-white p-4 text-sm text-gray-700 shadow-sm">
         <p>
           <span className="font-medium">Deliver to:</span> {order.address_line1}, {order.address_city} - {order.address_pincode}
         </p>
@@ -152,7 +152,7 @@ function OrderDetailContent() {
           data-testid="order-cancel-button"
           onClick={handleCancel}
           disabled={cancelling}
-          className="mt-4 rounded border border-red-300 px-4 py-2 text-sm text-red-600 hover:bg-red-50 disabled:opacity-50"
+          className="mt-4 rounded-full border border-red-300 px-4 py-2 text-sm text-red-600 hover:bg-red-50 disabled:opacity-50"
         >
           {cancelling ? "Cancelling..." : "Cancel order"}
         </button>
@@ -162,7 +162,7 @@ function OrderDetailContent() {
         <h2 className="mb-2 font-semibold text-gray-900">Status timeline</h2>
         <ul id="order-timeline" data-testid="order-timeline" className="space-y-2">
           {order.audits.map((a, idx) => (
-            <li key={idx} data-testid={`order-timeline-entry-${idx}`} className="flex justify-between rounded border border-gray-200 bg-white p-3 text-sm">
+            <li key={idx} data-testid={`order-timeline-entry-${idx}`} className="flex justify-between rounded-xl border border-gray-100 bg-white p-3 text-sm shadow-sm">
               <span>
                 {a.from_state ? `${a.from_state} → ${a.to_state}` : a.to_state} <span className="text-gray-400">by {a.actor_role}</span>
               </span>

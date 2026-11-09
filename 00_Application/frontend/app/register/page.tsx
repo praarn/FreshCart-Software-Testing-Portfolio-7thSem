@@ -48,7 +48,7 @@ export default function RegisterPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
           {fieldErrors.name && (
             <p id="register-name-error" data-testid="register-name-error" className="mt-1 text-sm text-red-600">
@@ -68,7 +68,7 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
           {fieldErrors.email && (
             <p id="register-email-error" data-testid="register-email-error" className="mt-1 text-sm text-red-600">
@@ -88,7 +88,7 @@ export default function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
           <p className="mt-1 text-xs text-gray-500">8-20 characters, at least 1 letter and 1 digit.</p>
           {fieldErrors.password && (
@@ -109,7 +109,7 @@ export default function RegisterPage() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
-            className="w-full rounded border border-gray-300 px-3 py-2 focus:border-green-600 focus:outline-none"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
           <p className="mt-1 text-xs text-gray-500">10 digits, starting with 6-9.</p>
           {fieldErrors.phone && (
@@ -130,14 +130,14 @@ export default function RegisterPage() {
           data-testid="register-submit-button"
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-green-700 px-4 py-2 font-medium text-white hover:bg-green-800 disabled:opacity-50"
+          className="w-full rounded-full bg-brand-700 px-4 py-2 font-medium text-white hover:bg-brand-800 disabled:opacity-50"
         >
           {submitting ? "Creating account..." : "Register"}
         </button>
       </form>
       <p className="mt-4 text-sm text-gray-600">
         Already have an account?{" "}
-        <Link id="register-login-link" data-testid="register-login-link" href="/login" className="text-green-700 underline">
+        <Link id="register-login-link" data-testid="register-login-link" href="/login" className="text-brand-700 underline">
           Log in
         </Link>
       </p>

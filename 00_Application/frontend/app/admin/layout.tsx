@@ -23,7 +23,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               id={t.testid}
               data-testid={t.testid}
               href={t.href}
-              className="rounded px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              className="rounded-full px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
               {t.label}
             </Link>
