@@ -2,7 +2,9 @@
 
 Online grocery shopping and delivery system — the application under test for this
 Software Testing portfolio. Full business-rule and API reference:
-[`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md).
+[`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md). How it's built, module by module:
+[`explanation.md`](explanation.md). Cross-platform run commands:
+[`../commands.md`](../commands.md).
 
 ## Prerequisites
 
@@ -75,8 +77,10 @@ runs in CI — the real test suite is the student's deliverable under `05_Test_A
 
 ## Where things are
 
-- Backend: `00_Application/backend` (FastAPI, SQLAlchemy 2 async, Alembic, JWT auth)
-- Frontend: `00_Application/frontend` (Next.js App Router, React 19, TypeScript, Tailwind)
+- Backend: `00_Application/backend` (FastAPI, SQLAlchemy 2 async, Alembic, JWT auth) —
+  architecture walkthrough: `backend/explanation.md`
+- Frontend: `00_Application/frontend` (Next.js App Router, React 19, TypeScript, Tailwind) —
+  architecture walkthrough: `frontend/explanation.md`
 - Requirements/API reference: `00_Application/docs/REQUIREMENTS.md`
 - Docker: `00_Application/backend/Dockerfile`, `00_Application/frontend/Dockerfile`,
   root `docker-compose.yml`
