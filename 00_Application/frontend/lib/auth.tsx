@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
-import { api, clearToken, getToken, setToken } from "./api";
+import { ApiError, api, clearToken, getToken, setToken } from "./api";
 import type { User } from "./types";
 
 interface AuthContextValue {
@@ -28,8 +28,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const me = await api.get<User>("/auth/me");
       setUser(me);
-    } catch {
-      clearToken();
+    } catch (err) {
+      // Only a 401 means the session is invalid. A network error, an aborted request (the user navigated
+      // while /auth/me was in flight) or a 5xx must not log the user out (DEF-008).
+      if (err instanceof ApiError && err.status === 401) clearToken();
       setUser(null);
     } finally {
       setLoading(false);
