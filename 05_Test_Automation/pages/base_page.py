@@ -56,16 +56,21 @@ class BasePage:
     def text(self, tid: str) -> str:
         return self.wait_visible(tid).text
 
-    def select_by_value(self, tid: str, value: str):
+    def select_by_value(self, tid: str, value: str, timeout: int = DEFAULT_TIMEOUT):
+        """Options of these selects (categories, slots) are loaded asynchronously, so wait for the option."""
         from selenium.webdriver.support.ui import Select
 
-        Select(self.wait_visible(tid)).select_by_value(value)
+        select = Select(self.wait_visible(tid))
+        WebDriverWait(self.driver, timeout).until(lambda d: any(o.get_attribute("value") == value for o in select.options))
+        select.select_by_value(value)
         return self
 
-    def select_by_index(self, tid: str, index: int):
+    def select_by_index(self, tid: str, index: int, timeout: int = DEFAULT_TIMEOUT):
         from selenium.webdriver.support.ui import Select
 
-        Select(self.wait_visible(tid)).select_by_index(index)
+        select = Select(self.wait_visible(tid))
+        WebDriverWait(self.driver, timeout).until(lambda d: len(select.options) > index)
+        select.select_by_index(index)
         return self
 
     def screenshot(self, path: str):

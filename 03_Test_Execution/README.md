@@ -1,4 +1,4 @@
-# 03 — Test Execution
+# 03 - Test Execution
 
 The record of actually running the test cases.
 
@@ -6,46 +6,33 @@ The record of actually running the test cases.
 
 | File | Description |
 |---|---|
-| [`Execution_Log.md`](Execution_Log.md) | Run date, environment, per-module pass/fail counts, what happened during the run, and defects logged |
+| [`Execution_Log.md`](Execution_Log.md) | Environment, final results, history of each Selenium run, root causes, defects |
+| [`Selenium_Results.md`](Selenium_Results.md) | One row per Selenium case: expected, actual, status, evidence, time (generated) |
+| [`selenium_report.html`](selenium_report.html), [`selenium_junit.xml`](selenium_junit.xml) | pytest-html report and JUnit XML of the final Selenium run |
+| [`Formerly_Manual_Cases.md`](Formerly_Manual_Cases.md) | The 9 cases that were manual, now executed through Newman or unit tests, with actual results |
+| [`Execution_Log_2026-11-09_first_run.md`](Execution_Log_2026-11-09_first_run.md) | The original log (superseded) |
 
-## Run summary
+API results per request are in [`../09_API_Testing/API_Test_Results.md`](../09_API_Testing/API_Test_Results.md);
+unit and coverage results in [`../08_White_Box_Testing/Coverage_Report.md`](../08_White_Box_Testing/Coverage_Report.md).
 
-| | |
+## Final results
+
+| Suite | Result |
 |---|---|
-| Run date | 2026-11-09 |
-| Environment | `APP_ENV=test`, `FIXED_NOW=2026-11-10T09:00:00`, SQLite, backend on `:8000`, frontend on `:3000` |
-| Tooling | Selenium + pytest in headless Chrome, run module by module |
-| Automated cases | 86 executed of 86 |
-| Result | 80 passed, 6 failed |
-| Manual/exploratory | 9 cases, not executed by design |
+| Selenium (86 cases) | 86 passed, 0 failed |
+| Newman (245 requests, 475 assertions) | 0 failed |
+| Unit tests (136) | 136 passed |
 
-| Module | Passed / executed |
-|---|---|
-| M1 Auth | 17 / 17 |
-| M2 Catalog | 7 / 7 |
-| M3 Cart | 8 / 8 |
-| M4 Coupons and pricing | 10 / 10 |
-| M5 Checkout | 9 / 13 |
-| M6 Order lifecycle | 12 / 12 |
-| M7 Reviews | 3 / 3 |
-| M8 Admin | 9 / 10 |
-| M9 Wishlist, banners, offers | 5 / 6 |
+## Reproducing the Selenium run
 
-## About the 6 failures
-
-All six are Selenium `TimeoutException`s waiting for a page to render. The same flows were
-re-driven with Playwright, 5 runs each, and rendered correctly every time with no console
-errors. They are logged as a Selenium/chromedriver issue on the test machine, not as
-application defects.
-
-## Reproducing a run
-
-1. Start the backend in test mode and the frontend (see [`../commands.md`](../commands.md)).
-2. From [`../05_Test_Automation/`](../05_Test_Automation/), run `pytest`.
+1. Start the backend in test mode and the frontend as a production build (see [`../commands.md`](../commands.md)).
+2. From [`../05_Test_Automation/`](../05_Test_Automation/):
+   `pytest --html=report.html --self-contained-html --junitxml=junit.xml`, then
+   `python tools/make_results_table.py junit.xml`.
 
 ## Related
 
-- Plan this run follows: [`../01_Test_Plan/Test_Plan.md`](../01_Test_Plan/Test_Plan.md)
-- Cases executed: [`../02_Test_Case_Design/Test_Cases.csv`](../02_Test_Case_Design/Test_Cases.csv)
+- Plan: [`../01_Test_Plan/Test_Plan.md`](../01_Test_Plan/Test_Plan.md)
+- Cases: [`../02_Test_Case_Design/Test_Cases.csv`](../02_Test_Case_Design/Test_Cases.csv)
 - Defects: [`../04_Defect_Reports/`](../04_Defect_Reports/)
 - Rollup: [`../06_Test_Reports/Test_Summary_Report.md`](../06_Test_Reports/Test_Summary_Report.md)

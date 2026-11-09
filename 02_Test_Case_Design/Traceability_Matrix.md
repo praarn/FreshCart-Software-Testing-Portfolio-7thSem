@@ -95,4 +95,4 @@ regenerate rather than hand-edit.
 
 - 42 rules, 42 covered by at least one test case
 - 116 test cases total
-- 86 Selenium (`Y`), 15 API (Newman) (`A`), 6 Unit (pytest) (`U`), 9 Manual (`N`)
+- 86 Selenium (`Y`), 22 API (Newman) (`A`), 8 Unit (pytest) (`U`)

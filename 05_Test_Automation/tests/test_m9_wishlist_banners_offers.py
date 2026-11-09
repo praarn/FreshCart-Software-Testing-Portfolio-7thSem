@@ -13,7 +13,9 @@ def test_add_product_to_wishlist(driver):
     login_as(driver, CUSTOMER2["email"], CUSTOMER2["password"])
     page = CatalogPage(driver).open()
     page.wait_visible("catalog-product-grid")
+    page.wait_visible("nav-logout-button")  # auth resolved; before that the heart redirects to /login (DEF-006)
     page.toggle_wishlist(apple_id)
+    page.wait_wishlisted(apple_id)  # do not navigate before the save request completes
 
     wishlist = WishlistPage(driver).open()
     wishlist.wait_visible("wishlist-grid", timeout=10)

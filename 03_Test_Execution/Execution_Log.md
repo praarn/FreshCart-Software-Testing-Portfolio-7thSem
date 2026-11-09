@@ -1,116 +1,68 @@
 # Test Execution Log
 
-**Run date:** 2026-11-09
-**Environment:** `APP_ENV=test`, `FIXED_NOW=2026-11-10T09:00:00`, local (SQLite) — backend on
-`:8000`, frontend on `:3000`, per [`../commands.md`](../commands.md)
-**Executed by:** [`../05_Test_Automation`](../05_Test_Automation) (Selenium + pytest), run
-module-by-module in headless Chrome
-**Suite commit:** backend/frontend at the point `05_Test_Automation` was built (see
-`git log` around the "test: add Selenium automation suite" commits)
+Current results. The original 2026-11-09 log is kept in
+[`Execution_Log_2026-11-09_first_run.md`](Execution_Log_2026-11-09_first_run.md).
 
-## Summary
+## Environment of the recorded runs
 
-Counts below are the **automated** cases per module (see
-`../02_Test_Case_Design/Test_Cases.csv`'s `Automated` column); each module also has a small
-number of manual/exploratory cases not covered here (9 total across the suite — rate limiting,
-cross-session timing, a rounding edge case, etc.), which were not executed in this run either.
+| Item | Value |
+|---|---|
+| Date | 2026-11-13 to 2026-11-14 (business clock frozen with `FIXED_NOW=2026-11-10T09:00:00`) |
+| Backend | `APP_ENV=test`, SQLite, Python 3.12.10, `uvicorn` on :8000 |
+| Frontend | Next.js production build (`npm run build && npm start`) on :3000 |
+| Browser | Chrome 157.0.8103.51 headless, driver from Selenium Manager |
+| Machine | Windows 11 laptop; one Selenium test takes 10-20 s of which 8-10 s is browser start-up |
 
-| Module | Automated cases | Executed | Passed | Failed | Not yet run |
-|---|---|---|---|---|---|
-| M1 — Auth | 17 | 17 | 17 | 0 | 0 |
-| M2 — Catalog | 7 | 7 | 7 | 0 | 0 |
-| M3 — Cart | 8 | 8 | 8 | 0 | 0 |
-| M4 — Coupons/pricing | 10 | 10 | 10 | 0 | 0 |
-| M5 — Checkout | 13 | 13 | 9 | 4 | 0 |
-| M6 — Order lifecycle | 12 | 12 | 12 | 0 | 0 |
-| M7 — Reviews | 3 | 3 | 3 | 0 | 0 |
-| M8 — Admin | 10 | 10 | 9 | 1 | 0 |
-| M9 — Wishlist/banners/offers | 6 | 6 | 5 | 1 | 0 |
-| **Total (automated)** | **86** | **86** | **80** | **6** | **0** |
-| Manual/exploratory (9 cases) | — | 0 | — | — | 9 (by design — see Test Plan §5) |
+## Final results (all executed against the current code)
 
-## What happened
+| Suite | Cases | Passed | Failed | Report |
+|---|---|---|---|---|
+| Selenium UI (`05_Test_Automation`) | 86 | 86 | 0 | [`selenium_report.html`](selenium_report.html), [`Selenium_Results.md`](Selenium_Results.md), [`selenium_junit.xml`](selenium_junit.xml) |
+| Newman API (`09_API_Testing`) | 245 requests, 475 assertions | 245 | 0 | [`API_Test_Results.md`](../09_API_Testing/API_Test_Results.md) |
+| Unit tests (`00_Application/backend/tests`) | 136 | 136 | 0 | [`Coverage_Report.md`](../08_White_Box_Testing/Coverage_Report.md) |
 
-A first full-suite run (one shared browser session for all 86 automated cases) surfaced two
-real issues in the **test suite itself** (not the application — see "Issues found and fixed"
-below), plus a Selenium session that became unstable and crashed partway through a 15-minute
-run, cascading failures into every test after that point. The driver fixture was changed from
-session-scoped to function-scoped (a fresh browser per test) to make that failure mode
-structurally impossible, and the suite was re-run module-by-module in headless mode to keep
-memory use down (the development machine was under real memory pressure during this run, which
-caused M6–M9 to be deferred to a follow-up session — see below).
+The 9 cases that were manual in the first run were executed through Newman or unit tests; see
+[`Formerly_Manual_Cases.md`](Formerly_Manual_Cases.md).
 
-### Issues found and fixed (in the test suite, not the application)
+## History of the Selenium runs
 
-1. **Native HTML5 validation blocking a negative test.** `TC-M1-005` originally submitted
-   `not-an-email` against an `<input type="email">`; Chrome's native validator blocks the
-   form submission before React ever sees it, so the test was exercising the browser's
-   validator, not the application's. Fixed by using `foo@bar` (passes native HTML5 email
-   validation, which only requires one label after `@`, but fails the backend's stricter
-   `local@domain.tld` regex) — now correctly reaches and tests the server-side rule (R1.2).
-2. **Selenium's `visibility_of_element_located` on a childless container.** `TC-M2-007`
-   waited for the product grid container after a search expected to return zero results; an
-   empty CSS grid `<div>` with no children collapses to zero height, which Selenium treats as
-   "not displayed". Fixed by waiting on the empty-state message instead, which is also the
-   more precise assertion for "hidden from customers" (R2.4).
-3. **A boundary test case that was mathematically unreachable.** `TC-M4-010`/`011` specified
-   an exact `299.00`/`298.99` subtotal, but every seeded product price is a multiple of 5, so
-   299.00 cannot be built from any combination of seeded items. Corrected to the nearest
-   achievable values either side of the threshold (`300.00` / `295.00`) — see
-   `02_Test_Case_Design/Test_Cases.csv` for the exact product combinations used.
+Each row is a full 86-test run unless noted. Counts come from the pytest summary line.
 
-### M5 — 4 unresolved failures (Selenium-environment issue, not an application defect)
+| Run | Frontend | Code state | Result | Failures and finding |
+|---|---|---|---|---|
+| 0 (first attempt, 2026-11-13) | dev server | before DEF-003 fix | 1 test tried | `test_checkout_serviceable_pincode_succeeds` failed. Diagnostic: `/checkout` renders then redirects to `/login`; `/auth/me` returned 401. **DEF-003** (token expiry checked against the real clock in test mode). |
+| 1 | `npm run dev` | DEF-003 fixed | 81 passed, 5 failed | `test_welcome10_applies_for_first_order`, `test_checkout_short_address_line1_rejected`, `test_card_valid_luhn_succeeds`, `test_admin_locks_and_unlocks_user`, `test_remove_from_wishlist`: `TimeoutException` waiting for a page element. Other work was running on the machine at the time. Re-run alone, all five passed (131 s) but each call took 12-15 s against a 20 s wait. |
+| 2 | production build | DEF-004, DEF-005 fixed | 85 passed, 1 failed | `test_add_product_to_wishlist` (empty wishlist after the heart click). Passed twice when run alone. |
+| 3 | production build | + DEF-006 fix | 85 passed, 1 failed | `test_inactive_product_hidden_from_customers`. Not reproducible by re-running; the diagnostic found that the search box fires one request per keystroke and shows the last response to arrive (37 of 40 loads wrong). **DEF-007**. |
+| 4 | production build | + DEF-007 fix | 84 passed, 2 failed | `test_filter_by_category`: `NoSuchElementException` (the select's options load after the select appears; fixed in the test helper). `test_add_product_to_wishlist` failed 3 of 3 re-runs: the session token was missing right after navigation. **DEF-008** (any error from `/auth/me`, including an aborted request, clears the token). |
+| 5 (final) | production build | + DEF-008 fix, select wait | **86 passed, 0 failed** | 34 min 16 s |
 
-`test_checkout_serviceable_pincode_succeeds`, `test_checkout_non_serviceable_pincode_rejected`,
-`test_card_valid_luhn_succeeds`, and `test_declined_test_card_rejected` fail with a Selenium
-`TimeoutException` waiting for the checkout form to render after login + navigation, even with
-the wait timeout raised from 10s to 20s. To rule out an application bug, the identical
-login → navigate → `/checkout` flow was driven with Playwright (a different browser-automation
-tool) 5 times in a row: the page rendered in under 1 second every time, with zero console
-errors. This isolates the failure to the Selenium/chromedriver setup on this machine — quite
-possibly aggravated by the memory pressure that forced this run to be split across sessions
-(see below) — rather than FreshCart itself. Not logged as an application defect. The same
-pattern recurred in the M6–M9 follow-up run below, reinforcing that conclusion.
+## Root cause of the six original failures
 
-### M6–M9 — executed in a follow-up run, all 31 cases now complete
+The first log attributed the six timeouts to Selenium or chromedriver. That is not supported:
 
-The M6–M9 batch (31 automated cases, deferred from the first run due to the memory pressure
-noted below) was executed module-by-module in headless Chrome in a follow-up session on the
-same machine, once memory headroom was available again.
+- Every one of the six opens a guarded page (`/checkout`, `/admin/users`, the wishlist grid) straight after `login_as()`.
+  DEF-008 shows the session token is wiped when the next navigation aborts `/auth/me` (7 of 12 iterations before the
+  fix, 0 of 12 after). `RoleGuard` then redirects to `/login` and the wait for the page element times out.
+- DEF-003 makes every login-dependent test fail once the real date passes `FIXED_NOW` + 30 minutes.
+- A slow development server adds to both (12-15 s page waits against a 20 s limit).
 
-- **M6 — Order lifecycle:** 12/12 pass. Two cases needed one retry each on first execution
-  (`TimeoutException` immediately after `login_as` + navigation, matching the same intermittent
-  pattern seen in M5); both passed cleanly on retry with no code or test changes, consistent
-  with a transient Selenium/chromedriver hiccup rather than a real issue.
-- **M7 — Reviews:** 3/3 pass, no retries needed.
-- **M8 — Admin:** 9/10 pass. `test_admin_locks_and_unlocks_user` failed with a `TimeoutException`
-  on three separate attempts (fresh run, then two retries). To check for a real rendering bug,
-  the identical flow (API login as admin → inject token → navigate to `/admin/users`) was
-  driven independently with Playwright 5 times in a row: `/admin/users` rendered correctly every
-  time, in 1.5–1.7s, with zero browser console errors (see
-  `diag_m8_users.js` in the session scratchpad). This rules out an application defect and
-  points at the Selenium/chromedriver setup on this machine, the same pattern as the M5
-  failures below — not logged as a defect against FreshCart.
-- **M9 — Wishlist/banners/offers:** 5/6 pass on retry. `test_add_product_to_wishlist` failed
-  with a `TimeoutException` waiting for `wishlist-grid` to render after toggling the wishlist
-  heart on the catalog page, both on first run and on one retry. The identical flow (login →
-  toggle wishlist on the catalog page → navigate to `/wishlist` → wait for the grid) was driven
-  independently with Playwright 5 times in a row: the wishlist page rendered correctly every
-  time, in 1.7–2.5s, with the item present and zero console errors (see `diag_m9_wishlist.js`
-  in the session scratchpad). Same conclusion as M8 above — a Selenium-tooling issue, not an
-  application defect.
+The original environment cannot be recreated, so the link to those six runs is inferred from the reproduction, not
+proven. The Playwright cross-checks cited in the first log cannot be inspected (the scripts were never committed).
 
-Combined with the 4 M5 failures above, every one of the 6 total Selenium failures across this
-run was independently reproduced as passing cleanly via Playwright, with zero console errors,
-across 20 total Playwright verification runs (5 per failing scenario). This is a strong,
-consistent signal that the failures are specific to this machine's Selenium/chromedriver setup
-— not to FreshCart's application code.
+The two hypotheses suggested at the start of this work were tested: a slow `next dev` contributes
+(moving from run 1 to the production build in run 2 changed 5 failures into 1), and `RoleGuard` itself is correct but depends
+on `AuthProvider`, which is where the defect was.
 
-## Defects logged
+## Defects found in this re-verification
 
-| Defect | Found via | Status |
-|---|---|---|
-| [`DEF-001`](../04_Defect_Reports/DEF-001_cart_stale_after_add.md) | Manual testing during M3 development (predates this automated run) | Fixed |
-| [`DEF-002`](../04_Defect_Reports/DEF-002_admin_orders_list_crash.md) | Manual/Playwright testing during M8 development (predates this automated run) | Fixed |
+| Defect | Found by | Severity | Status |
+|---|---|---|---|
+| [DEF-003](../04_Defect_Reports/DEF-003_test_mode_tokens_expire_vs_real_clock.md) | Selenium re-run | High | Fixed |
+| [DEF-004](../04_Defect_Reports/DEF-004_checkout_slots_endpoint_unauthenticated.md) | Newman | Low | Fixed |
+| [DEF-005](../04_Defect_Reports/DEF-005_validation_regex_accepts_trailing_newline.md) | Code reading, confirmed by API | Low | Fixed |
+| [DEF-006](../04_Defect_Reports/DEF-006_wishlist_heart_redirects_before_auth_resolves.md) | Code reading during run 2 | Low | Fixed |
+| [DEF-007](../04_Defect_Reports/DEF-007_catalog_search_applies_stale_responses.md) | Selenium run 3 plus a diagnostic | Medium | Fixed |
+| [DEF-008](../04_Defect_Reports/DEF-008_session_cleared_on_any_auth_me_error.md) | Selenium run 4 plus a diagnostic | Medium | Fixed |
 
-No new defects were found in the 51 cases that executed cleanly in this run.
+DEF-001 and DEF-002 are from development and remain fixed.
