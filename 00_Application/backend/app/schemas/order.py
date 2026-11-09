@@ -60,6 +60,13 @@ class CheckoutRequest(BaseModel):
     payment: PaymentIn
 
 
+class AuditEntryOut(BaseModel):
+    from_state: str | None
+    to_state: str
+    actor_role: str
+    timestamp: datetime
+
+
 class OrderItemOut(BaseModel):
     product_id: int
     product_name: str
@@ -100,6 +107,7 @@ class OrderOut(BaseModel):
     delivery_partner_id: int | None
     items: list[OrderItemOut]
     created_at: datetime
+    audits: list[AuditEntryOut] = []
 
 
 class SlotOut(BaseModel):
@@ -107,3 +115,17 @@ class SlotOut(BaseModel):
     slot_end: datetime
     available: bool
     remaining_capacity: int
+
+
+class UpdateOrderStatusRequest(BaseModel):
+    to_status: OrderStatus
+
+
+class AssignPartnerRequest(BaseModel):
+    delivery_partner_id: int
+
+
+class DeliverRequest(BaseModel):
+    model_config = ConfigDict(json_schema_extra={"example": {"otp": "4821"}})
+
+    otp: str = Field(..., min_length=4, max_length=4)
