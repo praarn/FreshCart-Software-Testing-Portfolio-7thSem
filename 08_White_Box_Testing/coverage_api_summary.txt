@@ -1,0 +1,63 @@
+TOTAL statements 1754/1858 = 94.4%; branches 231/280 = 82.5%; combined 92.8%
+
+PER FUNCTION (statements covered/total; branches covered/total)
+  pricing_service.py::round2  1/1  0/0
+  pricing_service.py::compute_delivery_fee  1/1  0/0
+  pricing_service.py::validate_coupon  12/13  11/12
+  pricing_service.py::compute_discount  5/6  2/4
+  checkout_service.py::_validate_address  3/3  2/2
+  checkout_service.py::_validate_slot  11/11  8/8
+  checkout_service.py::_luhn_ok  8/9  5/6
+  checkout_service.py::_validate_payment  16/16  12/12
+  order_service.py::cancel_order  10/10  6/6
+  order_service.py::admin_advance_status  5/5  2/2
+  order_service.py::assign_delivery_partner  10/10  4/4
+  order_service.py::complete_delivery  16/18  10/12
+  auth_service.py::authenticate_user  19/22  9/10
+  security.py::create_access_token  5/5  0/0
+  security.py::decode_access_token  7/8  1/2
+
+PER MODULE (services and core)
+  app/core/__init__.py  stmts 0/0 (n/a)  branches 0/0 (n/a)
+  app/core/errors.py  stmts 47/50 (94.0%)  branches 2/2 (100.0%)
+  app/core/rate_limit.py  stmts 21/22 (95.5%)  branches 2/2 (100.0%)
+  app/core/security.py  stmts 25/26 (96.2%)  branches 1/2 (50.0%)
+  app/core/ws_manager.py  stmts 10/17 (58.8%)  branches 1/4 (25.0%)
+  app/deps.py  stmts 42/47 (89.4%)  branches 8/10 (80.0%)
+  app/routers/__init__.py  stmts 0/0 (n/a)  branches 0/0 (n/a)
+  app/routers/admin.py  stmts 84/86 (97.7%)  branches 0/0 (n/a)
+  app/routers/auth.py  stmts 31/33 (93.9%)  branches 0/0 (n/a)
+  app/routers/banners.py  stmts 8/8 (100.0%)  branches 0/0 (n/a)
+  app/routers/cart.py  stmts 29/29 (100.0%)  branches 0/0 (n/a)
+  app/routers/catalog.py  stmts 23/23 (100.0%)  branches 0/0 (n/a)
+  app/routers/checkout.py  stmts 14/14 (100.0%)  branches 0/0 (n/a)
+  app/routers/delivery.py  stmts 19/19 (100.0%)  branches 0/0 (n/a)
+  app/routers/health.py  stmts 5/5 (100.0%)  branches 0/0 (n/a)
+  app/routers/orders.py  stmts 19/19 (100.0%)  branches 0/0 (n/a)
+  app/routers/reviews.py  stmts 15/15 (100.0%)  branches 0/0 (n/a)
+  app/routers/test_utils.py  stmts 10/10 (100.0%)  branches 0/0 (n/a)
+  app/routers/wishlist.py  stmts 18/18 (100.0%)  branches 0/0 (n/a)
+  app/routers/ws.py  stmts 11/40 (27.5%)  branches 0/6 (0.0%)
+  app/schemas/__init__.py  stmts 0/0 (n/a)  branches 0/0 (n/a)
+  app/schemas/admin.py  stmts 23/23 (100.0%)  branches 0/0 (n/a)
+  app/schemas/banner.py  stmts 21/21 (100.0%)  branches 0/0 (n/a)
+  app/schemas/cart.py  stmts 27/27 (100.0%)  branches 0/0 (n/a)
+  app/schemas/catalog.py  stmts 41/41 (100.0%)  branches 0/0 (n/a)
+  app/schemas/common.py  stmts 0/10 (0.0%)  branches 0/0 (n/a)
+  app/schemas/coupon.py  stmts 29/29 (100.0%)  branches 0/0 (n/a)
+  app/schemas/order.py  stmts 87/89 (97.8%)  branches 12/14 (85.7%)
+  app/schemas/review.py  stmts 16/16 (100.0%)  branches 0/0 (n/a)
+  app/schemas/user.py  stmts 53/53 (100.0%)  branches 10/10 (100.0%)
+  app/schemas/wishlist.py  stmts 8/8 (100.0%)  branches 0/0 (n/a)
+  app/services/__init__.py  stmts 0/0 (n/a)  branches 0/0 (n/a)
+  app/services/admin_service.py  stmts 98/109 (89.9%)  branches 18/30 (60.0%)
+  app/services/auth_service.py  stmts 45/48 (93.8%)  branches 11/12 (91.7%)
+  app/services/banner_service.py  stmts 33/33 (100.0%)  branches 7/8 (87.5%)
+  app/services/cart_service.py  stmts 112/123 (91.1%)  branches 26/30 (86.7%)
+  app/services/catalog_service.py  stmts 45/45 (100.0%)  branches 14/14 (100.0%)
+  app/services/checkout_service.py  stmts 117/123 (95.1%)  branches 46/48 (95.8%)
+  app/services/coupon_service.py  stmts 7/7 (100.0%)  branches 0/0 (n/a)
+  app/services/order_service.py  stmts 101/103 (98.1%)  branches 32/34 (94.1%)
+  app/services/pricing_service.py  stmts 30/32 (93.8%)  branches 13/16 (81.2%)
+  app/services/review_service.py  stmts 24/24 (100.0%)  branches 4/4 (100.0%)
+  app/services/wishlist_service.py  stmts 30/30 (100.0%)  branches 6/6 (100.0%)
