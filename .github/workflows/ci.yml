@@ -7,6 +7,7 @@ on:
 
 jobs:
   backend:
+    name: Backend (smoke, unit tests with coverage)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,6 +18,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: 00_Application/backend/requirements.txt
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -27,8 +30,17 @@ jobs:
       - name: Seed the database
         run: python -m app.seed
 
-      - name: Run smoke test
-        run: pytest
+      - name: Unit tests with statement and branch coverage
+        run: pytest --cov=app --cov-branch --cov-report=term-missing --cov-report=html:coverage_html --cov-report=xml
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            00_Application/backend/coverage_html
+            00_Application/backend/coverage.xml
 
       - name: Start API and health-check
         run: |
@@ -40,7 +52,57 @@ jobs:
           echo "API did not become healthy in time" >&2
           exit 1
 
+  api-tests:
+    name: API tests (Newman)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: 00_Application/backend/requirements.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install backend and Newman
+        run: |
+          pip install -r 00_Application/backend/requirements.txt
+          npm install -g newman newman-reporter-htmlextra
+
+      - name: Start the backend in test mode
+        working-directory: 00_Application/backend
+        run: |
+          alembic upgrade head
+          APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8000/api/health; then exit 0; fi
+            sleep 1
+          done
+          echo "API did not become healthy in time" >&2
+          exit 1
+
+      - name: Run the Postman collection (about 6 minutes, the login rate limit is paced on purpose)
+        working-directory: 09_API_Testing
+        run: |
+          mkdir -p ci_reports
+          newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json \
+            -r cli,json,htmlextra \
+            --reporter-json-export ci_reports/newman_report.json \
+            --reporter-htmlextra-export ci_reports/newman_report.html
+
+      - name: Upload Newman reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-reports
+          path: 09_API_Testing/ci_reports
+
   frontend:
+    name: Frontend build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -59,3 +121,56 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  selenium:
+    name: Selenium UI suite (headless, production build)
+    runs-on: ubuntu-latest
+    # Not yet confirmed stable on GitHub-hosted runners (the suite takes about 35 minutes locally),
+    # so a failure here is reported but does not fail the workflow.
+    continue-on-error: true
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: 00_Application/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          pip install -r 00_Application/backend/requirements.txt -r 05_Test_Automation/requirements.txt
+          npm ci --prefix 00_Application/frontend
+
+      - name: Build the frontend (production build avoids on-demand compilation timeouts)
+        run: npm run build --prefix 00_Application/frontend
+
+      - name: Start backend (test mode) and frontend
+        run: |
+          (cd 00_Application/backend && alembic upgrade head \
+            && APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000 &)
+          (cd 00_Application/frontend && npm start &)
+          for i in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:8000/api/health && curl -sf http://127.0.0.1:3000 >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          echo "Stack did not start in time" >&2
+          exit 1
+
+      - name: Run the Selenium suite
+        working-directory: 05_Test_Automation
+        run: pytest --html=report.html --self-contained-html --junitxml=junit.xml
+
+      - name: Upload Selenium reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-reports
+          path: |
+            05_Test_Automation/report.html
+            05_Test_Automation/junit.xml
