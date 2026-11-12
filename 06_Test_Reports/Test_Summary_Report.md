@@ -1,102 +1,84 @@
-# Test Summary Report — FreshCart
+# Test Summary Report - FreshCart
 
-**Report date:** 2026-11-09
-**Scope:** All 42 business rules (R1.1–R9.3) across modules M1–M9, per
+**Report date:** 2026-11-14
+**Scope:** All 42 business rules (R1.1-R9.3) across modules M1-M9, per
 [`../00_Application/docs/REQUIREMENTS.md`](../00_Application/docs/REQUIREMENTS.md)
-**References:** [`../01_Test_Plan/Test_Plan.md`](../01_Test_Plan/Test_Plan.md) ·
-[`../02_Test_Case_Design/Test_Cases.csv`](../02_Test_Case_Design/Test_Cases.csv) ·
-[`../03_Test_Execution/Execution_Log.md`](../03_Test_Execution/Execution_Log.md)
+**References:** [Test Plan](../01_Test_Plan/Test_Plan.md) |
+[Requirements Analysis](../01_Test_Plan/Requirements_Analysis.md) |
+[Test cases](../02_Test_Case_Design/Test_Cases.csv) |
+[Execution Log](../03_Test_Execution/Execution_Log.md) |
+[Coverage Report](../08_White_Box_Testing/Coverage_Report.md) |
+[API results](../09_API_Testing/API_Test_Results.md)
 
 ## Headline numbers
 
 | Metric | Value |
 |---|---|
-| Business rules covered by the test design | 42 / 42 (100%) |
-| Total test cases designed | 95 |
-| Automated (Selenium + pytest) | 86 |
-| Manual/exploratory (by design — see below) | 9 |
-| Automated cases executed | 86 / 86 (100%) |
-| Executed cases passed | 80 / 86 (93%) |
-| Executed cases failed | 6 / 86 — all isolated to a Selenium-tooling issue, not an app defect (see below) |
-| Automated cases not yet executed | 0 |
-| Open application defects | **0** |
-| Defects found and fixed during development (historical, pre-dating this automated run) | 2 (both closed) |
+| Business rules covered by the test design | 42 / 42 |
+| Test cases designed | 116 (86 Selenium, 22 API, 8 unit, 0 manual) |
+| Selenium suite | 86 executed, 86 passed |
+| API suite (Newman) | 245 requests, 475 assertions, 0 failed |
+| Unit tests (pytest) | 136 executed, 136 passed |
+| Defects found in this verification | 6 (DEF-003 to DEF-008), all fixed and re-tested |
+| Defects from development | 2 (DEF-001, DEF-002), fixed |
+| Open defects | 0 |
 
-## Rule coverage
-
-Full module-by-module rule → test case mapping:
-[`../02_Test_Case_Design/Traceability_Matrix.md`](../02_Test_Case_Design/Traceability_Matrix.md).
-Every rule has at least one test case; most have 2–4 covering positive, negative, and
-boundary conditions (e.g. password length 7/8/20/21, the 5th consecutive failed login, the
-6th order into a full delivery slot).
+Coverage figures (statement and branch, unit tests and API suite) are in the
+[Coverage Report](../08_White_Box_Testing/Coverage_Report.md); they are not repeated here so there is one source.
 
 ## Results by module
 
-| Module | Rules | Test cases (auto / manual) | Executed | Result |
-|---|---|---|---|---|
-| M1 — Registration & login | 8 | 17 / 2 | 17/17 | ✅ All pass |
-| M2 — Catalog | 4 | 7 / 0 | 7/7 | ✅ All pass |
-| M3 — Cart | 5 | 8 / 1 | 8/8 | ✅ All pass |
-| M4 — Coupons & pricing | 4 | 10 / 2 | 10/10 | ✅ All pass |
-| M5 — Checkout | 5 | 13 / 2 | 13/13 | ⚠️ 9 pass, 4 blocked by a Selenium-tooling issue (app verified correct independently — see below) |
-| M6 — Order lifecycle | 7 | 12 / 1 | 12/12 | ✅ All pass |
-| M7 — Reviews | 1 | 3 / 1 | 3/3 | ✅ All pass |
-| M8 — Admin | 5 | 10 / 0 | 10/10 | ⚠️ 9 pass, 1 blocked by the same Selenium-tooling issue (app verified correct independently — see below) |
-| M9 — Wishlist/banners/offers | 3 | 6 / 0 | 6/6 | ⚠️ 5 pass, 1 blocked by the same Selenium-tooling issue (app verified correct independently — see below) |
+Cases per module by automation level (`Y` Selenium, `A` API, `U` unit). All cases passed in the final runs.
 
-## The 6 Selenium failures: a tooling issue, not an application defect
+| Module | Rules | Selenium | API | Unit | Total |
+|---|---|---|---|---|---|
+| M1 Registration and login | 8 | 17 | 7 | 2 | 26 |
+| M2 Catalog | 4 | 7 | 0 | 0 | 7 |
+| M3 Cart | 5 | 8 | 4 | 0 | 12 |
+| M4 Coupons and pricing | 4 | 10 | 1 | 5 | 16 |
+| M5 Checkout | 5 | 13 | 4 | 1 | 18 |
+| M6 Order lifecycle | 7 | 12 | 5 | 0 | 17 |
+| M7 Reviews | 1 | 3 | 1 | 0 | 4 |
+| M8 Admin | 5 | 10 | 0 | 0 | 10 |
+| M9 Wishlist, banners, offers | 3 | 6 | 0 | 0 | 6 |
+| **Total** | 42 | 86 | 22 | 8 | 116 |
 
-Six automated cases fail in Selenium with a `TimeoutException` waiting for a page (or a
-specific element on it) to render after login + navigation:
-
-- M5: `test_checkout_serviceable_pincode_succeeds`, `test_checkout_non_serviceable_pincode_rejected`,
-  `test_card_valid_luhn_succeeds`, `test_declined_test_card_rejected` — timing out on `/checkout`.
-- M8: `test_admin_locks_and_unlocks_user` — timing out on `/admin/users`.
-- M9: `test_add_product_to_wishlist` — timing out on the wishlist grid after a catalog
-  wishlist-toggle.
-
-For every one of these six, the identical flow (API login → inject token → navigate →
-act) was driven with a second, independent browser-automation tool (Playwright), 5 times each
-(20 runs total): every single run rendered correctly, in under 2.5 seconds, with zero browser
-console errors. This rules out an application defect and points at the Selenium/chromedriver
-setup on the specific development machine used for this run (see the Execution Log for the
-per-module detail and the diagnostic scripts) — none of the six is logged as a defect against
-FreshCart.
-
-## M6–M9 follow-up run
-
-The M6–M9 batch (31 automated cases) was deferred from the initial run because the host
-machine's available memory dropped low enough that the test harness stopped a background
-process twice to protect the system. Per the project owner's decision, that run was closed out
-with what had been cleanly verified, and M6–M9 were documented as a known gap for a follow-up
-run. That follow-up has since been completed on the same machine with more headroom: all 31
-cases executed, with results folded into the table above (12/12, 3/3, 9/10, 5/6 respectively).
-The 2 failures within that batch (M8, M9) are part of the 6 tooling-related failures described
-above, each independently verified as app-correct via Playwright.
+M2, M8 and M9 API behaviour is also covered by the Newman requests that carry `API-*` IDs (not counted above because
+they are not separate designed cases); see [`API_Test_Results.md`](../09_API_Testing/API_Test_Results.md).
 
 ## Defects
 
-| ID | Title | Severity | Status |
-|---|---|---|---|
-| [DEF-001](../04_Defect_Reports/DEF-001_cart_stale_after_add.md) | Cart shows stale (empty) items immediately after the first add-to-cart call | High | Fixed |
-| [DEF-002](../04_Defect_Reports/DEF-002_admin_orders_list_crash.md) | `GET /admin/orders` crashes with a 500 once any order exists | Critical | Fixed |
+| ID | Title | Severity | Found by | Status |
+|---|---|---|---|---|
+| [DEF-001](../04_Defect_Reports/DEF-001_cart_stale_after_add.md) | Cart shows stale items after the first add | High | Development | Fixed |
+| [DEF-002](../04_Defect_Reports/DEF-002_admin_orders_list_crash.md) | `GET /admin/orders` 500 once an order exists | Critical | Development | Fixed |
+| [DEF-003](../04_Defect_Reports/DEF-003_test_mode_tokens_expire_vs_real_clock.md) | Test-mode tokens expire against the real clock | High | Selenium re-run | Fixed |
+| [DEF-004](../04_Defect_Reports/DEF-004_checkout_slots_endpoint_unauthenticated.md) | `GET /checkout/slots` needs no token | Low | Newman | Fixed |
+| [DEF-005](../04_Defect_Reports/DEF-005_validation_regex_accepts_trailing_newline.md) | Regexes accept a trailing newline and non-ASCII digits | Low | Code reading, API | Fixed |
+| [DEF-006](../04_Defect_Reports/DEF-006_wishlist_heart_redirects_before_auth_resolves.md) | Heart click before session restore redirects to /login | Low | Code reading | Fixed |
+| [DEF-007](../04_Defect_Reports/DEF-007_catalog_search_applies_stale_responses.md) | Search shows a stale response | Medium | Selenium + diagnostic | Fixed |
+| [DEF-008](../04_Defect_Reports/DEF-008_session_cleared_on_any_auth_me_error.md) | Any `/auth/me` error clears the session | Medium | Selenium + diagnostic | Fixed |
 
-Both were found and fixed during the application's original development, before the automated
-suite existed. **No new application defects were found across either run of the automated
-suite (80/86 cases passed cleanly; the remaining 6 are a documented tooling issue, not app
-behavior).**
+## Observations that are not defects
 
-## Exit criteria assessment (per the Test Plan, §7)
+- `complete_delivery` re-checks `otp_blocked` after setting it; one of its 7 basis paths is infeasible
+  (see [`Basis_Path_Testing.md`](../08_White_Box_Testing/Basis_Path_Testing.md)).
+- Quantity above 10 returns 422 for a new line and 400 on a re-add; `REQUIREMENTS.md` lists 400 for both
+  (see [`Requirements_Analysis.md`](../01_Test_Plan/Requirements_Analysis.md)).
+- The admin cancel endpoint (`POST /admin/orders/{id}/cancel`) is covered by a unit test only, not by the API suite.
 
-| Criterion | Met? |
+## Limitations
+
+- WebSocket live updates (R6.7) are not automated; they are shown in `07_Screenshots/08_*` and in the demo.
+- One browser (Chrome), one machine, SQLite only (the Docker/PostgreSQL stack was not tested in this run).
+- The GitHub Actions workflow was extended but has not run yet (nothing was pushed); the Selenium job is marked
+  non-blocking until it has passed on a hosted runner.
+- No performance, security or mutation testing.
+
+## Exit criteria (Test Plan section 7)
+
+| Criterion | Met |
 |---|---|
-| All automated test cases executed | ✅ 86/86 (100%) |
-| Every failure has a defect entry or documented rationale | ✅ All 6 failures traced to a Selenium-tooling issue with independent Playwright verification; no defect warranted |
-| No open Critical/High defects | ✅ Zero open defects |
-
-**Overall assessment:** all 42 business rules have automated or manual test coverage, and all
-86 automated cases have been executed. 80/86 (93%) pass cleanly; the other 6 are a single,
-well-isolated Selenium/chromedriver environment issue on this development machine — confirmed
-not to be an application defect via 20 independent Playwright verification runs across the 6
-affected scenarios, with zero failures or console errors in any of them. Zero open application
-defects. The project **meets its exit criteria.**
+| All automated test cases executed | Yes: 86 + 245 requests + 136 unit tests |
+| Every failure has a defect entry or documented rationale | Yes: DEF-003 to DEF-008 |
+| No open Critical or High defects | Yes: none open |
