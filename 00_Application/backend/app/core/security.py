@@ -33,7 +33,16 @@ def create_access_token(user_id: int, role: str, now: datetime) -> tuple[str, st
 
 
 def decode_access_token(token: str) -> dict:
+    """Expiry is checked against the same injected clock that issued the token (FIXED_NOW in
+    test mode, wall clock otherwise). jose's built-in exp check uses the real clock, which
+    rejected every token once real time passed FIXED_NOW + 30 min (DEF-003)."""
     try:
-        return jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
+        payload = jwt.decode(
+            token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM], options={"verify_exp": False}
+        )
     except JWTError as exc:
         raise ValueError("Invalid or expired token.") from exc
+    now = settings.fixed_now or datetime.now(timezone.utc).replace(tzinfo=None)
+    if int(payload.get("exp", 0)) <= int(now.replace(tzinfo=timezone.utc).timestamp()):
+        raise ValueError("Invalid or expired token.")
+    return payload
