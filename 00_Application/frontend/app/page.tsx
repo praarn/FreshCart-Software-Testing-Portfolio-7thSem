@@ -24,7 +24,7 @@ export default function CatalogPage() {
 }
 
 function CatalogPageContent() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -292,7 +292,7 @@ function CatalogPageContent() {
                 id={`wishlist-toggle-${p.id}`}
                 data-testid={`wishlist-toggle-${p.id}`}
                 onClick={() => toggleWishlist(p.id)}
-                disabled={wishlistBusyId === p.id}
+                disabled={wishlistBusyId === p.id || authLoading}
                 aria-label="Toggle wishlist"
                 className={`absolute right-3 top-3 ${wishlistIds.has(p.id) ? "text-red-500" : "text-gray-300 hover:text-gray-400"}`}
               >
