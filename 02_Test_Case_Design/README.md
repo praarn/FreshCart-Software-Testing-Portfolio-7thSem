@@ -7,8 +7,14 @@ exercise it.
 
 | File | Description |
 |---|---|
-| [`Test_Cases.csv`](Test_Cases.csv) | 95 test case specifications. Open in Excel, Google Sheets or any CSV viewer |
-| [`Traceability_Matrix.md`](Traceability_Matrix.md) | Maps each rule ID (R1.1–R9.3) to its test case IDs, grouped by module |
+| [`Test_Cases.csv`](Test_Cases.csv) | Test case specifications (source of truth) |
+| [`Functional_Test_Cases.xlsx`](Functional_Test_Cases.xlsx) | The same cases as a formatted workbook (frozen header, filters) plus a Summary sheet |
+| [`Traceability_Matrix.md`](Traceability_Matrix.md) | Each rule ID (R1.1-R9.3) mapped to its test case IDs |
+| [`Equivalence_Partitioning.md`](Equivalence_Partitioning.md) | Valid/invalid classes for name, email, password, phone, pincode, payment |
+| [`Boundary_Value_Analysis.md`](Boundary_Value_Analysis.md) | Boundaries for 18 numeric/length rules |
+| [`Decision_Table.md`](Decision_Table.md) | Coupon eligibility and payment validity |
+| [`State_Transition.md`](State_Transition.md) | Order lifecycle and account lockout state machines |
+| `generate_artifacts.py` | Regenerates the matrix and the workbook from the CSV |
 
 ## Test case columns
 
@@ -20,12 +26,14 @@ and pricing module.
 
 ## By the numbers
 
-| Cut | Breakdown |
+Counts come from `python generate_artifacts.py` and the `Summary` sheet of the workbook.
+
+| Cut | Meaning |
 |---|---|
-| Total | 95 cases covering all 42 business rules |
-| Automation | 86 automated (`Y`), 9 manual/exploratory (`N`) |
-| Priority | Critical 7, High 49, Medium 35, Low 4 |
-| Type | Positive 44, Negative 26, Negative/Boundary 19, Boundary 3, Positive/Boundary 2, Positive/Negative 1 |
+| `Automated = Y` | Selenium test in `05_Test_Automation` |
+| `Automated = A` | API request in `09_API_Testing` (Newman) |
+| `Automated = U` | Unit test in `00_Application/backend/tests/unit` |
+| `Automated = N` | Manual or scripted by hand; result in `03_Test_Execution` |
 
 ## Modules
 
@@ -43,16 +51,18 @@ and pricing module.
 
 ## Techniques used
 
-- **Boundary value analysis**: password length 7/8/20/21, quantity 0/1/10/11, the 5th failed
-  login, the 6th order into a full delivery slot.
-- **Equivalence partitioning**: valid and invalid email formats, serviceable and
-  non-serviceable pincodes.
-- **Negative and role cases**: every documented error response, plus 401 vs 403 checks.
+| Technique | Document | Cases |
+|---|---|---|
+| Equivalence partitioning | `Equivalence_Partitioning.md` | 29 classes, 25 mapped to a case |
+| Boundary value analysis | `Boundary_Value_Analysis.md` | min-1/min/max/max+1 for 18 rules |
+| Decision table | `Decision_Table.md` | 7 coupon rules, 8 payment rules |
+| State transition | `State_Transition.md` | 7 valid + 8 invalid order transitions, 5 lockout transitions |
+| Negative and role cases | this CSV | every documented error response, 401 vs 403 |
 
 ## Maintaining it
 
-The traceability matrix is generated from the CSV. If you add or change a case, regenerate the
-matrix instead of editing it by hand.
+The matrix and workbook are generated from the CSV. After adding or changing a case run
+`python generate_artifacts.py` instead of editing them by hand.
 
 ## Related
 

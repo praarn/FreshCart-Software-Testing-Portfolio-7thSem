@@ -19,6 +19,9 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 ### 2.1 In scope
 
+- White-box testing of the backend business logic (unit tests, control flow graphs, basis paths,
+  statement/branch/condition coverage): `08_White_Box_Testing/`.
+- API testing of every endpoint group with Postman/Newman: `09_API_Testing/`.
 - All 42 business rules R1.1–R9.3 across modules M1–M9 (auth, catalog, cart, coupons,
   checkout, order lifecycle, reviews, admin, wishlist/banners/offers).
 - REST API contract: status codes, the `{status, error, message, field_errors}` error shape,
@@ -30,7 +33,7 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 ### 2.2 Out of scope
 
-- Load/performance/security penetration testing (functional correctness only).
+- Load/performance/security penetration testing (functional correctness only). Mutation testing is not run (see `08_White_Box_Testing/README.md`).
 - Payment gateway integration (checkout payment is explicitly mocked — no real gateway).
 - SMS/email delivery (the app has none — OTP is shown in-app, not sent externally).
 - Visual/pixel-level design regression testing (manual visual sanity only).
@@ -48,14 +51,15 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 | Level | Method | Where |
 |---|---|---|
-| API-level functional | Automated (Selenium drives the UI, which exercises the API; targeted API checks via curl where noted) | `05_Test_Automation`, `03_Test_Execution` |
+| White-box / unit | pytest + pytest-cov on `app/services` and `app/core`, isolated in-memory SQLite, branch coverage | `00_Application/backend/tests/unit`, `08_White_Box_Testing` |
+| API-level functional | Postman collection run headless with Newman against the test-mode backend | `09_API_Testing` |
 | UI functional / end-to-end | Automated, Selenium + pytest, Page Object Model | `05_Test_Automation` |
 | Exploratory / manual | Manual pass for flows not automated (e.g. visual banner carousel, mobile layout) | `03_Test_Execution` |
 
-Test cases are designed in `02_Test_Case_Design` using boundary value analysis (e.g. password
-length 7/8/20/21, quantity 0/1/10/11) and equivalence partitioning (valid/invalid email
-formats, serviceable/non-serviceable pincodes), plus explicit negative cases for every
-documented error response. Each test case traces to one or more rule IDs.
+Test cases are designed in `02_Test_Case_Design` with equivalence partitioning, boundary value
+analysis, decision tables and state transition testing (one document each), plus explicit
+negative cases for every documented error response. Each test case traces to one or more rule
+IDs. Requirements were analysed first: [`Requirements_Analysis.md`](Requirements_Analysis.md).
 
 ## 5. Test environment
 
@@ -113,13 +117,16 @@ documented error response. Each test case traces to one or more rule IDs.
 
 | Folder | Content |
 |---|---|
-| `01_Test_Plan` | This document |
+| `01_Test_Plan` | This document and `Requirements_Analysis.md` |
 | `02_Test_Case_Design` | Test case specifications + requirements traceability matrix |
 | `03_Test_Execution` | Execution log: actual results of running the cases below |
 | `04_Defect_Reports` | Any defect found during execution |
 | `05_Test_Automation` | The Selenium/pytest automation suite |
 | `06_Test_Reports` | Summary report: pass/fail counts, coverage, defect summary |
 | `07_Screenshots` | Evidence captured during execution |
+| `08_White_Box_Testing` | CFGs, basis path testing, coverage report |
+| `09_API_Testing` | Postman collection, Newman reports, API results |
+| `10_Demo` | Demo script, viva Q&A, pre-demo checklist |
 
 ## 11. Schedule
 
@@ -132,7 +139,10 @@ A single-pass university project schedule (not a multi-sprint plan):
 
 ## 12. Roles
 
-| Role | Responsibility |
-|---|---|
-| Tester | Design test cases, build/run automation, log defects and results |
-| Developer (same individual, separate hat) | Fix defects found during execution |
+| Role | Responsibility | Member |
+|---|---|---|
+| Test Analyst | Requirements analysis, test plan, test design techniques, traceability | TODO: name / roll number |
+| Test Engineer | Test execution, defect reports, white-box and unit tests, test reports | TODO: name / roll number |
+| Automation and QA Engineer | Selenium suite, Postman/Newman suite, CI, final report | TODO: name / roll number |
+
+Role-to-member assignment is to be filled in by the team; see `../Team_Learning_Reflection.md`.
