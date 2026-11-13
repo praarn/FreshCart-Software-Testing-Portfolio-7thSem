@@ -6,9 +6,9 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 from app.models.enums import OrderStatus, PaymentMethod, ProductUnit
 
-PINCODE_RE = re.compile(r"^\d{6}$")
-UPI_RE = re.compile(r"^[\w.\-]+@[\w]+$")
-CARD_EXPIRY_RE = re.compile(r"^(0[1-9]|1[0-2])/\d{2}$")
+PINCODE_RE = re.compile(r"^\d{6}\Z", re.ASCII)
+UPI_RE = re.compile(r"^[\w.\-]+@[\w]+\Z", re.ASCII)
+CARD_EXPIRY_RE = re.compile(r"^(0[1-9]|1[0-2])/\d{2}\Z", re.ASCII)
 
 
 class AddressIn(BaseModel):
@@ -45,11 +45,11 @@ class PaymentIn(BaseModel):
             if not self.upi_id or not UPI_RE.match(self.upi_id):
                 raise ValueError("A valid UPI id (name@bank) is required for UPI payment.")
         elif self.method == PaymentMethod.CARD:
-            if not self.card_number or not re.match(r"^\d{16}$", self.card_number):
+            if not self.card_number or not re.match(r"^\d{16}\Z", self.card_number, re.ASCII):
                 raise ValueError("Card number must be exactly 16 digits.")
             if not self.card_expiry or not CARD_EXPIRY_RE.match(self.card_expiry):
                 raise ValueError("Card expiry must be in MM/YY format.")
-            if not self.cvv or not re.match(r"^\d{3}$", self.cvv):
+            if not self.cvv or not re.match(r"^\d{3}\Z", self.cvv, re.ASCII):
                 raise ValueError("CVV must be exactly 3 digits.")
         return self
 
