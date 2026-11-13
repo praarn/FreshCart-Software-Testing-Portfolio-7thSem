@@ -30,6 +30,16 @@ class CatalogPage(BasePage):
         self.click(f"wishlist-toggle-{product_id}")
         return self
 
+    def wait_wishlisted(self, product_id: int, timeout: int = 10):
+        """Block until the heart has filled, i.e. POST /wishlist/items has completed. Navigating away
+        earlier can abort the request (see diagnostics/diag_wishlist_race.py)."""
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        WebDriverWait(self.driver, timeout).until(
+            lambda d: "text-red-500" in self.find(f"wishlist-toggle-{product_id}").get_attribute("class")
+        )
+        return self
+
     def is_out_of_stock(self, product_id: int) -> bool:
         return self.exists(f"product-out-of-stock-{product_id}")
 

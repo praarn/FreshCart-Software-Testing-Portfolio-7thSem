@@ -1,10 +1,10 @@
 # 05 — Test Automation
 
-A Selenium + pytest suite (Page Object Model) automating 86 of the 95 test cases in
+A Selenium + pytest suite (Page Object Model) automating 86 of the 116 test cases in
 [`../02_Test_Case_Design/Test_Cases.csv`](../02_Test_Case_Design/Test_Cases.csv), covering
-every module M1–M9. The remaining 9 are manual/exploratory (rate limiting, cross-session
-timing, a rounding edge case, etc. — see the CSV's `Automated` column and
-[`../02_Test_Case_Design/Traceability_Matrix.md`](../02_Test_Case_Design/Traceability_Matrix.md)).
+every module M1–M9. The other 30 are covered at the API level (`A`, Newman) or unit level (`U`, pytest); see the CSV's
+`Automated` column and
+[`../02_Test_Case_Design/Traceability_Matrix.md`](../02_Test_Case_Design/Traceability_Matrix.md).
 
 ## At a glance
 
@@ -13,7 +13,7 @@ timing, a rounding edge case, etc. — see the CSV's `Automated` column and
 | Stack | Selenium 4.27, pytest 8.3, requests, pytest-html |
 | Pattern | Page Object Model; locators use the frontend's `data-testid` attributes |
 | Tests | 86 automated cases across 9 files, one per business module |
-| Latest result | 80 passed, 6 failed (Selenium/chromedriver timeouts, not app defects) |
+| Latest result | 86 passed, 0 failed (34 min 16 s, production build) - [`selenium_report.html`](../03_Test_Execution/selenium_report.html) |
 
 | Test file | Module | Tests |
 |---|---|---|
@@ -33,12 +33,14 @@ Page objects in `pages/`: `base_page`, `auth_pages`, `catalog_pages`, `cart_chec
 ## Structure
 
 ```
-conftest.py     Session/test fixtures: server health check, the shared Chrome driver,
+conftest.py     Session/test fixtures: server health check, a function-scoped headless Chrome driver,
                 an autouse per-test DB reset + browser-state clear, and login_as() (a
                 fast, UI-free login helper used as setup for tests that aren't about login)
 pages/          Page Object Model, one module per functional area, keyed on the
                 frontend's data-testid attributes
 tests/          One file per business module (test_m1_auth.py ... test_m9_*.py)
+diagnostics/    Scripts that reproduce and measure the failures described in the Execution Log
+tools/          make_results_table.py: JUnit XML -> ../03_Test_Execution/Selenium_Results.md
 utils/
   config.py     Base URLs, seed account credentials
   api_client.py Thin requests wrapper for fast fixture setup and backend-truth assertions
@@ -69,12 +71,16 @@ Then, from this folder:
 ```bash
 pytest
 # or, with an HTML report:
-pytest --html=report.html --self-contained-html
+pytest --html=report.html --self-contained-html   # report.html is git-ignored here; the committed copy is 03_Test_Execution/selenium_report.html
 ```
 
-A real Chrome window opens and drives the app (set `options.add_argument("--headless=new")`
-in `conftest.py`'s `driver` fixture to run headless, e.g. in CI). Chrome's driver is
-auto-resolved by Selenium Manager (built into Selenium 4.6+) — no manual driver download.
+Chrome runs headless (`--headless=new`, set in `conftest.py`'s `driver` fixture); remove that
+option to watch it. Chrome's driver is auto-resolved by Selenium Manager (built into
+Selenium 4.6+), so no manual driver download is needed.
+
+**Use a production build of the frontend** (`npm run build && npm start`). Against `npm run dev`
+each route is compiled on first use and pages take 12-15 s to become ready under load, which
+sits close to the 20 s wait and produced intermittent timeouts (see the Execution Log).
 
 Every test runs against a database freshly reset to the seeded baseline (`conftest.py`'s
 `reset_state` fixture calls `POST /api/test/reset` before each test), so tests are
@@ -86,8 +92,9 @@ independent of each other and of execution order.
   cart with Y in it" go through `utils/api_client.py` directly — faster and more reliable
   than re-driving the UI for pure setup. The actual assertions for each test case exercise
   the UI element(s) the rule is about.
-- **One shared browser per run**, not one per test — `driver` is a session-scoped fixture.
-  Each test still starts from a clean app/browser state via the autouse `reset_state` fixture.
+- **One fresh browser per test** — `driver` is function-scoped. A single long-lived session
+  became unstable partway through a full run and cascaded failures into later tests. Each test
+  also starts from a clean app/browser state via the autouse `reset_state` fixture.
 - **No fixed sleeps.** All waits are explicit (`WebDriverWait` on a `data-testid`) except a
   couple of short settle delays after a non-reactive admin table refresh, called out inline.
 
@@ -99,14 +106,16 @@ pytest -k "TC_M4_007 or wishlist"          # by name
 pytest -x                                  # stop at the first failure
 ```
 
-## Known failures
+## Flakiness and its causes
 
-Six tests fail with a `TimeoutException` in the Selenium setup used for the recorded run:
-four in `test_m5_checkout.py` (the `/checkout` page), one in `test_m8_admin.py` (the
-`/admin/users` page) and one in `test_m9_wishlist_banners_offers.py` (the wishlist grid). The
-same flows pass when driven with Playwright, so they are tracked as a tooling issue. See the
-[Execution Log](../03_Test_Execution/Execution_Log.md) and
-[Test Summary Report](../06_Test_Reports/Test_Summary_Report.md).
+The suite had intermittent timeouts. Investigation found real causes, listed in the
+[Execution Log](../03_Test_Execution/Execution_Log.md): DEF-003 (test-mode token expiry), DEF-007 (stale search
+response), DEF-008 (session cleared when `/auth/me` is aborted) and, for the wishlist, DEF-006. Scripts that reproduce
+them are in [`diagnostics/`](diagnostics/). The remaining rules for stable runs:
+
+- run against the production build (`npm run build && npm start`), not `npm run dev`;
+- after `login_as()`, wait for something on the page before navigating again;
+- wait for asynchronously loaded `<select>` options (`BasePage.select_by_value` does this).
 
 ## Prerequisites
 

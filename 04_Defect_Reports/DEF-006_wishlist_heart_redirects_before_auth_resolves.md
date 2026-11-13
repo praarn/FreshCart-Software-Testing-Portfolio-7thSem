@@ -2,8 +2,9 @@
 **Title:** Clicking a wishlist heart before the session is restored redirects a logged-in user to /login
 **Reported by:** QA (Selenium re-run, `test_add_product_to_wishlist`)
 **Date found:** 2026-11-14
-**Found via:** The test failed intermittently (1 of 86 in the production-build run, passing when run alone). The
-cause was isolated by waiting for the logged-in navbar before clicking.
+**Found via:** Code reading while investigating the intermittent failure of `test_add_product_to_wishlist`. The
+failure itself was later traced mainly to DEF-008; this race is a separate defect in the same page and was not
+independently reproduced (see Notes).
 **Module:** M9 Wishlist (frontend, catalog page)
 **Rule ID(s) affected:** R9.1
 **Severity:** Low (window of a few hundred milliseconds after page load)
@@ -28,8 +29,9 @@ The item is added (or the click is ignored until the session is known).
 
 ## Actual result
 
-Redirect to `/login`; nothing added. In the Selenium test the heart never filled (`TimeoutException` on
-`wait_wishlisted`), and before the test was changed the missing item produced a timeout on `wishlist-grid`.
+By code inspection: redirect to `/login`, nothing added. Not captured as a failing run on its own: in
+`diagnostics/diag_wishlist_race.py` the item was saved in 7 of 8 iterations without waiting and 8 of 8 when
+waiting for the heart to fill, but that script cannot tell this race from DEF-008.
 
 ## Root cause
 
@@ -40,6 +42,11 @@ Redirect to `/login`; nothing added. In the Selenium test the heart never filled
 Read `loading` as `authLoading` and add it to the button's `disabled` condition. The test now waits for the
 logged-in navbar (`nav-logout-button`) before clicking, and for the heart to fill before navigating away.
 
+## Notes
+
+Severity and priority are low because the window is a few hundred milliseconds and the effect is a redirect, not data
+loss. The fix is defensive and verified only by the full suite passing.
+
 ## Status
 
-Fixed (verified by the full Selenium run recorded in `03_Test_Execution/`).
+Fixed (not independently reproduced before the fix).
