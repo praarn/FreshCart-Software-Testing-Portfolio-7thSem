@@ -1,0 +1,64 @@
+Name                               Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------------
+app\__init__.py                        0      0      0      0   100%
+app\config.py                         27      1      2      1    93%   26
+app\core\__init__.py                   0      0      0      0   100%
+app\core\errors.py                    50      3      2      0    94%   53, 92-93
+app\core\rate_limit.py                22      1      2      0    96%   18
+app\core\security.py                  26      1      2      1    93%   47
+app\core\ws_manager.py                17      7      4      1    52%   12, 15-16, 20-23
+app\database.py                       15      0      2      1    94%   10->14
+app\deps.py                           47      5     10      2    88%   44, 48-51
+app\main.py                           24      0      2      1    96%   39->exit
+app\models\__init__.py                11      0      0      0   100%
+app\models\banner.py                  14      0      0      0   100%
+app\models\base.py                     6      0      0      0   100%
+app\models\cart.py                    19      0      0      0   100%
+app\models\catalog.py                 21      0      0      0   100%
+app\models\coupon.py                  17      0      0      0   100%
+app\models\enums.py                   29      0      0      0   100%
+app\models\order.py                   54      0      0      0   100%
+app\models\review.py                  16      0      0      0   100%
+app\models\token_denylist.py           9      0      0      0   100%
+app\models\user.py                    20      0      0      0   100%
+app\models\wishlist.py                12      0      0      0   100%
+app\routers\__init__.py                0      0      0      0   100%
+app\routers\admin.py                  86      2      0      0    98%   58-59
+app\routers\auth.py                   33      2      0      0    94%   50-51
+app\routers\banners.py                 8      0      0      0   100%
+app\routers\cart.py                   29      0      0      0   100%
+app\routers\catalog.py                23      0      0      0   100%
+app\routers\checkout.py               14      0      0      0   100%
+app\routers\delivery.py               19      0      0      0   100%
+app\routers\health.py                  5      0      0      0   100%
+app\routers\orders.py                 19      0      0      0   100%
+app\routers\reviews.py                15      0      0      0   100%
+app\routers\test_utils.py             10      0      0      0   100%
+app\routers\wishlist.py               18      0      0      0   100%
+app\routers\ws.py                     40     29      6      0    24%   17-49
+app\schemas\__init__.py                0      0      0      0   100%
+app\schemas\admin.py                  23      0      0      0   100%
+app\schemas\banner.py                 21      0      0      0   100%
+app\schemas\cart.py                   27      0      0      0   100%
+app\schemas\catalog.py                41      0      0      0   100%
+app\schemas\common.py                 10     10      0      0     0%   1-22
+app\schemas\coupon.py                 29      0      0      0   100%
+app\schemas\order.py                  89      2     14      2    96%   51, 53
+app\schemas\review.py                 16      0      0      0   100%
+app\schemas\user.py                   53      0     10      0   100%
+app\schemas\wishlist.py                8      0      0      0   100%
+app\seed.py                           89      6     22      7    88%   105, 115, 134, 144, 154, 200->248, 253
+app\services\__init__.py               0      0      0      0   100%
+app\services\admin_service.py        109     11     30     10    83%   22, 38-40, 42->41, 53, 64, 80-81, 98, 122, 158->160, 161
+app\services\auth_service.py          48      3     12      1    93%   51-53
+app\services\banner_service.py        33      0      8      1    98%   39->38
+app\services\cart_service.py         123     11     30      4    90%   28-31, 70-74, 111, 129, 162
+app\services\catalog_service.py       45      0     14      0   100%
+app\services\checkout_service.py     123      6     48      2    95%   61, 142-146
+app\services\coupon_service.py         7      0      0      0   100%
+app\services\order_service.py        103      2     34      2    97%   132, 134
+app\services\pricing_service.py       32      2     16      3    90%   35, 41, 44->46
+app\services\review_service.py        24      0      4      0   100%
+app\services\wishlist_service.py      30      0      6      0   100%
+------------------------------------------------------------------------------
+TOTAL                               1858    104    280     39    93%
