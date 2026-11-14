@@ -71,8 +71,9 @@ they are not separate designed cases); see [`API_Test_Results.md`](../09_API_Tes
 
 - WebSocket live updates (R6.7) are not automated; they are shown in `07_Screenshots/08_*` and in the demo.
 - One browser (Chrome), one machine, SQLite only (the Docker/PostgreSQL stack was not tested in this run).
-- The GitHub Actions workflow was extended but has not run yet (nothing was pushed); the Selenium job is marked
-  non-blocking until it has passed on a hosted runner.
+- The GitHub Actions workflow passed on a hosted runner on 2026-11-14 (backend 136 passed, Newman 0 failed, frontend
+  build, Selenium 86 passed). The first hosted Selenium run failed with 49 HTTP 429 responses because the suite ran
+  faster than the login rate limit allows; `/test/reset` now clears the limiter (commit `e3638b8`).
 - No performance, security or mutation testing.
 
 ## Exit criteria (Test Plan section 7)

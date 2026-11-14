@@ -43,3 +43,9 @@ tests: `tests/unit/test_input_validation.py` (12 cases; 9 fail on the old code, 
 ## Status
 
 Fixed.
+
+## Verification evidence
+
+- Regression test: `tests/unit/test_input_validation.py` (12 cases, 9 failed on the old code).
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-005 evidence](../07_Screenshots/12_pytest_cov_unit_run.png)

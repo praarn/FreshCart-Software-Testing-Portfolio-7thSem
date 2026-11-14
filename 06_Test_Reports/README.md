@@ -6,6 +6,7 @@ The final rollup of the testing effort.
 
 | File | Description |
 |---|---|
+| [`Test_Summary_Report.pdf`](Test_Summary_Report.pdf) | The same report as a PDF, with the report screenshots appended |
 | [`Test_Summary_Report.md`](Test_Summary_Report.md) | Headline metrics, results by module, defects, observations, limitations, exit criteria |
 
 The overall conclusion and lessons learned are in [`../Conclusion.md`](../Conclusion.md).

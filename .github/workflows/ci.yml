@@ -125,9 +125,6 @@ jobs:
   selenium:
     name: Selenium UI suite (headless, production build)
     runs-on: ubuntu-latest
-    # Not yet confirmed stable on GitHub-hosted runners (the suite takes about 35 minutes locally),
-    # so a failure here is reported but does not fail the workflow.
-    continue-on-error: true
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4

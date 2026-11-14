@@ -1,5 +1,7 @@
 # Software Testing Portfolio - FreshCart
 
+[![CI](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions/workflows/ci.yml/badge.svg)](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions/workflows/ci.yml)
+
 Online portfolio for the Software Testing course. The application under test is **FreshCart**, an online grocery shopping
 and delivery system (FastAPI backend, Next.js frontend). Around it sits the testing work: plan, requirements analysis,
 black-box and white-box design, API and UI automation, execution results, defects, reports and a demo.
@@ -57,7 +59,30 @@ flowchart LR
 | API suite (Newman) | 245 requests, 475 assertions, 0 failed |
 | Unit tests | 136 passed; 65.2% statement and 38.2% branch coverage alone, 95.0% and 86.8% combined with the API suite |
 | Defects | 8 found (DEF-001 to DEF-008), 0 open |
-| CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium (non-blocking until verified on a runner) |
+| CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium; all four jobs green on a hosted runner (2026-11-14) |
+
+## Test evidence
+
+Every number above comes from a saved tool report, not from the Markdown. Open the report to check it.
+
+| Test type | Result | Open the report | Screenshot |
+|---|---|---|---|
+| Selenium UI (pytest) | 86 passed, 0 failed | [`selenium_report.html`](03_Test_Execution/selenium_report.html), [`selenium_junit.xml`](03_Test_Execution/selenium_junit.xml) | [`13`](07_Screenshots/13_pytest_html_report.png), [`11`](07_Screenshots/11_pytest_selenium_run.png) |
+| API (Newman) | 245 requests, 475 assertions, 0 failed | [`newman_report.html`](09_API_Testing/reports/newman_report.html), [`newman_report.json`](09_API_Testing/reports/newman_report.json) | [`16`](07_Screenshots/16_newman_html_report.png), [`15`](07_Screenshots/15_newman_cli_summary.png) |
+| Unit and coverage (pytest-cov) | 136 passed | [`coverage_html/index.html`](08_White_Box_Testing/coverage_html/index.html), [`Coverage_Report.md`](08_White_Box_Testing/Coverage_Report.md) | [`14`](07_Screenshots/14_coverage_html_report.png), [`12`](07_Screenshots/12_pytest_cov_unit_run.png) |
+| CI (GitHub Actions) | 4 of 4 jobs green | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
+| Defects | 8 found, 0 open | [`04_Defect_Reports/`](04_Defect_Reports/), each with its regression test and screenshot | |
+
+HTML reports show as source code on GitHub. Download the file and open it in a browser, or use the screenshots.
+
+![Selenium report: 86 passed](07_Screenshots/13_pytest_html_report.png)
+
+![Newman report: 0 failed](07_Screenshots/16_newman_html_report.png)
+
+![Coverage report](07_Screenshots/14_coverage_html_report.png)
+
+Printable summary: [`06_Test_Reports/Test_Summary_Report.pdf`](06_Test_Reports/Test_Summary_Report.pdf).
+Walkthrough of the reports as a GIF: [`10_Demo/test_evidence_walkthrough.gif`](10_Demo/test_evidence_walkthrough.gif).
 
 ## Assignment requirement to folder
 

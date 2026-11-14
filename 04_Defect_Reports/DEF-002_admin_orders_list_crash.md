@@ -65,3 +65,9 @@ Fixed and verified — re-tested via a full admin order-lifecycle run (confirm �
 → dispatch → deliver) with orders present, admin order list loads correctly throughout. See
 commit `29b60e1` ("style+feat(frontend): QuickCart-inspired redesign, wishlist, banners,
 offers" — the fix landed alongside the frontend work that surfaced it).
+
+## Verification evidence
+
+- Regression test: Selenium `test_m6_order_lifecycle.py` and `test_m8_admin.py::test_admin_filters_orders_by_status` list orders as admin and pass.
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-002 evidence](../07_Screenshots/13_pytest_html_report.png)
