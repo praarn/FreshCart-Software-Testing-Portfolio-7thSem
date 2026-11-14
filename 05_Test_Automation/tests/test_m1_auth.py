@@ -150,5 +150,12 @@ def test_logout_revokes_token(driver):
 
     BasePage(driver).click("nav-logout-button")
 
+    # The logout click fires an async request; poll until the token is rejected instead of racing it.
+    import time
+
+    deadline = time.time() + 10
     r2 = api_client.get("/auth/me", token=token)
+    while r2.status_code != 401 and time.time() < deadline:
+        time.sleep(0.25)
+        r2 = api_client.get("/auth/me", token=token)
     assert r2.status_code == 401
