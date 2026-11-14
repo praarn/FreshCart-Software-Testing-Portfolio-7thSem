@@ -40,3 +40,9 @@ without a token, 200 for a customer).
 ## Status
 
 Fixed.
+
+## Verification evidence
+
+- Regression test: Newman request `[TC-M5-004] Available slots honour the 2-hour lead time` (401 without a token, 200 for a customer).
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-004 evidence](../07_Screenshots/16_newman_html_report.png)

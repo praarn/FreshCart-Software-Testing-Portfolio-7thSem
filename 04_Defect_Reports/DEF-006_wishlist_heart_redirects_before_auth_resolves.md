@@ -50,3 +50,9 @@ loss. The fix is defensive and verified only by the full suite passing.
 ## Status
 
 Fixed (not independently reproduced before the fix).
+
+## Verification evidence
+
+- Regression test: Selenium `test_m9_wishlist_banners_offers.py::test_add_product_to_wishlist`, passing in the final run.
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-006 evidence](../07_Screenshots/13_pytest_html_report.png)

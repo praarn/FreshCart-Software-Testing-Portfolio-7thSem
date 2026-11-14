@@ -55,3 +55,9 @@ Added `.execution_options(populate_existing=True)` to the cart-fetching query in
 
 Fixed and verified (re-tested the exact repro steps above; subsequent adds, updates, removes,
 and clears all reflect immediately). See commit `5cbed04` ("feat(catalog,cart): ...").
+
+## Verification evidence
+
+- Regression test: Selenium `test_m3_cart.py` (add, re-add, update, remove, clear, totals: 8 cases) re-ran green after the fix.
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-001 evidence](../07_Screenshots/13_pytest_html_report.png)

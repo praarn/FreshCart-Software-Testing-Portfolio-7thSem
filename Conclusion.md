@@ -35,8 +35,9 @@ re-verifying the automated results (DEF-003 to DEF-008).
 - WebSocket live updates (R6.7) have no automated test; the largest uncovered code is `routers/ws.py`.
 - One browser, one machine, SQLite only. The PostgreSQL and Docker stack was not part of the recorded runs.
 - Four equivalence classes have no test (see `02_Test_Case_Design/Equivalence_Partitioning.md`).
-- The GitHub Actions workflow now runs unit tests with coverage, Newman and the Selenium suite, but has not run yet
-  because nothing was pushed. The Selenium job is non-blocking until it passes on a hosted runner.
+- The GitHub Actions workflow runs unit tests with coverage, Newman, the frontend build and the Selenium suite, and
+  passed on a hosted runner on 2026-11-14. Its first Selenium run failed on the login rate limit (HTTP 429) because CI
+  is faster than a local run; `/test/reset` now clears the limiter.
 - Mutation testing was not run, so the strength of the assertions is unmeasured beyond coverage.
 - All commits so far come from one GitHub identity; the group contribution record still has to be built
   (see `Team_Learning_Reflection.md`).

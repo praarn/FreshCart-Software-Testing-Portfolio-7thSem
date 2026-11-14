@@ -59,3 +59,9 @@ the same injected clock (`settings.fixed_now`, else the wall clock). Commit `4d8
 ## Status
 
 Fixed and verified (see Execution Log).
+
+## Verification evidence
+
+- Regression test: Selenium `test_checkout_serviceable_pincode_succeeds`, plus the unit tests named in the Fix section.
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-003 evidence](../07_Screenshots/12_pytest_cov_unit_run.png)

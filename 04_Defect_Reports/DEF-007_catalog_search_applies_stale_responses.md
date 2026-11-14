@@ -45,3 +45,9 @@ A `useRef` counter: each call takes an id, and only the call whose id is still t
 ## Status
 
 Fixed.
+
+## Verification evidence
+
+- Regression test: Selenium `test_m2_catalog.py::test_inactive_product_hidden_from_customers`, passing in the final run.
+- Final run report: [`selenium_report.html`](../03_Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../09_API_Testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-007 evidence](../07_Screenshots/13_pytest_html_report.png)
