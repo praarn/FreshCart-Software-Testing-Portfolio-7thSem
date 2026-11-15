@@ -1,5 +1,7 @@
 """Regression tests for DEF-005: '$' in the validation regexes matched before a trailing newline,
-and '\d' matched non-ASCII digits, so values that are not exactly 'N ASCII digits' were stored."""
+and '\d' matched non-ASCII digits, so values that are not exactly 'N ASCII digits' were stored.
+
+White-box code review of the validation regexes: TC-M1-039."""
 import pytest
 from pydantic import ValidationError
 

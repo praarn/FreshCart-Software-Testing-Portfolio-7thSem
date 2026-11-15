@@ -21,7 +21,7 @@ def truth():
     rows = list(csv.DictReader(open(ROOT / "02_Test_Case_Design" / "Test_Cases.csv", encoding="utf-8", newline="")))
     t = {"cases": len(rows)}
     c = Counter(r["Automated"] for r in rows)
-    t.update(selenium=c["Y"], api=c["A"], unit=c["U"], manual=c["N"])
+    t.update(selenium=c["Y"], api=c["A"], unit=c["U"], manual=c["N"], blackbox=c["B"])
     nm = json.load(open(ROOT / "09_API_Testing" / "reports" / "newman_report.json", encoding="utf-8"))
     ex = {e["item"]["id"]: e for e in nm["run"]["executions"]}
     t["api_requests"] = len(ex)
@@ -70,6 +70,21 @@ def main():
         if src is not None and r["TC_ID"] not in src:
             print("FAIL no test references", r["TC_ID"], r["Automated"])
             fails.append(r["TC_ID"])
+    # every black-box technique case (B) is referenced by a test in 11_Black_Box_Testing
+    bb = "\n".join(p.read_text(encoding="utf-8") for p in (ROOT / "11_Black_Box_Testing/tests").glob("test_*.py"))
+    bb_missing = [r["TC_ID"] for r in csv.DictReader(open(ROOT / "02_Test_Case_Design" / "Test_Cases.csv", encoding="utf-8", newline="")) if r["Automated"] == "B" and r["TC_ID"] not in bb]
+    print("FAIL black-box cases without a test:" if bb_missing else "ok   every black-box case has a test", bb_missing or "")
+    if bb_missing:
+        fails.append("black-box links")
+    bb_junit = ROOT / "11_Black_Box_Testing" / "results" / "black_box_junit.xml"
+    if bb_junit.exists():
+        s = re.search(r'<testsuite [^>]*', bb_junit.read_text(encoding="utf-8")).group(0)
+        n, f_, e_ = (int(re.search(rf'{k}="(\d+)"', s).group(1)) for k in ("tests", "failures", "errors"))
+        t["blackbox_tests"] = n
+        print(f"black-box suite: {n} tests, {f_} failures, {e_} errors")
+        check("black-box tests run", r"\b(\d+) black-box tests\b|[Bb]lack-box[^|\n]*\| (\d+) (?:passed|executed)", n)
+        if f_ or e_:
+            fails.append("black-box suite has failures")
     # every Selenium case has a test with its ID in the docstring
     tests = "\n".join(p.read_text(encoding="utf-8") for p in (ROOT / "05_Test_Automation/tests").glob("test_*.py"))
     missing = [r["TC_ID"] for r in csv.DictReader(open(ROOT / "02_Test_Case_Design" / "Test_Cases.csv", encoding="utf-8", newline="")) if r["Automated"] == "Y" and r["TC_ID"] not in tests]

@@ -65,4 +65,8 @@ business clock; every UI element has a `data-testid`.
 | M5 | pincode range, slot lead/window/capacity, payment method x validity | EP, BVA, decision table | `Decision_Table.md` |
 | M6 | all (state, event) pairs; OTP attempts 2/3 | State transition | `State_Transition.md` |
 | M7 | delivered-only, one review per product, rating 1-5, comment 300 | EP, BVA | Test_Cases.csv |
-| M8, M9 | CRUD, filters, role access | EP, error guessing | Test_Cases.csv, `09_API_Testing/` |
+| M8, M9 | CRUD, filters, role access; product price, stock, name bounds; banner title and image bounds | EP, BVA | Test_Cases.csv, `09_API_Testing/`, `11_Black_Box_Testing/` |
+
+Every EP and BVA condition in this table is executed by the data-driven suite in
+[`11_Black_Box_Testing/`](../11_Black_Box_Testing/README.md); the white-box counterparts (basis paths and coverage)
+are in [`08_White_Box_Testing/`](../08_White_Box_Testing/README.md).

@@ -1,4 +1,8 @@
-"""White-box tests for app/services/order_service.py (R6.1-R6.4)."""
+"""White-box tests for app/services/order_service.py (R6.1-R6.4).
+
+White-box method 1, basis path testing: TC-M6-020 (complete_delivery, V(G) = 7, 6 feasible paths).
+White-box method 2, statement/branch/condition coverage: TC-M6-021 (complete_delivery, admin_advance_status,
+assign_delivery_partner, cancel_order)."""
 import itertools
 
 import pytest

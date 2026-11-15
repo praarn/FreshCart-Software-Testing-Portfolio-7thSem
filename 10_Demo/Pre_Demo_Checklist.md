@@ -27,6 +27,7 @@
 - [ ] `pytest tests/test_m4_coupons.py -k welcome10` passes (login works: DEF-003 fix present)
 - [ ] `pytest` in `00_Application/backend` shows all tests passing and the coverage table
 - [ ] Newman run finishes with 0 failed assertions (allow 6 minutes)
+- [ ] Black-box suite (`11_Black_Box_Testing`, backend in test mode) finishes with 0 failed (allow 3 minutes), or at least one slice: `pytest tests/test_bva_accounts.py -k password`
 - [ ] The HTML reports open: `03_Test_Execution/selenium_report.html`, `09_API_Testing/reports/newman_report.html`, `08_White_Box_Testing/coverage_html/index.html`
 - [ ] The README table and counts match the reports (`python tools/consistency_check.py`)
 - [ ] TODO fields in the README, Test Plan and `Team_Learning_Reflection.md` are filled in

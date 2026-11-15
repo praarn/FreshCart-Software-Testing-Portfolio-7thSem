@@ -25,9 +25,11 @@ Contributions and reflections: [`Team_Learning_Reflection.md`](Team_Learning_Ref
 ## Objectives
 
 1. Analyse the requirements of a real application and plan its testing.
-2. Design test cases with equivalence partitioning, boundary value analysis, decision tables and state transition testing.
-3. Apply white-box techniques: control flow graphs, basis path testing, statement, branch and condition coverage.
-4. Test the REST API (Postman/Newman) and the UI (Selenium) and run both in CI.
+2. Black-box testing with two methods, equivalence partitioning and boundary value analysis, designed (with decision
+   tables and state transition testing as support) and executed as a data-driven suite over HTTP.
+3. White-box testing with two methods: basis path testing (control flow graphs, V(G), one test per path) and
+   statement, branch and condition coverage.
+4. Test the REST API (Postman/Newman) and the UI (Selenium) and run all suites in CI.
 5. Execute, record actual results, report defects and give a final test report.
 
 ## The application
@@ -47,6 +49,7 @@ flowchart LR
     T["Selenium + pytest"] --> B
     N["Newman (Postman)"] --> A
     U["pytest unit tests + coverage"] --> S
+    K["Black-box EP/BVA suite (pytest)"] --> A
 ```
 
 ## At a glance
@@ -54,12 +57,13 @@ flowchart LR
 | | |
 |---|---|
 | Business rules | 42, all traced to test cases |
-| Test cases designed | 116 (86 Selenium, 22 API, 8 unit) |
+| Test cases designed | 169 (86 Selenium, 22 API, 45 black-box EP/BVA, 16 unit) |
+| Black-box suite (EP and BVA) | 288 passed, 0 failed |
 | Selenium suite | 86 passed, 0 failed |
 | API suite (Newman) | 245 requests, 475 assertions, 0 failed |
 | Unit tests | 136 passed; 65.2% statement and 38.2% branch coverage alone, 95.0% and 86.8% combined with the API suite |
 | Defects | 8 found (DEF-001 to DEF-008), 0 open |
-| CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium; all four jobs green on a hosted runner (2026-11-14) |
+| CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium (all four green on a hosted runner, 2026-11-14) and the new black-box job (added after that run, not yet seen green on a hosted runner) |
 
 ## Test evidence
 
@@ -68,9 +72,10 @@ Every number above comes from a saved tool report, not from the Markdown. Open t
 | Test type | Result | Open the report | Screenshot |
 |---|---|---|---|
 | Selenium UI (pytest) | 86 passed, 0 failed | [`selenium_report.html`](03_Test_Execution/selenium_report.html), [`selenium_junit.xml`](03_Test_Execution/selenium_junit.xml) | [`13`](07_Screenshots/13_pytest_html_report.png), [`11`](07_Screenshots/11_pytest_selenium_run.png) |
+| Black-box EP and BVA (pytest) | 288 passed, 0 failed | [`Black_Box_Results.md`](11_Black_Box_Testing/Black_Box_Results.md), [`black_box_junit.xml`](11_Black_Box_Testing/results/black_box_junit.xml) | |
 | API (Newman) | 245 requests, 475 assertions, 0 failed | [`newman_report.html`](09_API_Testing/reports/newman_report.html), [`newman_report.json`](09_API_Testing/reports/newman_report.json) | [`16`](07_Screenshots/16_newman_html_report.png), [`15`](07_Screenshots/15_newman_cli_summary.png) |
 | Unit and coverage (pytest-cov) | 136 passed | [`coverage_html/index.html`](08_White_Box_Testing/coverage_html/index.html), [`Coverage_Report.md`](08_White_Box_Testing/Coverage_Report.md) | [`14`](07_Screenshots/14_coverage_html_report.png), [`12`](07_Screenshots/12_pytest_cov_unit_run.png) |
-| CI (GitHub Actions) | 4 of 4 jobs green | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
+| CI (GitHub Actions) | 4 of 4 jobs green on 2026-11-14, before the black-box job was added | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
 | Defects | 8 found, 0 open | [`04_Defect_Reports/`](04_Defect_Reports/), each with its regression test and screenshot | |
 
 HTML reports show as source code on GitHub. Download the file and open it in a browser, or use the screenshots.
@@ -93,8 +98,8 @@ Walkthrough of the reports as a GIF: [`10_Demo/test_evidence_walkthrough.gif`](1
 | Requirements analysis | [`01_Test_Plan/Requirements_Analysis.md`](01_Test_Plan/Requirements_Analysis.md) |
 | Test plan | [`01_Test_Plan/Test_Plan.md`](01_Test_Plan/Test_Plan.md) |
 | Test scenarios and cases (`.xlsx`) | [`02_Test_Case_Design/Functional_Test_Cases.xlsx`](02_Test_Case_Design/Functional_Test_Cases.xlsx), `Test_Cases.csv`, `Traceability_Matrix.md` |
-| Equivalence partitioning, BVA, decision table, state transition | [`02_Test_Case_Design/`](02_Test_Case_Design/) (one document each) |
-| White-box: CFG, basis path, statement/branch/condition coverage, coverage report | [`08_White_Box_Testing/`](08_White_Box_Testing/) |
+| Black box, method 1 and 2: equivalence partitioning, boundary value analysis (plus decision table, state transition) | design in [`02_Test_Case_Design/`](02_Test_Case_Design/) (one document each), execution in [`11_Black_Box_Testing/`](11_Black_Box_Testing/) |
+| White box, method 1 and 2: basis path (CFG, V(G)); statement/branch/condition coverage and report | [`08_White_Box_Testing/`](08_White_Box_Testing/) |
 | API testing | [`09_API_Testing/`](09_API_Testing/) |
 | Automation testing (Selenium; additional activity) | [`05_Test_Automation/`](05_Test_Automation/) |
 | Test execution with actual results | [`03_Test_Execution/`](03_Test_Execution/) |
@@ -120,6 +125,7 @@ Walkthrough of the reports as a GIF: [`10_Demo/test_evidence_walkthrough.gif`](1
 | [`08_White_Box_Testing/`](08_White_Box_Testing/) | CFGs, basis path testing, coverage report and HTML |
 | [`09_API_Testing/`](09_API_Testing/) | Postman collection, Newman reports, results |
 | [`10_Demo/`](10_Demo/) | Demo script, viva Q&A, pre-demo checklist |
+| [`11_Black_Box_Testing/`](11_Black_Box_Testing/) | Equivalence partitioning and boundary value analysis suites, results |
 | `tools/` | `consistency_check.py`, coverage and screenshot helpers |
 | `Conclusion.md`, `Team_Learning_Reflection.md` | Results and lessons; contributions and reflections |
 | `docker-compose.yml`, `commands.md`, `explanation.md` | Docker stack, run commands per OS, repo map |
@@ -152,8 +158,12 @@ Per-OS commands, including PowerShell, are in [`commands.md`](commands.md).
 cd 00_Application/backend
 APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000
 
-# Unit tests with coverage (no server needed)
+# Unit tests with coverage (no server needed): white-box basis path and coverage cases
 pytest --cov=app --cov-branch --cov-report=term-missing
+
+# Black-box suite, equivalence partitioning and boundary value analysis (backend in test mode, about 3 minutes)
+cd ../../11_Black_Box_Testing && pip install -r requirements.txt && pytest
+cd ../00_Application/backend
 
 # Selenium (use a production build of the frontend: npm run build && npm start)
 cd 05_Test_Automation && pip install -r requirements.txt && pytest

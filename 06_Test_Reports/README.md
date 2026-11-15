@@ -16,7 +16,8 @@ The overall conclusion and lessons learned are in [`../Conclusion.md`](../Conclu
 | Metric | Value |
 |---|---|
 | Business rules covered | 42 / 42 |
-| Test cases designed | 116 (86 Selenium, 22 API, 8 unit) |
+| Test cases designed | 169 (86 Selenium, 22 API, 45 black-box EP/BVA, 16 unit) |
+| Black-box (EP and BVA) | 288 passed, 0 failed |
 | Selenium | 86 passed, 0 failed |
 | Newman | 245 requests, 475 assertions, 0 failed |
 | Unit tests | 136 passed |

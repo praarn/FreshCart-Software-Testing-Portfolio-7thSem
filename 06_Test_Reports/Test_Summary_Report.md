@@ -15,7 +15,8 @@
 | Metric | Value |
 |---|---|
 | Business rules covered by the test design | 42 / 42 |
-| Test cases designed | 116 (86 Selenium, 22 API, 8 unit, 0 manual) |
+| Test cases designed | 169 (86 Selenium, 22 API, 45 black-box EP/BVA, 16 unit, 0 manual) |
+| Black-box suite (equivalence partitioning, boundary value analysis) | 288 executed, 288 passed |
 | Selenium suite | 86 executed, 86 passed |
 | API suite (Newman) | 245 requests, 475 assertions, 0 failed |
 | Unit tests (pytest) | 136 executed, 136 passed |
@@ -28,20 +29,29 @@ Coverage figures (statement and branch, unit tests and API suite) are in the
 
 ## Results by module
 
-Cases per module by automation level (`Y` Selenium, `A` API, `U` unit). All cases passed in the final runs.
+Cases per module by automation level (`Y` Selenium, `A` API, `B` black-box EP/BVA suite, `U` unit including the white-box basis path and coverage cases). All cases passed in the final runs.
 
-| Module | Rules | Selenium | API | Unit | Total |
-|---|---|---|---|---|---|
-| M1 Registration and login | 8 | 17 | 7 | 2 | 26 |
-| M2 Catalog | 4 | 7 | 0 | 0 | 7 |
-| M3 Cart | 5 | 8 | 4 | 0 | 12 |
-| M4 Coupons and pricing | 4 | 10 | 1 | 5 | 16 |
-| M5 Checkout | 5 | 13 | 4 | 1 | 18 |
-| M6 Order lifecycle | 7 | 12 | 5 | 0 | 17 |
-| M7 Reviews | 1 | 3 | 1 | 0 | 4 |
-| M8 Admin | 5 | 10 | 0 | 0 | 10 |
-| M9 Wishlist, banners, offers | 3 | 6 | 0 | 0 | 6 |
-| **Total** | 42 | 86 | 22 | 8 | 116 |
+| Module | Rules | Selenium | API | Black-box | Unit | Total |
+|---|---|---|---|---|---|---|
+| M1 Registration and login | 8 | 17 | 7 | 11 | 4 | 39 |
+| M2 Catalog | 4 | 7 | 0 | 3 | 0 | 10 |
+| M3 Cart | 5 | 8 | 4 | 5 | 0 | 17 |
+| M4 Coupons and pricing | 4 | 10 | 1 | 5 | 7 | 23 |
+| M5 Checkout | 5 | 13 | 4 | 9 | 3 | 29 |
+| M6 Order lifecycle | 7 | 12 | 5 | 2 | 2 | 21 |
+| M7 Reviews | 1 | 3 | 1 | 3 | 0 | 7 |
+| M8 Admin | 5 | 10 | 0 | 4 | 0 | 14 |
+| M9 Wishlist, banners, offers | 3 | 6 | 0 | 3 | 0 | 9 |
+| **Total** | 42 | 86 | 22 | 45 | 16 | 169 |
+
+## Results by testing method
+
+| Kind | Method | Test cases | Executed by | Result |
+|---|---|---|---|---|
+| Black box | Equivalence partitioning | 19 | `11_Black_Box_Testing/tests/test_ep_*.py` | see [`Black_Box_Results.md`](../11_Black_Box_Testing/Black_Box_Results.md) |
+| Black box | Boundary value analysis | 26 | `11_Black_Box_Testing/tests/test_bva_*.py` | see the same file |
+| White box | Basis path testing | 3 (`validate_coupon` 10 paths, `_validate_payment` 7, `complete_delivery` 6 feasible) | `00_Application/backend/tests/unit/` | all paths executed, 136 unit tests passed |
+| White box | Statement, branch and condition coverage | 5 | same unit tests, measured by pytest-cov | targeted functions at 100% statements and branches except `cancel_order` (9/10, 5/6); see the [Coverage Report](../08_White_Box_Testing/Coverage_Report.md) |
 
 M2, M8 and M9 API behaviour is also covered by the Newman requests that carry `API-*` IDs (not counted above because
 they are not separate designed cases); see [`API_Test_Results.md`](../09_API_Testing/API_Test_Results.md).
@@ -74,12 +84,13 @@ they are not separate designed cases); see [`API_Test_Results.md`](../09_API_Tes
 - The GitHub Actions workflow passed on a hosted runner on 2026-11-14 (backend 136 passed, Newman 0 failed, frontend
   build, Selenium 86 passed). The first hosted Selenium run failed with 49 HTTP 429 responses because the suite ran
   faster than the login rate limit allows; `/test/reset` now clears the limiter (commit `e3638b8`).
+- The new `black-box` CI job was added after the hosted run above and has not yet run on a hosted runner; the suite itself ran locally.
 - No performance, security or mutation testing.
 
 ## Exit criteria (Test Plan section 7)
 
 | Criterion | Met |
 |---|---|
-| All automated test cases executed | Yes: 86 + 245 requests + 136 unit tests |
+| All automated test cases executed | Yes: 86 Selenium + 245 requests + 288 black-box tests + 136 unit tests |
 | Every failure has a defect entry or documented rationale | Yes: DEF-003 to DEF-008 |
 | No open Critical or High defects | Yes: none open |

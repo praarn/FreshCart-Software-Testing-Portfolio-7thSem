@@ -2,15 +2,17 @@
 
 ## What was tested and the outcome
 
-FreshCart (online grocery shopping and delivery, 42 business rules in 9 modules) was tested at four levels. All
-results below come from the runs recorded in `03_Test_Execution/`, `08_White_Box_Testing/` and `09_API_Testing/`.
+FreshCart (online grocery shopping and delivery, 42 business rules in 9 modules) was tested at five levels, with two
+black-box and two white-box methods. All results below come from the runs recorded in `03_Test_Execution/`,
+`08_White_Box_Testing/`, `09_API_Testing/` and `11_Black_Box_Testing/`.
 
 | Level | Tool | Result |
 |---|---|---|
 | UI end to end | Selenium + pytest, 86 cases | 86 passed, 0 failed |
 | API | Postman collection run with Newman, 245 requests, 475 assertions | 0 failed |
-| Unit / white box | pytest + pytest-cov, 136 tests | 136 passed |
-| Design | EP, BVA, decision tables, state transition; 116 cases tracing to 42 of 42 rules | n/a |
+| Black box: EP and BVA | pytest over HTTP, 45 cases, 288 tests (one per class or boundary value) | 288 passed, 0 failed |
+| White box: basis path and coverage | pytest + pytest-cov, 136 unit tests | 136 passed |
+| Design | EP, BVA, decision tables, state transition; 169 cases tracing to 42 of 42 rules | n/a |
 
 Coverage (coverage.py, branch on): unit tests 65.2% of statements and 38.2% of branches; API suite 94.4% and 82.5%;
 combined 95.0% and 86.8%. The five functions chosen for white-box analysis are at 100% statement and branch coverage in
@@ -26,7 +28,8 @@ re-verifying the automated results (DEF-003 to DEF-008).
 | Selenium UI automation | DEF-003 (tokens rejected in test mode), DEF-007 (stale search results), DEF-008 (session cleared by an aborted request). Also the intermittent timeouts that the first report had put down to the tooling. |
 | API testing | DEF-004 (an endpoint without authentication), a 400 versus 422 inconsistency for cart quantity, and cases the UI cannot reach (the 21st cart item, the rate limit, a stock race, exact money boundaries). |
 | White-box review and unit tests | DEF-005 (a `$` anchor accepting a trailing newline), a redundant branch in `complete_delivery` (one of its 7 basis paths cannot execute), an unused module (`schemas/common.py`), exact boundary checks for 299.00, 5000.00 and the 15-minute lock. |
-| EP, BVA, decision table, state transition | 21 added test cases for boundaries and transitions that had none (for example the CONFIRMED to cancelled path, backward moves, and a 4-then-success login). They found no new defect; they all passed. Their value was in making the gaps visible: 3 illegal order transitions and 1 valid one had no test. |
+| Black box: EP and BVA suite | Every class and boundary of every input in M1-M9, including the four classes that had no case and exact money edges (298.99/299.00, 5000.00/5000.01, 199.99/200.00) that the UI cannot build. No new defect: all 288 tests passed. The value was confirming each rule at both sides of its limit and closing the design gaps. |
+| Decision table, state transition | 21 added test cases for transitions that had none (for example the CONFIRMED to cancelled path, backward moves, and a 4-then-success login). They found no new defect; they all passed. Their value was in making the gaps visible: 3 illegal order transitions and 1 valid one had no test. |
 
 ## Limitations
 
@@ -34,9 +37,9 @@ re-verifying the automated results (DEF-003 to DEF-008).
   reproduction, stated as such in the Execution Log.
 - WebSocket live updates (R6.7) have no automated test; the largest uncovered code is `routers/ws.py`.
 - One browser, one machine, SQLite only. The PostgreSQL and Docker stack was not part of the recorded runs.
-- Four equivalence classes have no test (see `02_Test_Case_Design/Equivalence_Partitioning.md`).
+- The black-box suite sees only the API: it cannot show that a branch executed, and the exact 2-hour slot lead-time edge cannot be hit because slots start on even hours (it is probed at 1 h and 3 h).
 - The GitHub Actions workflow runs unit tests with coverage, Newman, the frontend build and the Selenium suite, and
-  passed on a hosted runner on 2026-11-14. Its first Selenium run failed on the login rate limit (HTTP 429) because CI
+  passed on a hosted runner on 2026-11-14 (the black-box job was added afterwards and has not run on a hosted runner yet). Its first Selenium run failed on the login rate limit (HTTP 429) because CI
   is faster than a local run; `/test/reset` now clears the limiter.
 - Mutation testing was not run, so the strength of the assertions is unmeasured beyond coverage.
 - All commits so far come from one GitHub identity; the group contribution record still has to be built

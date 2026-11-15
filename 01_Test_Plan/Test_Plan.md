@@ -19,8 +19,10 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 ### 2.1 In scope
 
-- White-box testing of the backend business logic (unit tests, control flow graphs, basis paths,
-  statement/branch/condition coverage): `08_White_Box_Testing/`.
+- White-box testing of the backend business logic with two methods: basis path testing (control flow graphs,
+  V(G), one test per independent path) and statement/branch/condition coverage: `08_White_Box_Testing/`.
+- Black-box testing of the running application with two methods, equivalence partitioning and boundary value
+  analysis, executed as data-driven tests over HTTP: `11_Black_Box_Testing/`.
 - API testing of every endpoint group with Postman/Newman: `09_API_Testing/`.
 - All 42 business rules R1.1–R9.3 across modules M1–M9 (auth, catalog, cart, coupons,
   checkout, order lifecycle, reviews, admin, wishlist/banners/offers).
@@ -51,10 +53,18 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 | Level | Method | Where |
 |---|---|---|
-| White-box / unit | pytest + pytest-cov on `app/services` and `app/core`, isolated in-memory SQLite, branch coverage | `00_Application/backend/tests/unit`, `08_White_Box_Testing` |
+| White-box method 1: basis path | CFG and V(G) for `validate_coupon`, `_validate_payment`, `complete_delivery`; one pytest test per independent path | `00_Application/backend/tests/unit`, `08_White_Box_Testing/Basis_Path_Testing.md` |
+| White-box method 2: coverage | pytest + pytest-cov on `app/services` and `app/core`, isolated in-memory SQLite, statement and branch coverage, condition coverage by predicate | `00_Application/backend/tests/unit`, `08_White_Box_Testing/Coverage_Report.md` |
+| Black-box method 1: equivalence partitioning | One representative per valid and invalid class, every input of M1-M9, sent over HTTP with no knowledge of the code | `11_Black_Box_Testing/tests/test_ep_*.py` |
+| Black-box method 2: boundary value analysis | min-1, min, min+1, max-1, max, max+1 for every numeric and length rule, with exact money values built through the admin API | `11_Black_Box_Testing/tests/test_bva_*.py` |
 | API-level functional | Postman collection run headless with Newman against the test-mode backend | `09_API_Testing` |
 | UI functional / end-to-end | Automated, Selenium + pytest, Page Object Model | `05_Test_Automation` |
 | Exploratory / manual | Manual pass for flows not automated (e.g. visual banner carousel, mobile layout) | `03_Test_Execution` |
+
+Equivalence partitioning and boundary value analysis are the two black-box methods the portfolio is graded on, so
+each is both designed (`02_Test_Case_Design`) and executed (`11_Black_Box_Testing`); the Selenium and Newman suites
+are black-box too but are organised by feature, not by technique. Decision tables and state transition testing
+stay as supporting design techniques.
 
 Test cases are designed in `02_Test_Case_Design` with equivalence partitioning, boundary value
 analysis, decision tables and state transition testing (one document each), plus explicit
@@ -125,6 +135,7 @@ IDs. Requirements were analysed first: [`Requirements_Analysis.md`](Requirements
 | `06_Test_Reports` | Summary report: pass/fail counts, coverage, defect summary |
 | `07_Screenshots` | Evidence captured during execution |
 | `08_White_Box_Testing` | CFGs, basis path testing, coverage report |
+| `11_Black_Box_Testing` | Equivalence partitioning and boundary value analysis suites, results |
 | `09_API_Testing` | Postman collection, Newman reports, API results |
 | `10_Demo` | Demo script, viva Q&A, pre-demo checklist |
 
