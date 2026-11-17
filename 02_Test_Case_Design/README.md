@@ -32,7 +32,8 @@ Counts come from `python generate_artifacts.py` and the `Summary` sheet of the w
 |---|---|
 | `Automated = Y` | Selenium test in `05_Test_Automation` |
 | `Automated = A` | API request in `09_API_Testing` (Newman) |
-| `Automated = U` | Unit test in `00_Application/backend/tests/unit` |
+| `Automated = B` | Black-box technique case (equivalence partitioning or boundary value analysis), parametrized pytest in `11_Black_Box_Testing` |
+| `Automated = U` | Unit test in `00_Application/backend/tests/unit` (includes the white-box basis path and coverage cases) |
 | `Automated = N` | Manual or scripted by hand; result in `03_Test_Execution` |
 
 ## Modules
@@ -51,13 +52,18 @@ Counts come from `python generate_artifacts.py` and the `Summary` sheet of the w
 
 ## Techniques used
 
-| Technique | Document | Cases |
-|---|---|---|
-| Equivalence partitioning | `Equivalence_Partitioning.md` | 29 classes, 25 mapped to a case |
-| Boundary value analysis | `Boundary_Value_Analysis.md` | min-1/min/max/max+1 for 18 rules |
-| Decision table | `Decision_Table.md` | 7 coupon rules, 8 payment rules |
-| State transition | `State_Transition.md` | 7 valid + 8 invalid order transitions, 5 lockout transitions |
-| Negative and role cases | this CSV | every documented error response, 401 vs 403 |
+Two black-box methods (executed in [`../11_Black_Box_Testing/`](../11_Black_Box_Testing/README.md)) and two white-box
+methods (executed in [`../08_White_Box_Testing/`](../08_White_Box_Testing/README.md)):
+
+| Kind | Technique | Document | Cases |
+|---|---|---|---|
+| Black box 1 | Equivalence partitioning | `Equivalence_Partitioning.md` | 29 classes designed, all mapped; 19 `B` cases (type `Black-box EP`) run every class |
+| Black box 2 | Boundary value analysis | `Boundary_Value_Analysis.md` | min-1/min/max/max+1 for 18 rules designed; 26 `B` cases (type `Black-box BVA`) probe every limit |
+| White box 1 | Basis path testing | `../08_White_Box_Testing/Basis_Path_Testing.md` | 3 functions: `TC-M4-022`, `TC-M5-028`, `TC-M6-020` (type `White-box basis path`) |
+| White box 2 | Statement, branch and condition coverage | `../08_White_Box_Testing/Coverage_Report.md` | `TC-M4-023`, `TC-M5-029`, `TC-M6-021`, `TC-M1-038`, `TC-M1-039` (type `White-box coverage`) |
+| Supporting | Decision table | `Decision_Table.md` | 7 coupon rules, 8 payment rules |
+| Supporting | State transition | `State_Transition.md` | 7 valid + 8 invalid order transitions, 5 lockout transitions |
+| Supporting | Negative and role cases | this CSV | every documented error response, 401 vs 403 |
 
 ## Maintaining it
 

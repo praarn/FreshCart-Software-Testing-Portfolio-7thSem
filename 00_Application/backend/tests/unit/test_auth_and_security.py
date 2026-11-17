@@ -1,4 +1,6 @@
-"""White-box tests for auth_service.authenticate_user (R1.5 lockout) and core/security (R1.5 token expiry, DEF-003)."""
+"""White-box tests for auth_service.authenticate_user (R1.5 lockout) and core/security (R1.5 token expiry, DEF-003).
+
+White-box method 2, statement/branch/condition coverage: TC-M1-038 (authenticate_user, create/decode_access_token)."""
 from datetime import datetime, timedelta
 
 import pytest

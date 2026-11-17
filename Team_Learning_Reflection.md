@@ -29,14 +29,14 @@ The deliverables are listed under the role they naturally belong to. Confirm or 
 | Role | Deliverables |
 |---|---|
 | Test Analyst | `01_Test_Plan/` (plan, requirements analysis), `02_Test_Case_Design/` (EP, BVA, decision table, state transition, test cases, xlsx, traceability) |
-| Test Engineer | `03_Test_Execution/`, `04_Defect_Reports/`, `06_Test_Reports/`, `08_White_Box_Testing/` and `00_Application/backend/tests/unit/` |
+| Test Engineer | `03_Test_Execution/`, `04_Defect_Reports/`, `06_Test_Reports/`, `08_White_Box_Testing/`, `11_Black_Box_Testing/` and `00_Application/backend/tests/unit/` |
 | Automation and QA Engineer | `05_Test_Automation/`, `09_API_Testing/`, `.github/workflows/ci.yml`, `07_Screenshots/` |
 
 ## Open items per role (to create real, attributable contributions)
 
 | Role | Item |
 |---|---|
-| Test Analyst | Add EP cases for the 4 unmapped classes in `Equivalence_Partitioning.md` (password without a letter, non-digit phone, pincode below range, wrong-length pincode); review the Test Plan |
+| Test Analyst | Review the Test Plan and the new black-box case rows (`Black-box EP` / `Black-box BVA` in `Test_Cases.csv`); the four formerly unmapped EP classes are now covered by TC-M1-029, TC-M1-030 and TC-M5-019 |
 | Test Engineer | Run `mutmut` on `pricing_service.py` and write `08_White_Box_Testing/Mutation_Testing.md`; decide whether to remove the redundant branch found in `complete_delivery` |
 | Automation and QA Engineer | Watch the first CI run on GitHub, confirm the Selenium job is stable on the runner, add the green-run screenshot to `07_Screenshots/` |
 

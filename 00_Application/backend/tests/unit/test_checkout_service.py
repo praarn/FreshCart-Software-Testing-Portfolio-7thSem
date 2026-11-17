@@ -1,4 +1,7 @@
-"""White-box tests for app/services/checkout_service.py (R5.1-R5.3)."""
+"""White-box tests for app/services/checkout_service.py (R5.1-R5.3).
+
+White-box method 1, basis path testing: TC-M5-028 (_validate_payment, V(G) = 7, one test per path).
+White-box method 2, statement/branch/condition coverage: TC-M5-029 (_validate_payment, _luhn_ok, _validate_slot, _validate_address)."""
 from datetime import datetime
 from decimal import Decimal
 

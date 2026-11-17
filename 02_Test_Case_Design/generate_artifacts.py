@@ -19,7 +19,7 @@ MODULES = {
     "M5": "Checkout", "M6": "Orders and lifecycle", "M7": "Reviews", "M8": "Admin",
     "M9": "Wishlist, banners and offers",
 }
-AUTOMATED = {"Y": "Selenium", "A": "API (Newman)", "U": "Unit (pytest)", "N": "Manual"}
+AUTOMATED = {"Y": "Selenium", "A": "API (Newman)", "B": "Black-box EP/BVA suite (pytest)", "U": "Unit (pytest)", "N": "Manual"}
 
 
 def rule_ids():
@@ -49,7 +49,7 @@ def main():
     out += ["## Summary", "",
             f"- {len(rules)} rules, {len(rules) - len(uncovered)} covered by at least one test case",
             f"- {len(rows)} test cases total",
-            "- " + ", ".join(f"{v} {AUTOMATED[k]} (`{k}`)" for k, v in sorted(auto.items(), key=lambda kv: "YAUN".index(kv[0]))), ""]
+            "- " + ", ".join(f"{v} {AUTOMATED[k]} (`{k}`)" for k, v in sorted(auto.items(), key=lambda kv: "YABUN".index(kv[0]))), ""]
     (HERE / "Traceability_Matrix.md").write_text("\n".join(out), encoding="utf-8")
 
     wb = Workbook()

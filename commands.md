@@ -167,12 +167,24 @@ Once running in test mode, reset to a known state with:
 curl -X POST http://localhost:8000/api/test/reset
 ```
 
+With the backend in test mode, the black-box suite (equivalence partitioning and boundary value analysis, about 3 minutes)
+runs the same way on every OS:
+
+```bash
+cd 11_Black_Box_Testing
+pip install -r requirements.txt
+pytest --junitxml=results/black_box_junit.xml     # then: python make_results.py
+```
+
+It talks to `http://127.0.0.1:8000/api` (set `FRESHCART_API_URL` for another address; `127.0.0.1` rather than
+`localhost` on purpose, because on Windows `localhost` tries IPv6 first and stalls every request).
+
 ---
 
 ## Other useful commands
 
 ```bash
-# Backend: run the one smoke test
+# Backend: run the unit tests (white box: basis path and coverage cases)
 cd 00_Application/backend && pytest
 
 # Backend: create a new migration after changing a model

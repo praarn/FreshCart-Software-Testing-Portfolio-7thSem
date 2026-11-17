@@ -13,12 +13,14 @@ The record of actually running the test cases.
 | [`Execution_Log_2026-11-09_first_run.md`](Execution_Log_2026-11-09_first_run.md) | The original log (superseded) |
 
 API results per request are in [`../09_API_Testing/API_Test_Results.md`](../09_API_Testing/API_Test_Results.md);
-unit and coverage results in [`../08_White_Box_Testing/Coverage_Report.md`](../08_White_Box_Testing/Coverage_Report.md).
+unit and coverage results in [`../08_White_Box_Testing/Coverage_Report.md`](../08_White_Box_Testing/Coverage_Report.md);
+black-box technique results in [`../11_Black_Box_Testing/Black_Box_Results.md`](../11_Black_Box_Testing/Black_Box_Results.md).
 
 ## Final results
 
 | Suite | Result |
 |---|---|
+| Black-box EP and BVA (45 cases, 288 tests) | 288 passed, 0 failed |
 | Selenium (86 cases) | 86 passed, 0 failed |
 | Newman (245 requests, 475 assertions) | 0 failed |
 | Unit tests (136) | 136 passed |

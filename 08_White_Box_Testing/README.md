@@ -3,6 +3,18 @@
 Unit tests with branch coverage on the backend business logic, plus control flow graphs and
 basis path analysis for three functions.
 
+## The two white-box methods
+
+| Method | What it does here | Artifacts | Test cases |
+|---|---|---|---|
+| 1. Basis path testing | Control flow graph, V(G) three ways, one test per independent path, for three functions | [`Control_Flow_Graphs/`](Control_Flow_Graphs/), [`Basis_Path_Testing.md`](Basis_Path_Testing.md) | `TC-M4-022` (`validate_coupon`, 10 paths), `TC-M5-028` (`_validate_payment`, 7 paths), `TC-M6-020` (`complete_delivery`, 6 feasible of 7) |
+| 2. Statement, branch and condition coverage | Unit tests chosen to drive each statement, decision and condition both ways, then measured with coverage.py | [`Coverage_Report.md`](Coverage_Report.md), `coverage_html/` | `TC-M4-023`, `TC-M5-029`, `TC-M6-021`, `TC-M1-038`, plus `TC-M1-039` (review of the validation regexes, DEF-005) |
+
+Both methods run from the same unit tests in `00_Application/backend/tests/unit/`; the first picks the inputs from
+the graph, the second checks what those and all other tests actually executed. The black-box counterpart (equivalence
+partitioning and boundary value analysis, run against the live API) is in
+[`../11_Black_Box_Testing/`](../11_Black_Box_Testing/README.md).
+
 ## Contents
 
 | File | Purpose |

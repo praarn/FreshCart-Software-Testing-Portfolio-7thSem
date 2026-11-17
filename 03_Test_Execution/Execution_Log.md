@@ -19,6 +19,7 @@ Current results. The original 2026-11-09 log is kept in
 |---|---|---|---|---|
 | Selenium UI (`05_Test_Automation`) | 86 | 86 | 0 | [`selenium_report.html`](selenium_report.html), [`Selenium_Results.md`](Selenium_Results.md), [`selenium_junit.xml`](selenium_junit.xml) |
 | Newman API (`09_API_Testing`) | 245 requests, 475 assertions | 245 | 0 | [`API_Test_Results.md`](../09_API_Testing/API_Test_Results.md) |
+| Black-box EP and BVA (`11_Black_Box_Testing`) | 288 | 288 | 0 | [`Black_Box_Results.md`](../11_Black_Box_Testing/Black_Box_Results.md), [`black_box_junit.xml`](../11_Black_Box_Testing/results/black_box_junit.xml) |
 | Unit tests (`00_Application/backend/tests`) | 136 | 136 | 0 | [`Coverage_Report.md`](../08_White_Box_Testing/Coverage_Report.md) |
 
 The 9 cases that were manual in the first run were executed through Newman or unit tests; see

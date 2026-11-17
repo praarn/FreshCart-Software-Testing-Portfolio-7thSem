@@ -1,5 +1,8 @@
 """White-box tests for app/services/pricing_service.py (R4.1-R4.4).
-Branch and condition coverage targets are annotated; see 08_White_Box_Testing/Basis_Path_Testing.md."""
+Branch and condition coverage targets are annotated; see 08_White_Box_Testing/Basis_Path_Testing.md.
+
+White-box method 1, basis path testing: TC-M4-022 (validate_coupon, V(G) = 10, one test per path).
+White-box method 2, statement/branch/condition coverage: TC-M4-023 (validate_coupon, compute_discount, compute_delivery_fee)."""
 from datetime import datetime, timedelta
 from decimal import Decimal
 
