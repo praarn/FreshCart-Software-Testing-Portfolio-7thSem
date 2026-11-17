@@ -137,7 +137,6 @@ IDs. Requirements were analysed first: [`Requirements_Analysis.md`](Requirements
 | `08_White_Box_Testing` | CFGs, basis path testing, coverage report |
 | `11_Black_Box_Testing` | Equivalence partitioning and boundary value analysis suites, results |
 | `09_API_Testing` | Postman collection, Newman reports, API results |
-| `10_Demo` | Demo script, viva Q&A, pre-demo checklist |
 
 ## 11. Schedule
 

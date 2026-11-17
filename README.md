@@ -12,7 +12,7 @@ black-box and white-box design, API and UI automation, execution results, defect
 |---|---|
 | Subject / course code / semester | TODO: subject name, course code, semester |
 | Faculty | TODO: faculty name |
-| Demo | TODO: date and format; video link (upload outside the repository and paste it here) - script in [`10_Demo/Demo_Script.md`](10_Demo/Demo_Script.md) |
+| Demo | TODO: date and format; video link (upload outside the repository and paste it here) |
 
 | Member | Roll number | Role |
 |---|---|---|
@@ -87,7 +87,7 @@ HTML reports show as source code on GitHub. Download the file and open it in a b
 ![Coverage report](07_Screenshots/14_coverage_html_report.png)
 
 Printable summary: [`06_Test_Reports/Test_Summary_Report.pdf`](06_Test_Reports/Test_Summary_Report.pdf).
-Walkthrough of the reports as a GIF: [`10_Demo/test_evidence_walkthrough.gif`](10_Demo/test_evidence_walkthrough.gif).
+Screenshots of every testing activity and metric charts: [`07_Screenshots/`](07_Screenshots/), figures in [`06_Test_Reports/Test_Metrics.md`](06_Test_Reports/Test_Metrics.md).
 
 ## Assignment requirement to folder
 
@@ -106,7 +106,7 @@ Walkthrough of the reports as a GIF: [`10_Demo/test_evidence_walkthrough.gif`](1
 | Defect and bug reports | [`04_Defect_Reports/`](04_Defect_Reports/) |
 | Execution summary and final test report | [`06_Test_Reports/Test_Summary_Report.md`](06_Test_Reports/Test_Summary_Report.md), [`Conclusion.md`](Conclusion.md) |
 | Screenshots, diagrams, scripts, video evidence | [`07_Screenshots/`](07_Screenshots/), Mermaid diagrams in this file, `02_Test_Case_Design/State_Transition.md` and `08_White_Box_Testing/Control_Flow_Graphs/`, scripts in `05_Test_Automation/` and `tools/` |
-| Short demo video, demonstration and viva | [`10_Demo/`](10_Demo/) (script, viva Q&A, checklist; video link above is a TODO) |
+| Short demo video, demonstration and viva | Video link above (TODO); demo material is kept outside the repository |
 | Individual contribution and reflection, GitHub activity | [`Team_Learning_Reflection.md`](Team_Learning_Reflection.md) |
 | CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
 
@@ -124,7 +124,6 @@ Walkthrough of the reports as a GIF: [`10_Demo/test_evidence_walkthrough.gif`](1
 | [`07_Screenshots/`](07_Screenshots/) | Application and test-run screenshots |
 | [`08_White_Box_Testing/`](08_White_Box_Testing/) | CFGs, basis path testing, coverage report and HTML |
 | [`09_API_Testing/`](09_API_Testing/) | Postman collection, Newman reports, results |
-| [`10_Demo/`](10_Demo/) | Demo script, viva Q&A, pre-demo checklist |
 | [`11_Black_Box_Testing/`](11_Black_Box_Testing/) | Equivalence partitioning and boundary value analysis suites, results |
 | `tools/` | `consistency_check.py`, coverage and screenshot helpers |
 | `Conclusion.md`, `Team_Learning_Reflection.md` | Results and lessons; contributions and reflections |
