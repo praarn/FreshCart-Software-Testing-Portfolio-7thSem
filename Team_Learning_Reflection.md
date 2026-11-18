@@ -28,17 +28,17 @@ The deliverables are listed under the role they naturally belong to. Confirm or 
 
 | Role | Deliverables |
 |---|---|
-| Test Analyst | `01_Test_Plan/` (plan, requirements analysis), `02_Test_Case_Design/` (EP, BVA, decision table, state transition, test cases, xlsx, traceability) |
-| Test Engineer | `03_Test_Execution/`, `04_Defect_Reports/`, `06_Test_Reports/`, `08_White_Box_Testing/`, `11_Black_Box_Testing/` and `00_Application/backend/tests/unit/` |
-| Automation and QA Engineer | `05_Test_Automation/`, `09_API_Testing/`, `.github/workflows/ci.yml`, `07_Screenshots/` |
+| Test Analyst | `Test_Plan/` (plan, requirements analysis), `Test_Case_Design/` (EP, BVA, decision table, state transition, test cases, xlsx, traceability) |
+| Test Engineer | `Test_Execution/`, `Defect_Reports/`, `Test_Reports/`, `White_Box_Testing/`, `Black_Box_Testing/` and `Application/backend/tests/unit/` |
+| Automation and QA Engineer | `Test_Automation/`, `API_Testing/`, `.github/workflows/ci.yml`, `Screenshots/` |
 
 ## Open items per role (to create real, attributable contributions)
 
 | Role | Item |
 |---|---|
 | Test Analyst | Review the Test Plan and the new black-box case rows (`Black-box EP` / `Black-box BVA` in `Test_Cases.csv`); the four formerly unmapped EP classes are now covered by TC-M1-029, TC-M1-030 and TC-M5-019 |
-| Test Engineer | Run `mutmut` on `pricing_service.py` and write `08_White_Box_Testing/Mutation_Testing.md`; decide whether to remove the redundant branch found in `complete_delivery` |
-| Automation and QA Engineer | Watch the first CI run on GitHub, confirm the Selenium job is stable on the runner, add the green-run screenshot to `07_Screenshots/` |
+| Test Engineer | Run `mutmut` on `pricing_service.py` and write `White_Box_Testing/Mutation_Testing.md`; decide whether to remove the redundant branch found in `complete_delivery` |
+| Automation and QA Engineer | Watch the first CI run on GitHub, confirm the Selenium job is stable on the runner, add the green-run screenshot to `Screenshots/` |
 
 ## Individual contribution and reflection
 

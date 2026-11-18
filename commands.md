@@ -5,8 +5,8 @@ Pick **one** of: local (SQLite, two terminals, no external services) or Docker C
 (Postgres, one command). Local is faster to iterate on; Docker is closer to a real deploy
 and is what CI-equivalent `docker compose up` verification uses.
 
-Full explanation of what's being run: [`00_Application/explanation.md`](00_Application/explanation.md).
-Seed credentials and test-mode env vars: [`00_Application/README.md`](00_Application/README.md).
+Full explanation of what's being run: [`Application/explanation.md`](Application/explanation.md).
+Seed credentials and test-mode env vars: [`Application/README.md`](Application/README.md).
 
 ---
 
@@ -31,7 +31,7 @@ Seed credentials and test-mode env vars: [`00_Application/README.md`](00_Applica
 
 ```bash
 # Backend — terminal 1
-cd 00_Application/backend
+cd Application/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -42,7 +42,7 @@ uvicorn app.main:app --reload
 
 ```bash
 # Frontend — terminal 2
-cd 00_Application/frontend
+cd Application/frontend
 npm install
 npm run dev
 ```
@@ -51,7 +51,7 @@ npm run dev
 
 ```powershell
 # Backend — terminal 1
-cd 00_Application\backend
+cd Application\backend
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -62,7 +62,7 @@ uvicorn app.main:app --reload
 
 ```powershell
 # Frontend — terminal 2
-cd 00_Application\frontend
+cd Application\frontend
 npm install
 npm run dev
 ```
@@ -74,7 +74,7 @@ npm run dev
 ### Windows — cmd.exe
 
 ```bat
-cd 00_Application\backend
+cd Application\backend
 python -m venv .venv
 .venv\Scripts\activate.bat
 pip install -r requirements.txt
@@ -84,7 +84,7 @@ uvicorn app.main:app --reload
 ```
 
 ```bat
-cd 00_Application\frontend
+cd Application\frontend
 npm install
 npm run dev
 ```
@@ -94,7 +94,7 @@ npm run dev
 Identical to the macOS/Linux block above, except the venv activation path uses `Scripts`:
 
 ```bash
-cd 00_Application/backend
+cd Application/backend
 python -m venv .venv
 source .venv/Scripts/activate
 pip install -r requirements.txt
@@ -171,7 +171,7 @@ With the backend in test mode, the black-box suite (equivalence partitioning and
 runs the same way on every OS:
 
 ```bash
-cd 11_Black_Box_Testing
+cd Black_Box_Testing
 pip install -r requirements.txt
 pytest --junitxml=results/black_box_junit.xml     # then: python make_results.py
 ```
@@ -185,14 +185,14 @@ It talks to `http://127.0.0.1:8000/api` (set `FRESHCART_API_URL` for another add
 
 ```bash
 # Backend: run the unit tests (white box: basis path and coverage cases)
-cd 00_Application/backend && pytest
+cd Application/backend && pytest
 
 # Backend: create a new migration after changing a model
-cd 00_Application/backend && alembic revision --autogenerate -m "describe the change"
+cd Application/backend && alembic revision --autogenerate -m "describe the change"
 
 # Frontend: production build (what CI runs; also what the Docker image builds)
-cd 00_Application/frontend && npm run build
+cd Application/frontend && npm run build
 
 # Frontend: lint
-cd 00_Application/frontend && npm run lint
+cd Application/frontend && npm run lint
 ```

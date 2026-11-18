@@ -3,8 +3,8 @@
 ## What was tested and the outcome
 
 FreshCart (online grocery shopping and delivery, 42 business rules in 9 modules) was tested at five levels, with two
-black-box and two white-box methods. All results below come from the runs recorded in `03_Test_Execution/`,
-`08_White_Box_Testing/`, `09_API_Testing/` and `11_Black_Box_Testing/`.
+black-box and two white-box methods. All results below come from the runs recorded in `Test_Execution/`,
+`White_Box_Testing/`, `API_Testing/` and `Black_Box_Testing/`.
 
 | Level | Tool | Result |
 |---|---|---|
@@ -16,7 +16,7 @@ black-box and two white-box methods. All results below come from the runs record
 
 Coverage (coverage.py, branch on): unit tests 65.2% of statements and 38.2% of branches; API suite 94.4% and 82.5%;
 combined 95.0% and 86.8%. The five functions chosen for white-box analysis are at 100% statement and branch coverage in
-the unit run. See [`08_White_Box_Testing/Coverage_Report.md`](08_White_Box_Testing/Coverage_Report.md).
+the unit run. See [`White_Box_Testing/Coverage_Report.md`](White_Box_Testing/Coverage_Report.md).
 
 Eight defects are recorded; none is open. Two came from development (DEF-001, DEF-002). Six were found while
 re-verifying the automated results (DEF-003 to DEF-008).

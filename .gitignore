@@ -28,8 +28,8 @@ Thumbs.db
 .idea/
 
 # Black-box suite CI output
-11_Black_Box_Testing/ci_results/
+Black_Box_Testing/ci_results/
 
 # local-only demo material
-10_Demo/
+Demo/
 HOW_TO_SHOW_THE_DEMO.md
