@@ -318,9 +318,29 @@ def charts():
          "124 requests are negative checks (expect a 4xx). Source: API_Test_Results.md.")
 
 
+def pdf():
+    """Re-renders Test_Reports/Test_Summary_Report.pdf from the markdown (headless Chrome print)."""
+    import base64
+    d = driver()
+    try:
+        page = md_page("Test_Reports/Test_Summary_Report.md", "FreshCart test summary report").replace("<div class=bar>", "<div class=bar style='display:none'>")
+        with tempfile.TemporaryDirectory() as t:
+            f = Path(t) / "r.html"
+            f.write_text(page, encoding="utf-8")
+            d.get(f.as_uri())
+            time.sleep(1.5)
+            data = d.execute_cdp_cmd("Page.printToPDF", {"printBackground": True, "paperWidth": 8.27, "paperHeight": 11.69, "marginTop": .4, "marginBottom": .4, "marginLeft": .4, "marginRight": .4})
+            (ROOT / "Test_Reports" / "Test_Summary_Report.pdf").write_bytes(base64.b64decode(data["data"]))
+            print("wrote Test_Summary_Report.pdf")
+    finally:
+        d.quit()
+
+
 if __name__ == "__main__":
     w = sys.argv[1] if len(sys.argv) > 1 else "all"
     if w in ("charts", "all"):
         charts()
     if w in ("shots", "all"):
         shots()
+    if w in ("pdf", "all"):
+        pdf()

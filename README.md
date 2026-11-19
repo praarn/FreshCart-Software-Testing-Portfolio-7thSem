@@ -88,6 +88,7 @@ HTML reports show as source code on GitHub. Download the file and open it in a b
 
 Printable summary: [`Test_Reports/Test_Summary_Report.pdf`](Test_Reports/Test_Summary_Report.pdf).
 Screenshots of every testing activity and metric charts: [`Screenshots/`](Screenshots/), figures in [`Test_Reports/Test_Metrics.md`](Test_Reports/Test_Metrics.md).
+Walkthrough of the reports as a GIF: [`test_evidence_walkthrough.gif`](test_evidence_walkthrough.gif).
 
 ## Assignment requirement to folder
 
