@@ -1,6 +1,6 @@
 # CFG: `order_service.complete_delivery` (R6.4)
 
-Source: `Application/backend/app/services/order_service.py` lines 129-149 (the `_load_order`
+Source: `application/backend/app/services/order_service.py` lines 129-149 (the `_load_order`
 call is ignored; its not-found branch is covered by the API suite).
 
 ```mermaid

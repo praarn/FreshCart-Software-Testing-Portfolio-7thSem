@@ -1,6 +1,6 @@
 # CFG: `pricing_service.validate_coupon` (R4.1, R4.2)
 
-Source: `Application/backend/app/services/pricing_service.py` lines 22-36. One node per simple
+Source: `application/backend/app/services/pricing_service.py` lines 22-36. One node per simple
 condition (short-circuit `or`/`and` are split), so condition coverage can be read off the graph.
 
 ```mermaid

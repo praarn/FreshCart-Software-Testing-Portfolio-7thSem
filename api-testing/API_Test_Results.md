@@ -28,7 +28,7 @@ Collection: [`FreshCart.postman_collection.json`](FreshCart.postman_collection.j
 
 ## Results
 
-Expected status is the first assertion of each request; every request also asserts response shape or the `{status, error, message, field_errors}` contract. TC IDs refer to `Test_Case_Design/Test_Cases.csv`; `API-*` and `DEF-*` are API-only checks.
+Expected status is the first assertion of each request; every request also asserts response shape or the `{status, error, message, field_errors}` contract. TC IDs refer to `test-cases/Test_Cases.csv`; `API-*` and `DEF-*` are API-only checks.
 
 | # | TC | Request | Call | Expected | Actual | Result | Rules |
 |---|---|---|---|---|---|---|---|

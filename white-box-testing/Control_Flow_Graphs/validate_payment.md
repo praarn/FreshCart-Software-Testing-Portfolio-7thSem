@@ -1,6 +1,6 @@
 # CFG: `checkout_service._validate_payment` (R5.3)
 
-Source: `Application/backend/app/services/checkout_service.py` lines 66-86.
+Source: `application/backend/app/services/checkout_service.py` lines 66-86.
 
 ```mermaid
 flowchart TD

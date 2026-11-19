@@ -38,11 +38,11 @@ This makes a run take about 6 minutes.
 
 ```bash
 # 1. backend in test mode
-cd Application/backend
+cd application/backend
 APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000
 
 # 2. Newman (Node 18+)
-cd API_Testing
+cd api-testing
 npx newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json \
   -r cli,json,htmlextra --reporter-json-export reports/newman_report.json \
   --reporter-htmlextra-export reports/newman_report.html
