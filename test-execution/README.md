@@ -12,9 +12,9 @@ The record of actually running the test cases.
 | [`Formerly_Manual_Cases.md`](Formerly_Manual_Cases.md) | The 9 cases that were manual, now executed through Newman or unit tests, with actual results |
 | [`Execution_Log_2026-11-09_first_run.md`](Execution_Log_2026-11-09_first_run.md) | The original log (superseded) |
 
-API results per request are in [`../API_Testing/API_Test_Results.md`](../API_Testing/API_Test_Results.md);
-unit and coverage results in [`../White_Box_Testing/Coverage_Report.md`](../White_Box_Testing/Coverage_Report.md);
-black-box technique results in [`../Black_Box_Testing/Black_Box_Results.md`](../Black_Box_Testing/Black_Box_Results.md).
+API results per request are in [`../api-testing/API_Test_Results.md`](../api-testing/API_Test_Results.md);
+unit and coverage results in [`../white-box-testing/Coverage_Report.md`](../white-box-testing/Coverage_Report.md);
+black-box technique results in [`../black-box-testing/Black_Box_Results.md`](../black-box-testing/Black_Box_Results.md).
 
 ## Final results
 
@@ -28,13 +28,13 @@ black-box technique results in [`../Black_Box_Testing/Black_Box_Results.md`](../
 ## Reproducing the Selenium run
 
 1. Start the backend in test mode and the frontend as a production build (see [`../commands.md`](../commands.md)).
-2. From [`../Test_Automation/`](../Test_Automation/):
+2. From [`../automation-testing/selenium-or-playwright/`](../automation-testing/selenium-or-playwright/):
    `pytest --html=report.html --self-contained-html --junitxml=junit.xml`, then
    `python tools/make_results_table.py junit.xml`.
 
 ## Related
 
-- Plan: [`../Test_Plan/Test_Plan.md`](../Test_Plan/Test_Plan.md)
-- Cases: [`../Test_Case_Design/Test_Cases.csv`](../Test_Case_Design/Test_Cases.csv)
-- Defects: [`../Defect_Reports/`](../Defect_Reports/)
-- Rollup: [`../Test_Reports/Test_Summary_Report.md`](../Test_Reports/Test_Summary_Report.md)
+- Plan: [`../test-plan/Test_Plan.md`](../test-plan/Test_Plan.md)
+- Cases: [`../test-cases/Test_Cases.csv`](../test-cases/Test_Cases.csv)
+- Defects: [`../defect-reports/`](../defect-reports/)
+- Rollup: [`../final-test-report/Test_Summary_Report.md`](../final-test-report/Test_Summary_Report.md)

@@ -17,10 +17,10 @@ Current results. The original 2026-11-09 log is kept in
 
 | Suite | Cases | Passed | Failed | Report |
 |---|---|---|---|---|
-| Selenium UI (`Test_Automation`) | 86 | 86 | 0 | [`selenium_report.html`](selenium_report.html), [`Selenium_Results.md`](Selenium_Results.md), [`selenium_junit.xml`](selenium_junit.xml) |
-| Newman API (`API_Testing`) | 245 requests, 475 assertions | 245 | 0 | [`API_Test_Results.md`](../API_Testing/API_Test_Results.md) |
-| Black-box EP and BVA (`Black_Box_Testing`) | 288 | 288 | 0 | [`Black_Box_Results.md`](../Black_Box_Testing/Black_Box_Results.md), [`black_box_junit.xml`](../Black_Box_Testing/results/black_box_junit.xml) |
-| Unit tests (`Application/backend/tests`) | 136 | 136 | 0 | [`Coverage_Report.md`](../White_Box_Testing/Coverage_Report.md) |
+| Selenium UI (`automation-testing/selenium-or-playwright`) | 86 | 86 | 0 | [`selenium_report.html`](selenium_report.html), [`Selenium_Results.md`](Selenium_Results.md), [`selenium_junit.xml`](selenium_junit.xml) |
+| Newman API (`api-testing`) | 245 requests, 475 assertions | 245 | 0 | [`API_Test_Results.md`](../api-testing/API_Test_Results.md) |
+| Black-box EP and BVA (`black-box-testing`) | 288 | 288 | 0 | [`Black_Box_Results.md`](../black-box-testing/Black_Box_Results.md), [`black_box_junit.xml`](../black-box-testing/results/black_box_junit.xml) |
+| Unit tests (`application/backend/tests`) | 136 | 136 | 0 | [`Coverage_Report.md`](../white-box-testing/Coverage_Report.md) |
 
 The 9 cases that were manual in the first run were executed through Newman or unit tests; see
 [`Formerly_Manual_Cases.md`](Formerly_Manual_Cases.md).
@@ -59,11 +59,11 @@ on `AuthProvider`, which is where the defect was.
 
 | Defect | Found by | Severity | Status |
 |---|---|---|---|
-| [DEF-003](../Defect_Reports/DEF-003_test_mode_tokens_expire_vs_real_clock.md) | Selenium re-run | High | Fixed |
-| [DEF-004](../Defect_Reports/DEF-004_checkout_slots_endpoint_unauthenticated.md) | Newman | Low | Fixed |
-| [DEF-005](../Defect_Reports/DEF-005_validation_regex_accepts_trailing_newline.md) | Code reading, confirmed by API | Low | Fixed |
-| [DEF-006](../Defect_Reports/DEF-006_wishlist_heart_redirects_before_auth_resolves.md) | Code reading during run 2 | Low | Fixed |
-| [DEF-007](../Defect_Reports/DEF-007_catalog_search_applies_stale_responses.md) | Selenium run 3 plus a diagnostic | Medium | Fixed |
-| [DEF-008](../Defect_Reports/DEF-008_session_cleared_on_any_auth_me_error.md) | Selenium run 4 plus a diagnostic | Medium | Fixed |
+| [DEF-003](../defect-reports/DEF-003_test_mode_tokens_expire_vs_real_clock.md) | Selenium re-run | High | Fixed |
+| [DEF-004](../defect-reports/DEF-004_checkout_slots_endpoint_unauthenticated.md) | Newman | Low | Fixed |
+| [DEF-005](../defect-reports/DEF-005_validation_regex_accepts_trailing_newline.md) | Code reading, confirmed by API | Low | Fixed |
+| [DEF-006](../defect-reports/DEF-006_wishlist_heart_redirects_before_auth_resolves.md) | Code reading during run 2 | Low | Fixed |
+| [DEF-007](../defect-reports/DEF-007_catalog_search_applies_stale_responses.md) | Selenium run 3 plus a diagnostic | Medium | Fixed |
+| [DEF-008](../defect-reports/DEF-008_session_cleared_on_any_auth_me_error.md) | Selenium run 4 plus a diagnostic | Medium | Fixed |
 
 DEF-001 and DEF-002 are from development and remain fixed.

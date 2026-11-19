@@ -8,15 +8,15 @@
 **Run date:** 2026-11-09
 **Environment:** `APP_ENV=test`, `FIXED_NOW=2026-11-10T09:00:00`, local (SQLite) — backend on
 `:8000`, frontend on `:3000`, per [`../commands.md`](../commands.md)
-**Executed by:** [`../Test_Automation`](../Test_Automation) (Selenium + pytest), run
+**Executed by:** [`../automation-testing/selenium-or-playwright`](../automation-testing/selenium-or-playwright) (Selenium + pytest), run
 module-by-module in headless Chrome
-**Suite commit:** backend/frontend at the point `Test_Automation` was built (see
+**Suite commit:** backend/frontend at the point `automation-testing/selenium-or-playwright` was built (see
 `git log` around the "test: add Selenium automation suite" commits)
 
 ## Summary
 
 Counts below are the **automated** cases per module (see
-`../Test_Case_Design/Test_Cases.csv`'s `Automated` column); each module also has a small
+`../test-cases/Test_Cases.csv`'s `Automated` column); each module also has a small
 number of manual/exploratory cases not covered here (9 total across the suite — rate limiting,
 cross-session timing, a rounding edge case, etc.), which were not executed in this run either.
 
@@ -62,7 +62,7 @@ caused M6–M9 to be deferred to a follow-up session — see below).
    an exact `299.00`/`298.99` subtotal, but every seeded product price is a multiple of 5, so
    299.00 cannot be built from any combination of seeded items. Corrected to the nearest
    achievable values either side of the threshold (`300.00` / `295.00`) — see
-   `Test_Case_Design/Test_Cases.csv` for the exact product combinations used.
+   `test-cases/Test_Cases.csv` for the exact product combinations used.
 
 ### M5 — 4 unresolved failures (Selenium-environment issue, not an application defect)
 
@@ -115,7 +115,7 @@ consistent signal that the failures are specific to this machine's Selenium/chro
 
 | Defect | Found via | Status |
 |---|---|---|
-| [`DEF-001`](../Defect_Reports/DEF-001_cart_stale_after_add.md) | Manual testing during M3 development (predates this automated run) | Fixed |
-| [`DEF-002`](../Defect_Reports/DEF-002_admin_orders_list_crash.md) | Manual/Playwright testing during M8 development (predates this automated run) | Fixed |
+| [`DEF-001`](../defect-reports/DEF-001_cart_stale_after_add.md) | Manual testing during M3 development (predates this automated run) | Fixed |
+| [`DEF-002`](../defect-reports/DEF-002_admin_orders_list_crash.md) | Manual/Playwright testing during M8 development (predates this automated run) | Fixed |
 
 No new defects were found in the 51 cases that executed cleanly in this run.

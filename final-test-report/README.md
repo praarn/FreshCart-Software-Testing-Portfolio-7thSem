@@ -9,7 +9,7 @@ The final rollup of the testing effort.
 | [`Test_Summary_Report.pdf`](Test_Summary_Report.pdf) | The same report as a PDF, with the report screenshots appended |
 | [`Test_Summary_Report.md`](Test_Summary_Report.md) | Headline metrics, results by module, defects, observations, limitations, exit criteria |
 
-The overall conclusion and lessons learned are in [`../Conclusion.md`](../Conclusion.md).
+The overall conclusion and lessons learned are in [`Conclusion.md`](Conclusion.md).
 
 ## Headline numbers
 
@@ -24,4 +24,4 @@ The overall conclusion and lessons learned are in [`../Conclusion.md`](../Conclu
 | Defects found and fixed in this verification | 6 (DEF-003 to DEF-008) |
 | Open defects | 0 |
 
-Coverage figures: [`../White_Box_Testing/Coverage_Report.md`](../White_Box_Testing/Coverage_Report.md).
+Coverage figures: [`../white-box-testing/Coverage_Report.md`](../white-box-testing/Coverage_Report.md).

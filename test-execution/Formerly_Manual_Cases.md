@@ -3,7 +3,7 @@
 In the first run these nine cases (`Automated = N`) were never executed. They are now executed by code that
 exercises the real application, so their `Automated` value in `Test_Cases.csv` is `A` (Newman request) or `U` (pytest unit
 test). Actual results below are taken from the Newman JSON report
-([`../API_Testing/reports/newman_report.json`](../API_Testing/reports/newman_report.json)) and the unit test run.
+([`../api-testing/reports/newman_report.json`](../api-testing/reports/newman_report.json)) and the unit test run.
 
 | TC ID | Rule | Executed as | Expected | Actual | Status |
 |---|---|---|---|---|---|
