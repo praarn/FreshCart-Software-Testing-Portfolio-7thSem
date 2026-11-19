@@ -1,8 +1,8 @@
 # Boundary Value Analysis
 
 Two-sided boundaries (min-1, min, max, max+1) for each numeric/length rule. "Level" is where
-the case runs: UI (Selenium), API (Newman, `API_Testing/`), Unit (pytest,
-`Application/backend/tests/unit/`).
+the case runs: UI (Selenium), API (Newman, `api-testing/`), Unit (pytest,
+`application/backend/tests/unit/`).
 
 | Rule | Boundary | Values | Expected | TC | Level |
 |---|---|---|---|---|---|
@@ -48,7 +48,7 @@ Every seeded product price is a multiple of 5 (see `Execution_Log.md`), so exact
 ## Executed as a suite
 
 Boundary value analysis is the second black-box method of the portfolio. The table above lists the boundaries the UI,
-API and unit suites already hit; [`Black_Box_Testing/`](../Black_Box_Testing/README.md) probes **every** limit on
+API and unit suites already hit; [`black-box-testing/`](../black-box-testing/README.md) probes **every** limit on
 both sides (min-1, min, min+1, max-1, max, max+1) as one parametrized pytest case per value, with the position in the
 test id (for example `TC-M4-020-299.00-min`). Exact money values such as 298.99 or 5000.01 are reachable because the
 suite creates products at any price through the admin API, which the UI cases could not do (see the note below).

@@ -2,7 +2,7 @@
 
 Black-box testing treats FreshCart as a closed box: every test sends HTTP requests to the running API and checks
 the status code and response body against the rules in
-[`REQUIREMENTS.md`](../Application/docs/REQUIREMENTS.md). Nothing here imports application code or looks at the
+[`REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md). Nothing here imports application code or looks at the
 database. Two methods are used, each run as a data-driven pytest suite:
 
 | Method | Idea | Suite | Cases |
@@ -12,7 +12,7 @@ database. Two methods are used, each run as a data-driven pytest suite:
 
 Together: 45 cases, 288 parametrized tests (one per class or boundary value), covering all of modules M1-M9.
 Results: [`Black_Box_Results.md`](Black_Box_Results.md). The white-box counterpart (basis path testing and
-statement/branch/condition coverage) is in [`../White_Box_Testing/`](../White_Box_Testing/README.md).
+statement/branch/condition coverage) is in [`../white-box-testing/`](../white-box-testing/README.md).
 
 ## How it relates to the other suites
 
@@ -23,16 +23,16 @@ that price through the admin API, and the clock is frozen, so slot lead time and
 
 | Design document | Executed here |
 |---|---|
-| [`Equivalence_Partitioning.md`](../Test_Case_Design/Equivalence_Partitioning.md) | every class, including the four that had no case before (password without a letter, phone with non-digits, pincode below the range, pincode of the wrong length) |
-| [`Boundary_Value_Analysis.md`](../Test_Case_Design/Boundary_Value_Analysis.md) | every limit on both sides; the old R4.3 reachability note no longer applies |
+| [`Equivalence_Partitioning.md`](../black-box-testing/Equivalence_Partitioning.md) | every class, including the four that had no case before (password without a letter, phone with non-digits, pincode below the range, pincode of the wrong length) |
+| [`Boundary_Value_Analysis.md`](../black-box-testing/Boundary_Value_Analysis.md) | every limit on both sides; the old R4.3 reachability note no longer applies |
 
 Decision tables and state transition testing stay as supporting design techniques
-([`Decision_Table.md`](../Test_Case_Design/Decision_Table.md), [`State_Transition.md`](../Test_Case_Design/State_Transition.md));
+([`Decision_Table.md`](../black-box-testing/Decision_Table.md), [`State_Transition.md`](../black-box-testing/State_Transition.md));
 the Newman suite executes them.
 
 ## Test case map
 
-Case IDs are rows in [`Test_Cases.csv`](../Test_Case_Design/Test_Cases.csv) with `Automated = B`. Every pytest id
+Case IDs are rows in [`Test_Cases.csv`](../test-cases/Test_Cases.csv) with `Automated = B`. Every pytest id
 starts with its case ID and ends with the class or boundary position, for example
 `test_password_length[TC-M1-035-len21-max+1]` or `test_card_boundaries[TC-M5-026-expiry-10/26-month-before-now]`.
 
@@ -54,11 +54,11 @@ The backend must run in test mode with the frozen clock (a Tuesday; the weekday 
 
 ```bash
 # terminal 1
-cd Application/backend
+cd application/backend
 APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000
 
 # terminal 2
-cd Black_Box_Testing
+cd black-box-testing
 pip install -r requirements.txt
 pytest --junitxml=results/black_box_junit.xml
 python make_results.py                  # rewrites Black_Box_Results.md from the JUnit file
@@ -92,7 +92,7 @@ wishlist list nests the product under `product`. Two environment points are hand
 reset of one drops the tables under the other).
 
 Limits of the method: black-box testing only sees what the API exposes. It cannot show that every branch ran (that is
-what [`../White_Box_Testing/Coverage_Report.md`](../White_Box_Testing/Coverage_Report.md) measures), and some
+what [`../white-box-testing/Coverage_Report.md`](../white-box-testing/Coverage_Report.md) measures), and some
 edges cannot be hit exactly: no delivery slot starts exactly 2 hours after the frozen 09:00 clock (slots begin on
 even hours, so 11:00 is not a slot), so the lead-time boundary is probed at 10:00 (1 h, rejected) and 12:00 (3 h,
 accepted); the weekday rule of `FRESH15` is only checked on the frozen Tuesday (the Saturday rejection is a unit test).

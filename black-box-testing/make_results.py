@@ -9,7 +9,7 @@ from collections import defaultdict
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CASES = HERE.parent / "Test_Case_Design" / "Test_Cases.csv"
+CASES = HERE.parents[2] / "test-cases" / "Test_Cases.csv"
 
 suite = ET.parse(HERE / "results" / "black_box_junit.xml").getroot()
 suite = suite if suite.tag == "testsuite" else suite.find("testsuite")
