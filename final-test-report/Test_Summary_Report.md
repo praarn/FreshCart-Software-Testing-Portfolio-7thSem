@@ -84,7 +84,7 @@ they are not separate designed cases); see [`API_Test_Results.md`](../api-testin
 - The GitHub Actions workflow passed on a hosted runner on 2026-11-14 (backend 136 passed, Newman 0 failed, frontend
   build, Selenium 86 passed). The first hosted Selenium run failed with 49 HTTP 429 responses because the suite ran
   faster than the login rate limit allows; `/test/reset` now clears the limiter (commit `e3638b8`).
-- The new `black-box` CI job was added after the hosted run above and has not yet run on a hosted runner; the suite itself ran locally.
+- The `black-box` CI job was added after that run and passed on a hosted runner on 2026-11-19 (run 44557615256, all five jobs green).
 - No performance, security or mutation testing.
 
 ## Exit criteria (Test Plan section 7)

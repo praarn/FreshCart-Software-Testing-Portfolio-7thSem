@@ -64,7 +64,7 @@ flowchart LR
 | API suite (Newman) | 245 requests, 475 assertions, 0 failed |
 | Unit tests | 136 passed; 65.2% statement and 38.2% branch coverage alone, 95.0% and 86.8% combined with the API suite |
 | Defects | 8 found (DEF-001 to DEF-008), 0 open |
-| CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium (all four green on a hosted runner, 2026-11-14) and the new black-box job (added after that run, not yet seen green on a hosted runner) |
+| CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium and the black-box suite (all five jobs green on a hosted runner, 2026-11-19) |
 
 ## Test evidence
 
@@ -76,7 +76,7 @@ Every number above comes from a saved tool report, not from the Markdown. Open t
 | Black-box EP and BVA (pytest) | 288 passed, 0 failed | [`Black_Box_Results.md`](black-box-testing/Black_Box_Results.md), [`black_box_junit.xml`](black-box-testing/results/black_box_junit.xml) | |
 | API (Newman) | 245 requests, 475 assertions, 0 failed | [`newman_report.html`](api-testing/reports/newman_report.html), [`newman_report.json`](api-testing/reports/newman_report.json) | [`16`](evidence/screenshots/16_newman_html_report.png), [`15`](evidence/screenshots/15_newman_cli_summary.png) |
 | Unit and coverage (pytest-cov) | 136 passed | [`coverage_html/index.html`](white-box-testing/coverage_html/index.html), [`Coverage_Report.md`](white-box-testing/Coverage_Report.md) | [`14`](evidence/screenshots/14_coverage_html_report.png), [`12`](evidence/screenshots/12_pytest_cov_unit_run.png) |
-| CI (GitHub Actions) | 4 of 4 jobs green on 2026-11-14, before the black-box job was added | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
+| CI (GitHub Actions) | 5 of 5 jobs green on 2026-11-19 (run 44557615256) | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
 | Defects | 8 found, 0 open | [`defect-reports/`](defect-reports/), each with its regression test and screenshot | |
 
 HTML reports show as source code on GitHub. Download the file and open it in a browser, or use the screenshots.
