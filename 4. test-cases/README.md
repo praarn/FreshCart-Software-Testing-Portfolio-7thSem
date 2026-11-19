@@ -31,10 +31,10 @@ Counts come from `python generate_artifacts.py` and the `Summary` sheet of the w
 | Cut | Meaning |
 |---|---|
 | `Automated = Y` | Selenium test in `8. automation-testing/selenium-or-playwright` |
-| `Automated = A` | API request in `api-testing` (Newman) |
-| `Automated = B` | Black-box technique case (equivalence partitioning or boundary value analysis), parametrized pytest in `black-box-testing` |
+| `Automated = A` | API request in `7. api-testing` (Newman) |
+| `Automated = B` | Black-box technique case (equivalence partitioning or boundary value analysis), parametrized pytest in `5. black-box-testing` |
 | `Automated = U` | Unit test in `0. application/backend/tests/unit` (includes the white-box basis path and coverage cases) |
-| `Automated = N` | Manual or scripted by hand; result in `test-execution` |
+| `Automated = N` | Manual or scripted by hand; result in `10. test-execution` |
 
 ## Modules
 

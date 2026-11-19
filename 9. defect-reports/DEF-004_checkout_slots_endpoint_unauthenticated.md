@@ -1,6 +1,6 @@
 **Defect ID:** DEF-004
 **Title:** `GET /api/checkout/slots` is reachable without authentication
-**Reported by:** QA (API test suite, `api-testing`)
+**Reported by:** QA (API test suite, `7. api-testing`)
 **Date found:** 2026-11-13
 **Found via:** Newman request "[API-CHK] Slots without a token" (expected 401, got 200)
 **Module:** M5 Checkout

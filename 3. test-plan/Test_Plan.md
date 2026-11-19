@@ -57,16 +57,16 @@ UI — against the business rules in `REQUIREMENTS.md`.
 | White-box method 2: coverage | pytest + pytest-cov on `app/services` and `app/core`, isolated in-memory SQLite, statement and branch coverage, condition coverage by predicate | `0. application/backend/tests/unit`, `6. white-box-testing/Coverage_Report.md` |
 | Black-box method 1: equivalence partitioning | One representative per valid and invalid class, every input of M1-M9, sent over HTTP with no knowledge of the code | `5. black-box-testing/tests/test_ep_*.py` |
 | Black-box method 2: boundary value analysis | min-1, min, min+1, max-1, max, max+1 for every numeric and length rule, with exact money values built through the admin API | `5. black-box-testing/tests/test_bva_*.py` |
-| API-level functional | Postman collection run headless with Newman against the test-mode backend | `api-testing` |
+| API-level functional | Postman collection run headless with Newman against the test-mode backend | `7. api-testing` |
 | UI functional / end-to-end | Automated, Selenium + pytest, Page Object Model | `8. automation-testing/selenium-or-playwright` |
-| Exploratory / manual | Manual pass for flows not automated (e.g. visual banner carousel, mobile layout) | `test-execution` |
+| Exploratory / manual | Manual pass for flows not automated (e.g. visual banner carousel, mobile layout) | `10. test-execution` |
 
 Equivalence partitioning and boundary value analysis are the two black-box methods the portfolio is graded on, so
-each is both designed (`test-cases`) and executed (`black-box-testing`); the Selenium and Newman suites
+each is both designed (`4. test-cases`) and executed (`5. black-box-testing`); the Selenium and Newman suites
 are black-box too but are organised by feature, not by technique. Decision tables and state transition testing
 stay as supporting design techniques.
 
-Test cases are designed in `test-cases` with equivalence partitioning, boundary value
+Test cases are designed in `4. test-cases` with equivalence partitioning, boundary value
 analysis, decision tables and state transition testing (one document each), plus explicit
 negative cases for every documented error response. Each test case traces to one or more rule
 IDs. Requirements were analysed first: [`Requirements_Analysis.md`](../2.%20requirements/Requirements_Analysis.md).
@@ -98,12 +98,12 @@ IDs. Requirements were analysed first: [`Requirements_Analysis.md`](../2.%20requ
 
 - Backend and frontend both build and start cleanly (`npm run build`, `pytest` smoke test green).
 - `POST /api/test/reset` succeeds and seed data matches the table above.
-- Test Case Design (`test-cases`) is complete and reviewed for the module under test.
+- Test Case Design (`4. test-cases`) is complete and reviewed for the module under test.
 
 ## 7. Exit criteria
 
-- All automated test cases executed; pass rate recorded in `final-test-report`.
-- Every failure has a corresponding entry in `defect-reports` (or is marked a known/accepted
+- All automated test cases executed; pass rate recorded in `12. final-test-report`.
+- Every failure has a corresponding entry in `9. defect-reports` (or is marked a known/accepted
   limitation with rationale).
 - No open **Critical** or **High** severity defects against in-scope rules.
 
@@ -127,17 +127,17 @@ IDs. Requirements were analysed first: [`Requirements_Analysis.md`](../2.%20requ
 
 | Folder | Content |
 |---|---|
-| `requirements` | Requirements analysis |
-| `test-plan` | This document |
-| `test-cases` | Test case specifications + requirements traceability matrix |
-| `test-execution` | Execution log: actual results of running the cases below |
-| `defect-reports` | Any defect found during execution |
+| `2. requirements` | Requirements analysis |
+| `3. test-plan` | This document |
+| `4. test-cases` | Test case specifications + requirements traceability matrix |
+| `10. test-execution` | Execution log: actual results of running the cases below |
+| `9. defect-reports` | Any defect found during execution |
 | `8. automation-testing/selenium-or-playwright` | The Selenium/pytest automation suite |
-| `final-test-report` | Summary report: pass/fail counts, coverage, defect summary |
+| `12. final-test-report` | Summary report: pass/fail counts, coverage, defect summary |
 | `11. evidence/screenshots` | Evidence captured during execution |
-| `white-box-testing` | CFGs, basis path testing, coverage report |
-| `black-box-testing` | Equivalence partitioning and boundary value analysis suites, results |
-| `api-testing` | Postman collection, Newman reports, API results |
+| `6. white-box-testing` | CFGs, basis path testing, coverage report |
+| `5. black-box-testing` | Equivalence partitioning and boundary value analysis suites, results |
+| `7. api-testing` | Postman collection, Newman reports, API results |
 
 ## 11. Schedule
 

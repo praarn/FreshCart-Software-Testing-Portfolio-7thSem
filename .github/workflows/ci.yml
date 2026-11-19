@@ -86,7 +86,7 @@ jobs:
           exit 1
 
       - name: Run the Postman collection (about 6 minutes, the login rate limit is paced on purpose)
-        working-directory: api-testing
+        working-directory: 7. api-testing
         run: |
           mkdir -p ci_reports
           newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json \
@@ -129,7 +129,7 @@ jobs:
           exit 1
 
       - name: Run the black-box suite
-        working-directory: black-box-testing
+        working-directory: 5. black-box-testing
         run: |
           mkdir -p ci_results
           pytest --junitxml=ci_results/black_box_junit.xml --html=ci_results/black_box_report.html --self-contained-html

@@ -2,7 +2,7 @@
 
 A Selenium + pytest suite (Page Object Model) automating 86 of the 169 test cases in
 [`../../4. test-cases/Test_Cases.csv`](../../4.%20test-cases/Test_Cases.csv), covering
-every module M1–M9. The other 83 are covered at the API level (`A`, Newman), by the black-box EP/BVA suite (`B`, `black-box-testing`) or at unit level (`U`, pytest); see the CSV's
+every module M1–M9. The other 83 are covered at the API level (`A`, Newman), by the black-box EP/BVA suite (`B`, `5. black-box-testing`) or at unit level (`U`, pytest); see the CSV's
 `Automated` column and
 [`../../4. test-cases/Traceability_Matrix.md`](../../4.%20test-cases/Traceability_Matrix.md).
 

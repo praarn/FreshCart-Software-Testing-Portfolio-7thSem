@@ -22,7 +22,7 @@ when testing is considered done.
 
 ## Exit criteria
 
-1. All automated test cases executed, with the pass rate recorded in `final-test-report`.
+1. All automated test cases executed, with the pass rate recorded in `12. final-test-report`.
 2. Every failure has a defect entry or a documented rationale.
 3. No open Critical or High defects.
 

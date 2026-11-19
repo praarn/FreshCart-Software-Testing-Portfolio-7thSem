@@ -18,8 +18,8 @@ Current results. The original 2026-11-09 log is kept in
 | Suite | Cases | Passed | Failed | Report |
 |---|---|---|---|---|
 | Selenium UI (`8. automation-testing/selenium-or-playwright`) | 86 | 86 | 0 | [`selenium_report.html`](selenium_report.html), [`Selenium_Results.md`](Selenium_Results.md), [`selenium_junit.xml`](selenium_junit.xml) |
-| Newman API (`api-testing`) | 245 requests, 475 assertions | 245 | 0 | [`API_Test_Results.md`](../7.%20api-testing/API_Test_Results.md) |
-| Black-box EP and BVA (`black-box-testing`) | 288 | 288 | 0 | [`Black_Box_Results.md`](../5.%20black-box-testing/Black_Box_Results.md), [`black_box_junit.xml`](../5.%20black-box-testing/results/black_box_junit.xml) |
+| Newman API (`7. api-testing`) | 245 requests, 475 assertions | 245 | 0 | [`API_Test_Results.md`](../7.%20api-testing/API_Test_Results.md) |
+| Black-box EP and BVA (`5. black-box-testing`) | 288 | 288 | 0 | [`Black_Box_Results.md`](../5.%20black-box-testing/Black_Box_Results.md), [`black_box_junit.xml`](../5.%20black-box-testing/results/black_box_junit.xml) |
 | Unit tests (`0. application/backend/tests`) | 136 | 136 | 0 | [`Coverage_Report.md`](../6.%20white-box-testing/Coverage_Report.md) |
 
 The 9 cases that were manual in the first run were executed through Newman or unit tests; see

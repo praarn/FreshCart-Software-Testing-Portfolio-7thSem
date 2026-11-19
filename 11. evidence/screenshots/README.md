@@ -17,7 +17,7 @@ Evidence from the running application and from the test runs.
 | `09_delivery_partner_assigned_orders.png` | Delivery partner's assigned orders (R6.4) |
 | `10_docker_verified_wishlist.png` | Wishlist rendering through the Docker Compose stack |
 
-## Test runs (captured 2026-11-14 from the runs recorded in `test-execution`)
+## Test runs (captured 2026-11-14 from the runs recorded in `10. test-execution`)
 
 | File | Shows | Source |
 |---|---|---|
