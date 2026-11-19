@@ -1,4 +1,4 @@
-# 08 - White-Box Testing
+# 6 - White-Box Testing
 
 Unit tests with branch coverage on the backend business logic, plus control flow graphs and
 basis path analysis for three functions.

@@ -1,4 +1,4 @@
-# 09 - API Testing (Postman / Newman)
+# 7 - API Testing (Postman / Newman)
 
 A Postman collection that exercises every endpoint group in `REQUIREMENTS.md` and is run
 headless with Newman against the test-mode backend.

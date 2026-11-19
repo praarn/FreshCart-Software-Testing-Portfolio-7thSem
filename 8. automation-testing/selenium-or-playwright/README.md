@@ -1,4 +1,4 @@
-# 05 — Test Automation
+# 8 - Automation Testing (Selenium)
 
 A Selenium + pytest suite (Page Object Model) automating 86 of the 169 test cases in
 [`../../4. test-cases/Test_Cases.csv`](../../4.%20test-cases/Test_Cases.csv), covering

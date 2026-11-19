@@ -10,9 +10,9 @@ black-box and white-box design, API and UI automation, execution results, defect
 
 | | |
 |---|---|
-| Subject / course code / semester | TODO: subject name, course code, semester |
-| Faculty | TODO: faculty name |
-| Demo | TODO: date and format; video link (upload outside the repository and paste it here) |
+| Subject / course code / semester | Software Testing / IS73 / 7th semester |
+| Faculty | Dr. Pushpalatha M. N. |
+| Demo | 20/11/2026 |
 
 | Member | Roll number | Role |
 |---|---|---|
@@ -111,7 +111,7 @@ Walkthrough of the reports as a GIF: [`11. evidence/videos/test_evidence_walkthr
 
 Supporting files: [`14. tools/`](14.%20tools/) (consistency check, coverage and screenshot helpers), `docker-compose.yml`,
 `commands.md` (run commands per OS), `explanation.md` (repository map), CI in
-[`.github/workflows/ci.yml`](.github/workflows/ci.yml). A short demo video link is still a TODO above; demo material is
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml). The demo is on 20/11/2026; demo material is
 kept outside the repository.
 
 ## Quick start

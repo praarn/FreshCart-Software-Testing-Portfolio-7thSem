@@ -1,4 +1,4 @@
-# 11 - Black-Box Testing
+# 5 - Black-Box Testing
 
 Black-box testing treats FreshCart as a closed box: every test sends HTTP requests to the running API and checks
 the status code and response body against the rules in

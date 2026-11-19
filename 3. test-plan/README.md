@@ -1,4 +1,4 @@
-# 01 — Test Plan
+# 3 - Test Plan
 
 The planning document for testing FreshCart: what is tested, how, in what environment, and
 when testing is considered done.

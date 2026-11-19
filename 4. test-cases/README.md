@@ -1,4 +1,4 @@
-# 02 — Test Case Design
+# 4 - Test Scenarios and Test Cases
 
 The test case specifications and the matrix that ties every business rule to the cases that
 exercise it.
