@@ -22,12 +22,12 @@ when testing is considered done.
 
 ## Exit criteria
 
-1. All automated test cases executed, with the pass rate recorded in `Test_Reports`.
+1. All automated test cases executed, with the pass rate recorded in `final-test-report`.
 2. Every failure has a defect entry or a documented rationale.
 3. No open Critical or High defects.
 
 The outcome against these criteria is assessed in the
-[Test Summary Report](../Test_Reports/Test_Summary_Report.md).
+[Test Summary Report](../final-test-report/Test_Summary_Report.md).
 
 ## Out of scope
 
@@ -37,5 +37,5 @@ other than Chrome.
 
 ## Related
 
-- Spec the plan tests against: [`../Application/docs/REQUIREMENTS.md`](../Application/docs/REQUIREMENTS.md)
-- Next step: [`../Test_Case_Design/`](../Test_Case_Design/)
+- Spec the plan tests against: [`../application/docs/REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md)
+- Next step: [`../test-cases/`](../test-cases/)
