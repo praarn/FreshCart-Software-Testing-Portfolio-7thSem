@@ -15,7 +15,7 @@ Software Testing portfolio. Full business-rule and API reference:
 ## Run locally (SQLite, zero external services)
 
 ```bash
-# Backend — from Application/backend
+# Backend — from application/backend
 pip install -r requirements.txt
 alembic upgrade head
 python -m app.seed
@@ -23,14 +23,14 @@ uvicorn app.main:app --reload
 ```
 
 ```bash
-# Frontend — from Application/frontend, in a second terminal
+# Frontend — from application/frontend, in a second terminal
 npm install
 npm run dev
 ```
 
 - Backend: http://localhost:8000 — **Swagger UI at http://localhost:8000/docs**
 - Frontend: http://localhost:3000
-- The SQLite database file is created at `Application/backend/data/freshcart.db`.
+- The SQLite database file is created at `application/backend/data/freshcart.db`.
 
 The frontend reads the API base URL from `NEXT_PUBLIC_API_URL` / `NEXT_PUBLIC_WS_URL`
 (see `frontend/.env.example`; defaults already point at `localhost:8000`).
@@ -73,15 +73,15 @@ APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --reload
 ```
 
 A trivial smoke test (`GET /health` returns 200) lives at `backend/tests/test_health.py` and
-runs in CI — the real test suite is the student's deliverable under `Test_Automation/`.
+runs in CI — the real test suite is the student's deliverable under `automation-testing/selenium-or-playwright/`.
 
 ## Where things are
 
-- Backend: `Application/backend` (FastAPI, SQLAlchemy 2 async, Alembic, JWT auth) —
+- Backend: `application/backend` (FastAPI, SQLAlchemy 2 async, Alembic, JWT auth) —
   architecture walkthrough: `backend/explanation.md`
-- Frontend: `Application/frontend` (Next.js App Router, React 19, TypeScript, Tailwind) —
+- Frontend: `application/frontend` (Next.js App Router, React 19, TypeScript, Tailwind) —
   architecture walkthrough: `frontend/explanation.md`
-- Requirements/API reference: `Application/docs/REQUIREMENTS.md`
-- Docker: `Application/backend/Dockerfile`, `Application/frontend/Dockerfile`,
+- Requirements/API reference: `application/docs/REQUIREMENTS.md`
+- Docker: `application/backend/Dockerfile`, `application/frontend/Dockerfile`,
   root `docker-compose.yml`
 - CI: `.github/workflows/ci.yml`

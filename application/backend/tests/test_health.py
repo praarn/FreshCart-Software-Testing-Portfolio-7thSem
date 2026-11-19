@@ -1,5 +1,5 @@
 """One trivial smoke test so CI has something to run.
-The real test suite is the student's deliverable (see Test_Automation/)."""
+The real test suite is the student's deliverable (see automation-testing/selenium-or-playwright/)."""
 from fastapi.testclient import TestClient
 
 from app.main import app

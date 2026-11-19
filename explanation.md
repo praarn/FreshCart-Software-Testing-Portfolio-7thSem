@@ -4,32 +4,39 @@ This repo has two kinds of content: **FreshCart**, a working grocery-delivery ap
 (the thing being tested), and a set of numbered folders that hold the **testing
 deliverables** produced against it. This file is a map; for run commands see
 [`commands.md`](commands.md), and for FreshCart's own architecture see
-[`Application/explanation.md`](Application/explanation.md).
+[`application/explanation.md`](application/explanation.md).
 
 ## Layout
 
 ```
-Application/    FreshCart itself — backend (FastAPI) + frontend (Next.js)
-Test_Plan/       Scope, strategy, schedule, resources
-Test_Case_Design/ Test case specifications, traceability matrix
-Test_Execution/   Test run logs and records
-Defect_Reports/   Logged defects found during testing
-Test_Automation/  Automated test scripts (e.g. Selenium) — the student's deliverable
-Test_Reports/     Summary reports and metrics
-Screenshots/      Screenshots captured during manual/automated testing
-.github/workflows/   CI: installs deps, migrates, seeds, smoke-tests the API, builds the frontend
-docker-compose.yml   Postgres + backend + frontend, for a from-scratch environment
+application/            FreshCart itself: backend (FastAPI) + frontend (Next.js)
+introduction/           1. Introduction to the application
+requirements/           2. Requirements analysis
+test-plan/              3. Scope, strategy, schedule, resources
+test-cases/             4. Test scenarios and cases, traceability matrix
+black-box-testing/      5. EP, BVA, decision table, state transition, plus the executable suite
+white-box-testing/      6. CFGs, basis path testing, statement/branch/condition coverage
+api-testing/            7. Postman collection, Newman reports
+automation-testing/     8. Selenium + pytest suite
+defect-reports/         9. Logged defects
+test-execution/         10. Run logs and actual results
+evidence/               11. screenshots/ and videos/
+final-test-report/      12. Summary report, metrics, conclusion
+reflections/            13. Individual contribution and reflection
+tools/                  Consistency check, coverage and screenshot helpers
+.github/workflows/      CI
+docker-compose.yml      Postgres + backend + frontend
 ```
 
-`Application/docs/REQUIREMENTS.md` is the authoritative list of every business rule (by
+`application/docs/REQUIREMENTS.md` is the authoritative list of every business rule (by
 ID), every frontend route, and every REST/WebSocket endpoint — that's the document to work
-from when writing test cases in `Test_Case_Design/`.
+from when writing test cases in `test-cases/`.
 
 ## Why FreshCart looks the way it does
 
 The application was built to an initial fixed specification (tech stack, business rules
 R1.1-R8.5, Selenium-friendly `id`/`data-testid` conventions — see
-`Application/docs/REQUIREMENTS.md`), then extended twice at the project owner's request:
+`application/docs/REQUIREMENTS.md`), then extended twice at the project owner's request:
 
 1. **Wishlist, promotional banners, and a public "special offers" section** (rules
    `R9.1`-`R9.3`) — inspired by a reference grocery app, but built as ordinary FreshCart
@@ -37,7 +44,7 @@ R1.1-R8.5, Selenium-friendly `id`/`data-testid` conventions — see
 2. **Visual redesign**, twice — first toward that reference app's bold quick-commerce look,
    then deliberately toned down (flatter cards, structured buttons, no emoji — real SVG
    icons instead) after it read as too playful for a professional app. See
-   [`Application/frontend/explanation.md`](Application/frontend/explanation.md) for
+   [`application/frontend/explanation.md`](application/frontend/explanation.md) for
    what that settled on.
 
 None of this changed the original business rules or the API's auth/role model — it's purely
@@ -47,7 +54,7 @@ additive (new endpoints, new pages) and cosmetic.
 
 - Seed credentials, test-mode env vars (`APP_ENV=test`, `FIXED_NOW=...`), and the
   `POST /api/test/reset` endpoint are documented in
-  [`Application/README.md`](Application/README.md) — use them to get a known,
+  [`application/README.md`](application/README.md) — use them to get a known,
   repeatable starting state before a test run.
 - Swagger UI (`/docs` on the running backend) has request/response examples for every
   endpoint and is the fastest way to confirm an API contract before automating against it.

@@ -21,7 +21,7 @@ black-box and white-box design, API and UI automation, execution results, defect
 
 Contributors: [@praarn](https://github.com/praarn) and [@poorvikagj](https://github.com/poorvikagj).
 
-Contributions and reflections: [`Team_Learning_Reflection.md`](Team_Learning_Reflection.md).
+Contributions and reflections: [`reflections/Team_Learning_Reflection.md`](reflections/Team_Learning_Reflection.md).
 
 ## Objectives
 
@@ -39,7 +39,7 @@ FreshCart has three roles: customer, admin and delivery partner. Customers brows
 wishlist, apply coupons, check out with a delivery slot and COD, UPI or card payment, and follow the order live over a
 WebSocket. Admins manage products, orders, coupons, users, banners and read the audit log. Delivery partners dispatch
 orders and confirm delivery with the customer's OTP. 42 business rules (R1.1-R9.3) are listed in
-[`Application/docs/REQUIREMENTS.md`](Application/docs/REQUIREMENTS.md).
+[`application/docs/REQUIREMENTS.md`](application/docs/REQUIREMENTS.md).
 
 ```mermaid
 flowchart LR
@@ -72,64 +72,47 @@ Every number above comes from a saved tool report, not from the Markdown. Open t
 
 | Test type | Result | Open the report | Screenshot |
 |---|---|---|---|
-| Selenium UI (pytest) | 86 passed, 0 failed | [`selenium_report.html`](Test_Execution/selenium_report.html), [`selenium_junit.xml`](Test_Execution/selenium_junit.xml) | [`13`](Screenshots/13_pytest_html_report.png), [`11`](Screenshots/11_pytest_selenium_run.png) |
-| Black-box EP and BVA (pytest) | 288 passed, 0 failed | [`Black_Box_Results.md`](Black_Box_Testing/Black_Box_Results.md), [`black_box_junit.xml`](Black_Box_Testing/results/black_box_junit.xml) | |
-| API (Newman) | 245 requests, 475 assertions, 0 failed | [`newman_report.html`](API_Testing/reports/newman_report.html), [`newman_report.json`](API_Testing/reports/newman_report.json) | [`16`](Screenshots/16_newman_html_report.png), [`15`](Screenshots/15_newman_cli_summary.png) |
-| Unit and coverage (pytest-cov) | 136 passed | [`coverage_html/index.html`](White_Box_Testing/coverage_html/index.html), [`Coverage_Report.md`](White_Box_Testing/Coverage_Report.md) | [`14`](Screenshots/14_coverage_html_report.png), [`12`](Screenshots/12_pytest_cov_unit_run.png) |
+| Selenium UI (pytest) | 86 passed, 0 failed | [`selenium_report.html`](test-execution/selenium_report.html), [`selenium_junit.xml`](test-execution/selenium_junit.xml) | [`13`](evidence/screenshots/13_pytest_html_report.png), [`11`](evidence/screenshots/11_pytest_selenium_run.png) |
+| Black-box EP and BVA (pytest) | 288 passed, 0 failed | [`Black_Box_Results.md`](black-box-testing/Black_Box_Results.md), [`black_box_junit.xml`](black-box-testing/results/black_box_junit.xml) | |
+| API (Newman) | 245 requests, 475 assertions, 0 failed | [`newman_report.html`](api-testing/reports/newman_report.html), [`newman_report.json`](api-testing/reports/newman_report.json) | [`16`](evidence/screenshots/16_newman_html_report.png), [`15`](evidence/screenshots/15_newman_cli_summary.png) |
+| Unit and coverage (pytest-cov) | 136 passed | [`coverage_html/index.html`](white-box-testing/coverage_html/index.html), [`Coverage_Report.md`](white-box-testing/Coverage_Report.md) | [`14`](evidence/screenshots/14_coverage_html_report.png), [`12`](evidence/screenshots/12_pytest_cov_unit_run.png) |
 | CI (GitHub Actions) | 4 of 4 jobs green on 2026-11-14, before the black-box job was added | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
-| Defects | 8 found, 0 open | [`Defect_Reports/`](Defect_Reports/), each with its regression test and screenshot | |
+| Defects | 8 found, 0 open | [`defect-reports/`](defect-reports/), each with its regression test and screenshot | |
 
 HTML reports show as source code on GitHub. Download the file and open it in a browser, or use the screenshots.
 
-![Selenium report: 86 passed](Screenshots/13_pytest_html_report.png)
+![Selenium report: 86 passed](evidence/screenshots/13_pytest_html_report.png)
 
-![Newman report: 0 failed](Screenshots/16_newman_html_report.png)
+![Newman report: 0 failed](evidence/screenshots/16_newman_html_report.png)
 
-![Coverage report](Screenshots/14_coverage_html_report.png)
+![Coverage report](evidence/screenshots/14_coverage_html_report.png)
 
-Printable summary: [`Test_Reports/Test_Summary_Report.pdf`](Test_Reports/Test_Summary_Report.pdf).
-Screenshots of every testing activity and metric charts: [`Screenshots/`](Screenshots/), figures in [`Test_Reports/Test_Metrics.md`](Test_Reports/Test_Metrics.md).
-Walkthrough of the reports as a GIF: [`test_evidence_walkthrough.gif`](test_evidence_walkthrough.gif).
+Printable summary: [`final-test-report/Test_Summary_Report.pdf`](final-test-report/Test_Summary_Report.pdf).
+Screenshots of every testing activity and metric charts: [`evidence/screenshots/`](evidence/screenshots/), figures in [`final-test-report/Test_Metrics.md`](final-test-report/Test_Metrics.md).
+Walkthrough of the reports as a GIF: [`evidence/videos/test_evidence_walkthrough.gif`](evidence/videos/test_evidence_walkthrough.gif).
 
-## Assignment requirement to folder
+## Portfolio contents
 
-| Requirement | Where |
-|---|---|
-| README: student details, subject, objectives, project description | this file |
-| Introduction to the application | this file, [`Application/`](Application/) |
-| Requirements analysis | [`Test_Plan/Requirements_Analysis.md`](Test_Plan/Requirements_Analysis.md) |
-| Test plan | [`Test_Plan/Test_Plan.md`](Test_Plan/Test_Plan.md) |
-| Test scenarios and cases (`.xlsx`) | [`Test_Case_Design/Functional_Test_Cases.xlsx`](Test_Case_Design/Functional_Test_Cases.xlsx), `Test_Cases.csv`, `Traceability_Matrix.md` |
-| Black box, method 1 and 2: equivalence partitioning, boundary value analysis (plus decision table, state transition) | design in [`Test_Case_Design/`](Test_Case_Design/) (one document each), execution in [`Black_Box_Testing/`](Black_Box_Testing/) |
-| White box, method 1 and 2: basis path (CFG, V(G)); statement/branch/condition coverage and report | [`White_Box_Testing/`](White_Box_Testing/) |
-| API testing | [`API_Testing/`](API_Testing/) |
-| Automation testing (Selenium; additional activity) | [`Test_Automation/`](Test_Automation/) |
-| Test execution with actual results | [`Test_Execution/`](Test_Execution/) |
-| Defect and bug reports | [`Defect_Reports/`](Defect_Reports/) |
-| Execution summary and final test report | [`Test_Reports/Test_Summary_Report.md`](Test_Reports/Test_Summary_Report.md), [`Conclusion.md`](Conclusion.md) |
-| Screenshots, diagrams, scripts, video evidence | [`Screenshots/`](Screenshots/), Mermaid diagrams in this file, `Test_Case_Design/State_Transition.md` and `White_Box_Testing/Control_Flow_Graphs/`, scripts in `Test_Automation/` and `tools/` |
-| Short demo video, demonstration and viva | Video link above (TODO); demo material is kept outside the repository |
-| Individual contribution and reflection, GitHub activity | [`Team_Learning_Reflection.md`](Team_Learning_Reflection.md) |
-| CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
+| # | Section | Folder / file |
+|---|---|---|
+| 1 | Introduction to the application | [`introduction/`](introduction/Application_Introduction.md), source in [`application/`](application/) |
+| 2 | Requirements analysis | [`requirements/`](requirements/Requirements_Analysis.md) |
+| 3 | Test plan | [`test-plan/`](test-plan/Test_Plan.md) |
+| 4 | Test scenarios and test cases | [`test-cases/`](test-cases/): `Functional_Test_Cases.xlsx`, `Test_Cases.csv`, `Traceability_Matrix.md` |
+| 5 | Black-box testing: equivalence partitioning, boundary value analysis, decision table, state transition | [`black-box-testing/`](black-box-testing/): one design document per technique, plus the executable suite and results |
+| 6 | White-box testing: control flow graphs, basis path testing, statement/branch/condition coverage | [`white-box-testing/`](white-box-testing/) |
+| 7 | API testing | [`api-testing/`](api-testing/): Postman collection, Newman reports, results |
+| 8 | Automation testing | [`automation-testing/selenium-or-playwright/`](automation-testing/selenium-or-playwright/): Selenium + pytest suite |
+| 9 | Defect / bug reports | [`defect-reports/`](defect-reports/): DEF-001 to DEF-008 and a template |
+| 10 | Test execution results | [`test-execution/`](test-execution/) |
+| 11 | Screenshots and video evidence | [`evidence/`](evidence/): `screenshots/`, `videos/` |
+| 12 | Final test report | [`final-test-report/`](final-test-report/): summary report, metrics, conclusion |
+| 13 | Individual contribution and reflection | [`reflections/Team_Learning_Reflection.md`](reflections/Team_Learning_Reflection.md) |
 
-## Repository layout
-
-| Folder / file | Contents |
-|---|---|
-| [`Application/`](Application/) | FreshCart: `backend/` (FastAPI, with `tests/unit/`), `frontend/` (Next.js), `docs/REQUIREMENTS.md` |
-| [`Test_Plan/`](Test_Plan/) | Test plan, requirements analysis |
-| [`Test_Case_Design/`](Test_Case_Design/) | Cases (CSV, xlsx), traceability matrix, EP, BVA, decision table, state transition |
-| [`Test_Execution/`](Test_Execution/) | Execution log, per-case results, formerly manual cases |
-| [`Defect_Reports/`](Defect_Reports/) | DEF-001 to DEF-008 and a template |
-| [`Test_Automation/`](Test_Automation/) | Selenium + pytest suite, `diagnostics/`, `tools/` |
-| [`Test_Reports/`](Test_Reports/) | Test summary report |
-| [`Screenshots/`](Screenshots/) | Application and test-run screenshots |
-| [`White_Box_Testing/`](White_Box_Testing/) | CFGs, basis path testing, coverage report and HTML |
-| [`API_Testing/`](API_Testing/) | Postman collection, Newman reports, results |
-| [`Black_Box_Testing/`](Black_Box_Testing/) | Equivalence partitioning and boundary value analysis suites, results |
-| `tools/` | `consistency_check.py`, coverage and screenshot helpers |
-| `Conclusion.md`, `Team_Learning_Reflection.md` | Results and lessons; contributions and reflections |
-| `docker-compose.yml`, `commands.md`, `explanation.md` | Docker stack, run commands per OS, repo map |
+Supporting files: [`tools/`](tools/) (consistency check, coverage and screenshot helpers), `docker-compose.yml`,
+`commands.md` (run commands per OS), `explanation.md` (repository map), CI in
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml). A short demo video link is still a TODO above; demo material is
+kept outside the repository.
 
 ## Quick start
 
@@ -137,14 +120,14 @@ Local, with SQLite (two terminals):
 
 ```bash
 # Terminal 1: backend
-cd Application/backend
+cd application/backend
 pip install -r requirements.txt
 alembic upgrade head
 python -m app.seed
 uvicorn app.main:app --reload      # http://localhost:8000  (Swagger UI at /docs)
 
 # Terminal 2: frontend
-cd Application/frontend
+cd application/frontend
 npm install
 npm run dev                        # http://localhost:3000
 ```
@@ -156,21 +139,21 @@ Per-OS commands, including PowerShell, are in [`commands.md`](commands.md).
 
 ```bash
 # Backend in test mode (resettable database, frozen clock)
-cd Application/backend
+cd application/backend
 APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000
 
 # Unit tests with coverage (no server needed): white-box basis path and coverage cases
 pytest --cov=app --cov-branch --cov-report=term-missing
 
 # Black-box suite, equivalence partitioning and boundary value analysis (backend in test mode, about 3 minutes)
-cd ../../Black_Box_Testing && pip install -r requirements.txt && pytest
-cd ../Application/backend
+cd ../../black-box-testing && pip install -r requirements.txt && pytest
+cd ../application/backend
 
 # Selenium (use a production build of the frontend: npm run build && npm start)
-cd Test_Automation && pip install -r requirements.txt && pytest
+cd automation-testing/selenium-or-playwright && pip install -r requirements.txt && pytest
 
 # API (about 6 minutes: the login rate limit is paced on purpose)
-cd API_Testing && npx newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json
+cd api-testing && npx newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json
 
 # Check that every count quoted in the docs matches the tools' output
 python tools/consistency_check.py
@@ -185,4 +168,4 @@ python tools/consistency_check.py
 | Customer (has an order) | customer1@freshcart.test | Customer@1234 |
 | Customer (no orders, eligible for `WELCOME10`) | customer2@freshcart.test | Customer@1234 |
 
-More accounts, coupons and test-mode variables: [`Application/README.md`](Application/README.md).
+More accounts, coupons and test-mode variables: [`application/README.md`](application/README.md).

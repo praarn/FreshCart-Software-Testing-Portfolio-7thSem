@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "Screenshots"
+OUT = ROOT / "evidence" / "screenshots"
 CSS = """body{font:15px/1.5 Segoe UI,Arial;margin:0;padding:24px 36px;color:#1b1b1b;background:#fff;max-width:1180px}
 table{border-collapse:collapse;margin:10px 0;font-size:13px}th,td{border:1px solid #c9c9c9;padding:4px 8px;text-align:left;vertical-align:top}
 th{background:#eef2f7}code{background:#f1f1f1;padding:1px 4px;border-radius:3px;font-size:12.5px}pre{background:#f6f6f6;padding:10px;overflow:auto}
@@ -68,26 +68,26 @@ def term_page(path, title, a=0, b=None):
 
 # (output name, source, title, max height)
 DOCS = [
-    ("20_test_plan.png", "Test_Plan/Test_Plan.md", "Test_Plan/Test_Plan.md", 2600),
-    ("21_requirements_analysis.png", "Test_Plan/Requirements_Analysis.md", "Test_Plan/Requirements_Analysis.md", 2600),
-    ("22_equivalence_partitioning.png", "Test_Case_Design/Equivalence_Partitioning.md", "Test_Case_Design/Equivalence_Partitioning.md", 2600),
-    ("23_boundary_value_analysis.png", "Test_Case_Design/Boundary_Value_Analysis.md", "Test_Case_Design/Boundary_Value_Analysis.md", 2600),
-    ("24_decision_table.png", "Test_Case_Design/Decision_Table.md", "Test_Case_Design/Decision_Table.md", 2600),
-    ("25_state_transition.png", "Test_Case_Design/State_Transition.md", "Test_Case_Design/State_Transition.md", 2600),
-    ("26_traceability_matrix.png", "Test_Case_Design/Traceability_Matrix.md", "Test_Case_Design/Traceability_Matrix.md", 2600),
-    ("28_black_box_results.png", "Black_Box_Testing/Black_Box_Results.md", "Black_Box_Testing/Black_Box_Results.md", 2600),
-    ("31_cfg_validate_coupon.png", "White_Box_Testing/Control_Flow_Graphs/validate_coupon.md", "Control flow graph: validate_coupon (V(G)=10)", 3600),
-    ("32_cfg_validate_payment.png", "White_Box_Testing/Control_Flow_Graphs/validate_payment.md", "Control flow graph: _validate_payment", 2600),
-    ("33_cfg_complete_delivery.png", "White_Box_Testing/Control_Flow_Graphs/complete_delivery.md", "Control flow graph: complete_delivery", 2600),
-    ("34_basis_path_testing.png", "White_Box_Testing/Basis_Path_Testing.md", "White_Box_Testing/Basis_Path_Testing.md", 2600),
-    ("35_coverage_report.png", "White_Box_Testing/Coverage_Report.md", "White_Box_Testing/Coverage_Report.md", 2600),
-    ("37_api_test_results.png", "API_Testing/API_Test_Results.md", "API_Testing/API_Test_Results.md (first screen)", 1900),
-    ("38_selenium_results.png", "Test_Execution/Selenium_Results.md", "Test_Execution/Selenium_Results.md (first screen)", 1900),
-    ("39_execution_log.png", "Test_Execution/Execution_Log.md", "Test_Execution/Execution_Log.md", 2600),
-    ("40_defect_register.png", "Defect_Reports/README.md", "Defect_Reports/README.md", 2600),
-    ("41_defect_DEF-003.png", "Defect_Reports/DEF-003_test_mode_tokens_expire_vs_real_clock.md", "DEF-003", 2600),
-    ("42_defect_DEF-007.png", "Defect_Reports/DEF-007_catalog_search_applies_stale_responses.md", "DEF-007", 2600),
-    ("43_test_summary_report.png", "Test_Reports/Test_Summary_Report.md", "Test_Reports/Test_Summary_Report.md", 2600),
+    ("20_test_plan.png", "test-plan/Test_Plan.md", "test-plan/Test_Plan.md", 2600),
+    ("21_requirements_analysis.png", "requirements/Requirements_Analysis.md", "requirements/Requirements_Analysis.md", 2600),
+    ("22_equivalence_partitioning.png", "black-box-testing/Equivalence_Partitioning.md", "black-box-testing/Equivalence_Partitioning.md", 2600),
+    ("23_boundary_value_analysis.png", "black-box-testing/Boundary_Value_Analysis.md", "black-box-testing/Boundary_Value_Analysis.md", 2600),
+    ("24_decision_table.png", "black-box-testing/Decision_Table.md", "black-box-testing/Decision_Table.md", 2600),
+    ("25_state_transition.png", "black-box-testing/State_Transition.md", "black-box-testing/State_Transition.md", 2600),
+    ("26_traceability_matrix.png", "test-cases/Traceability_Matrix.md", "test-cases/Traceability_Matrix.md", 2600),
+    ("28_black_box_results.png", "black-box-testing/Black_Box_Results.md", "black-box-testing/Black_Box_Results.md", 2600),
+    ("31_cfg_validate_coupon.png", "white-box-testing/Control_Flow_Graphs/validate_coupon.md", "Control flow graph: validate_coupon (V(G)=10)", 3600),
+    ("32_cfg_validate_payment.png", "white-box-testing/Control_Flow_Graphs/validate_payment.md", "Control flow graph: _validate_payment", 2600),
+    ("33_cfg_complete_delivery.png", "white-box-testing/Control_Flow_Graphs/complete_delivery.md", "Control flow graph: complete_delivery", 2600),
+    ("34_basis_path_testing.png", "white-box-testing/Basis_Path_Testing.md", "white-box-testing/Basis_Path_Testing.md", 2600),
+    ("35_coverage_report.png", "white-box-testing/Coverage_Report.md", "white-box-testing/Coverage_Report.md", 2600),
+    ("37_api_test_results.png", "api-testing/API_Test_Results.md", "api-testing/API_Test_Results.md (first screen)", 1900),
+    ("38_selenium_results.png", "test-execution/Selenium_Results.md", "test-execution/Selenium_Results.md (first screen)", 1900),
+    ("39_execution_log.png", "test-execution/Execution_Log.md", "test-execution/Execution_Log.md", 2600),
+    ("40_defect_register.png", "defect-reports/README.md", "defect-reports/README.md", 2600),
+    ("41_defect_DEF-003.png", "defect-reports/DEF-003_test_mode_tokens_expire_vs_real_clock.md", "DEF-003", 2600),
+    ("42_defect_DEF-007.png", "defect-reports/DEF-007_catalog_search_applies_stale_responses.md", "DEF-007", 2600),
+    ("43_test_summary_report.png", "final-test-report/Test_Summary_Report.md", "final-test-report/Test_Summary_Report.md", 2600),
 ]
 
 
@@ -96,14 +96,14 @@ def shots():
     try:
         for name, src, title, maxh in DOCS:
             shot(d, md_page(src, title), OUT / name, maxh=maxh)
-        shot(d, csv_page("Test_Case_Design/Test_Cases.csv",
+        shot(d, csv_page("test-cases/Test_Cases.csv",
                          ["TC_ID", "Module", "Rule_IDs", "Title", "Type", "Priority", "Expected_Result", "Automated"], 40,
-                         "Test_Case_Design/Test_Cases.csv (first 40 of 169 cases)"), OUT / "27_test_cases_table.png")
-        shot(d, term_page("Black_Box_Testing/results/black_box_run.log", "pytest, black-box suite (Black_Box_Testing): last 25 lines", -25),
+                         "test-cases/Test_Cases.csv (first 40 of 169 cases)"), OUT / "27_test_cases_table.png")
+        shot(d, term_page("black-box-testing/results/black_box_run.log", "pytest, black-box suite (black-box-testing): last 25 lines", -25),
              OUT / "29_black_box_pytest_run.png")
-        shot(d, term_page("Black_Box_Testing/results/black_box_run.log", "pytest, black-box suite: first 30 lines (ids name each class / boundary value)", 0, 30),
+        shot(d, term_page("black-box-testing/results/black_box_run.log", "pytest, black-box suite: first 30 lines (ids name each class / boundary value)", 0, 30),
              OUT / "30_black_box_pytest_ids.png")
-        shot(d, term_page("White_Box_Testing/coverage_term_api.txt", "pytest-cov, API run (instrumented backend driven by Newman)"),
+        shot(d, term_page("white-box-testing/coverage_term_api.txt", "pytest-cov, API run (instrumented backend driven by Newman)"),
              OUT / "36_coverage_api_term.png")
         shot(d, term_page(".github/workflows/ci.yml", ".github/workflows/ci.yml"), OUT / "44_ci_workflow.png")
     finally:
@@ -138,7 +138,7 @@ def charts():
         ax.xaxis.grid(True, color=GRID, lw=.8)
         ax.set_axisbelow(True)
 
-    rows = list(csv.DictReader((ROOT / "Test_Case_Design/Test_Cases.csv").open(encoding="utf-8")))
+    rows = list(csv.DictReader((ROOT / "test-cases/Test_Cases.csv").open(encoding="utf-8")))
     mods = sorted({r["Module"] for r in rows})
     lvl = {"Y": ("Selenium UI", BLUE), "A": ("API (Newman)", ORANGE), "B": ("Black-box EP/BVA", AQUA), "U": ("Unit (white-box)", YEL)}
 
@@ -155,7 +155,7 @@ def charts():
     ax.set_ylabel("test cases")
     ax.set_ylim(0, max(bottom) * 1.18)
     ax.legend(frameon=False, ncol=4, loc="upper right", fontsize=9)
-    save(fig, "01_cases_by_module.png", f"{len(rows)} test cases designed, by module and automation level", "Source: Test_Case_Design/Test_Cases.csv. All 42 business rules traced.")
+    save(fig, "01_cases_by_module.png", f"{len(rows)} test cases designed, by module and automation level", "Source: test-cases/Test_Cases.csv. All 42 business rules traced.")
 
     # 2 by type
     cnt = collections.Counter(r["Type"] for r in rows)
@@ -180,7 +180,7 @@ def charts():
     save(fig, "03_cases_by_priority.png", "Test cases by priority", "Source: Test_Cases.csv `Priority` column.")
 
     # 4 results per suite
-    nj = json.load(open(ROOT / "API_Testing/reports/newman_report.json"))["run"]
+    nj = json.load(open(ROOT / "api-testing/reports/newman_report.json"))["run"]
     st = nj["stats"]
 
     def junit(p):
@@ -188,8 +188,8 @@ def charts():
         s = r if r.tag == "testsuite" else r[0]
         return {k: int(s.get(k)) for k in ("tests", "failures", "errors", "skipped")} | {"time": float(s.get("time"))}
 
-    sel = junit("Test_Execution/selenium_junit.xml")
-    bb = junit("Black_Box_Testing/results/black_box_junit.xml")
+    sel = junit("test-execution/selenium_junit.xml")
+    bb = junit("black-box-testing/results/black_box_junit.xml")
     nt = (nj["timings"]["completed"] - nj["timings"]["started"]) / 1000
     suites = [("Selenium UI", sel["tests"], sel["failures"] + sel["errors"], sel["time"]),
               ("Newman API requests", st["items"]["total"], st["items"]["failed"], nt),
@@ -222,7 +222,7 @@ def charts():
     save(fig, "05_execution_time.png", "Execution time per suite", "Selenium pays browser start-up per test; the black-box suite runs 288 tests in about 2 minutes.")
 
     # 6 black-box by module
-    md = (ROOT / "Black_Box_Testing/Black_Box_Results.md").read_text(encoding="utf-8")
+    md = (ROOT / "black-box-testing/Black_Box_Results.md").read_text(encoding="utf-8")
     ep_s, bva_s = md.split("## Method 2")
 
     def per_mod(sec):
@@ -248,7 +248,7 @@ def charts():
 
     # 7 coverage totals
     def tot_line(p):
-        m = re.search(r"statements (\d+)/(\d+) = ([\d.]+)%; branches (\d+)/(\d+) = ([\d.]+)%", (ROOT / "White_Box_Testing" / p).read_text())
+        m = re.search(r"statements (\d+)/(\d+) = ([\d.]+)%; branches (\d+)/(\d+) = ([\d.]+)%", (ROOT / "white-box-testing" / p).read_text())
         return float(m.group(3)), float(m.group(6))
 
     u, a, c = tot_line("coverage_unit_summary.txt"), tot_line("coverage_api_summary.txt"), tot_line("coverage_combined_totals.txt")
@@ -267,11 +267,11 @@ def charts():
     ax.set_ylabel("% covered")
     ax.legend(frameon=False, loc="upper left")
     save(fig, "07_coverage_totals.png", "Backend code coverage (1,858 statements, 280 branches)",
-         "Unit tests target the five business-logic modules; the API suite exercises the rest. Source: White_Box_Testing/coverage_*.txt.")
+         "Unit tests target the five business-logic modules; the API suite exercises the rest. Source: white-box-testing/coverage_*.txt.")
 
     # 8 per-function coverage
     fn = []
-    for m in re.finditer(r"^\s+(\S+)::(\S+)\s+(\d+)/(\d+)\s+(\d+)/(\d+)\s*$", (ROOT / "White_Box_Testing/coverage_unit_summary.txt").read_text(), re.M):
+    for m in re.finditer(r"^\s+(\S+)::(\S+)\s+(\d+)/(\d+)\s+(\d+)/(\d+)\s*$", (ROOT / "white-box-testing/coverage_unit_summary.txt").read_text(), re.M):
         s, t, b, bt = map(int, m.groups()[2:])
         fn.append((m.group(2), (s + b) / (t + bt) * 100, s, t, b, bt))
     fn.sort(key=lambda r: r[1])
@@ -287,7 +287,7 @@ def charts():
          f"{full} of {len(fn)} targeted functions at 100%. Source: coverage_unit_summary.txt.")
 
     # 9 defects
-    reg = (ROOT / "Defect_Reports/README.md").read_text(encoding="utf-8")
+    reg = (ROOT / "defect-reports/README.md").read_text(encoding="utf-8")
     sev = collections.Counter(re.findall(r"^\| \[DEF-\d+\].*\| (Critical|High|Medium|Low) \| (?:Fixed|Open)", reg, re.M))
     foundby = {"Development": 2, "Selenium re-run": 3, "Newman": 1, "Code reading + API": 1, "Code reading": 1}  # from Test_Summary_Report.md "Found by"
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10, 4.2))
@@ -303,10 +303,10 @@ def charts():
         a2.text(v + .05, i, v, va="center", color=INK)
     vgrid(a2)
     a2.set_title("by how found", loc="left", fontsize=11, color=SUB)
-    save(fig, "09_defects.png", f"{sum(sev.values())} defects found, 0 open", "All fixed and re-tested. Source: Defect_Reports/README.md, Test_Summary_Report.md.")
+    save(fig, "09_defects.png", f"{sum(sev.values())} defects found, 0 open", "All fixed and re-tested. Source: defect-reports/README.md, Test_Summary_Report.md.")
 
     # 10 newman folders
-    nm = (ROOT / "API_Testing/API_Test_Results.md").read_text(encoding="utf-8")
+    nm = (ROOT / "api-testing/API_Test_Results.md").read_text(encoding="utf-8")
     fo = re.findall(r"^\| (\d\d [^|]+?) \| (\d+) \|$", nm, re.M)[::-1]
     fig, ax = plt.subplots(figsize=(9, 5))
     ax.barh([f[0] for f in fo], [int(f[1]) for f in fo], color=BLUE, height=.6)
@@ -319,18 +319,18 @@ def charts():
 
 
 def pdf():
-    """Re-renders Test_Reports/Test_Summary_Report.pdf from the markdown (headless Chrome print)."""
+    """Re-renders final-test-report/Test_Summary_Report.pdf from the markdown (headless Chrome print)."""
     import base64
     d = driver()
     try:
-        page = md_page("Test_Reports/Test_Summary_Report.md", "FreshCart test summary report").replace("<div class=bar>", "<div class=bar style='display:none'>")
+        page = md_page("final-test-report/Test_Summary_Report.md", "FreshCart test summary report").replace("<div class=bar>", "<div class=bar style='display:none'>")
         with tempfile.TemporaryDirectory() as t:
             f = Path(t) / "r.html"
             f.write_text(page, encoding="utf-8")
             d.get(f.as_uri())
             time.sleep(1.5)
             data = d.execute_cdp_cmd("Page.printToPDF", {"printBackground": True, "paperWidth": 8.27, "paperHeight": 11.69, "marginTop": .4, "marginBottom": .4, "marginLeft": .4, "marginRight": .4})
-            (ROOT / "Test_Reports" / "Test_Summary_Report.pdf").write_bytes(base64.b64decode(data["data"]))
+            (ROOT / "final-test-report" / "Test_Summary_Report.pdf").write_bytes(base64.b64decode(data["data"]))
             print("wrote Test_Summary_Report.pdf")
     finally:
         d.quit()

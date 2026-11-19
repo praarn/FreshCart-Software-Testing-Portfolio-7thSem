@@ -91,5 +91,5 @@ Every interactive element (inputs, buttons, links, table rows, error messages) c
 matching `id` and `data-testid`, generally following `<page-or-component>-<element>[-<id>]`
 (e.g. `add-to-cart-button-${productId}`, `checkout-submit-button`, `admin-order-row-${id}`).
 Field-level validation errors use a testid ending in `-error`. This is what the student's
-Selenium test suite (under `Test_Automation/`) is expected to target — don't rename these
+Selenium test suite (under `automation-testing/selenium-or-playwright/`) is expected to target — don't rename these
 without checking whether tests depend on them.

@@ -26,7 +26,7 @@ app/
 alembic/           Migrations; env.py runs them against the async engine
 tests/
   test_health.py   The one trivial smoke test CI runs (the real suite is the
-                    student's deliverable under Test_Automation/)
+                    student's deliverable under automation-testing/selenium-or-playwright/)
 ```
 
 ## The layering rule
