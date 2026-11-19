@@ -152,8 +152,7 @@ A single-pass university project schedule (not a multi-sprint plan):
 
 | Role | Responsibility | Member |
 |---|---|---|
-| Test Analyst | Requirements analysis, test plan, test design techniques, traceability | TODO: name / roll number |
-| Test Engineer | Test execution, defect reports, white-box and unit tests, test reports | TODO: name / roll number |
-| Automation and QA Engineer | Selenium suite, Postman/Newman suite, CI, final report | TODO: name / roll number |
+| Test Analyst | Requirements analysis, test plan, test design techniques, traceability | Prapti R. N. (1MS23IS094) |
+| Test Engineer | Test execution, defect reports, white-box and unit tests, test reports | Poorvika G. J. (1MS23IS090) |
 
-Role-to-member assignment is to be filled in by the team; see `../reflections/Team_Learning_Reflection.md`.
+Roles match the member table in the README; contributions are in `../reflections/Team_Learning_Reflection.md`.
