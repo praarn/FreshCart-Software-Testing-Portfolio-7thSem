@@ -54,5 +54,5 @@ Fixed (not independently reproduced before the fix).
 ## Verification evidence
 
 - Regression test: Selenium `test_m9_wishlist_banners_offers.py::test_add_product_to_wishlist`, passing in the final run.
-- Final run report: [`selenium_report.html`](../Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../API_Testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-006 evidence](../Screenshots/13_pytest_html_report.png)
+- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-006 evidence](../evidence/screenshots/13_pytest_html_report.png)

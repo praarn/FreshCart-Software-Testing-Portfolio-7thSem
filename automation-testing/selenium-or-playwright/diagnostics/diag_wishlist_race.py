@@ -1,6 +1,6 @@
 """Diagnostic for test_add_product_to_wishlist: does navigating right after the heart click
 lose the POST /wishlist/items request? Runs N iterations with and without waiting for the heart to fill.
-Run from Test_Automation with the stack up:  python diagnostics/diag_wishlist_race.py [N]
+Run from automation-testing/selenium-or-playwright with the stack up:  python diagnostics/diag_wishlist_race.py [N]
 """
 import sys
 import time

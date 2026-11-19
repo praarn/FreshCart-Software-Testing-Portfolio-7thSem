@@ -7,7 +7,7 @@ from utils.config import CUSTOMER1
 
 def _deliver_apple_to_customer1():
     """customer1 has a seeded DELIVERED order containing Apple — see
-    Application/backend/app/seed.py. Returns the Apple product id."""
+    application/backend/app/seed.py. Returns the Apple product id."""
     return api_client.product_id_by_name("Apple")
 
 

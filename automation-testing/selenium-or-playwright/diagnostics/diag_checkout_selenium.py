@@ -1,5 +1,5 @@
 """Diagnostic: reproduce the TC-M5-001 timeout and print what the page shows and how long
-each step takes. Run from Test_Automation with the stack up:  python diagnostics/diag_checkout_selenium.py
+each step takes. Run from automation-testing/selenium-or-playwright with the stack up:  python diagnostics/diag_checkout_selenium.py
 """
 import sys
 import time

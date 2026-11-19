@@ -1,4 +1,4 @@
-"""M1 — Registration and login (R1.1-R1.8). See ../../Test_Case_Design/Test_Cases.csv
+"""M1 — Registration and login (R1.1-R1.8). See ../../test-cases/Test_Cases.csv
 for the full case list; TC IDs are referenced in each test's docstring."""
 import time
 

@@ -1,5 +1,5 @@
 """Base Page Object: thin helpers over Selenium keyed on the frontend's data-testid
-attributes (see ../../Application/frontend/explanation.md#testability)."""
+attributes (see ../../application/frontend/explanation.md#testability)."""
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait

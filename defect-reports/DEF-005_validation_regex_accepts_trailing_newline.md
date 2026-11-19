@@ -47,5 +47,5 @@ Fixed.
 ## Verification evidence
 
 - Regression test: `tests/unit/test_input_validation.py` (12 cases, 9 failed on the old code).
-- Final run report: [`selenium_report.html`](../Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../API_Testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-005 evidence](../Screenshots/12_pytest_cov_unit_run.png)
+- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-005 evidence](../evidence/screenshots/12_pytest_cov_unit_run.png)

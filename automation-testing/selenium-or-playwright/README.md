@@ -1,10 +1,10 @@
 # 05 — Test Automation
 
 A Selenium + pytest suite (Page Object Model) automating 86 of the 169 test cases in
-[`../Test_Case_Design/Test_Cases.csv`](../Test_Case_Design/Test_Cases.csv), covering
-every module M1–M9. The other 83 are covered at the API level (`A`, Newman), by the black-box EP/BVA suite (`B`, `Black_Box_Testing`) or at unit level (`U`, pytest); see the CSV's
+[`../../test-cases/Test_Cases.csv`](../../test-cases/Test_Cases.csv), covering
+every module M1–M9. The other 83 are covered at the API level (`A`, Newman), by the black-box EP/BVA suite (`B`, `black-box-testing`) or at unit level (`U`, pytest); see the CSV's
 `Automated` column and
-[`../Test_Case_Design/Traceability_Matrix.md`](../Test_Case_Design/Traceability_Matrix.md).
+[`../../test-cases/Traceability_Matrix.md`](../../test-cases/Traceability_Matrix.md).
 
 ## At a glance
 
@@ -13,7 +13,7 @@ every module M1–M9. The other 83 are covered at the API level (`A`, Newman), b
 | Stack | Selenium 4.27, pytest 8.3, requests, pytest-html |
 | Pattern | Page Object Model; locators use the frontend's `data-testid` attributes |
 | Tests | 86 automated cases across 9 files, one per business module |
-| Latest result | 86 passed, 0 failed (34 min 16 s, production build) - [`selenium_report.html`](../Test_Execution/selenium_report.html) |
+| Latest result | 86 passed, 0 failed (34 min 16 s, production build) - [`selenium_report.html`](../../test-execution/selenium_report.html) |
 
 | Test file | Module | Tests |
 |---|---|---|
@@ -40,7 +40,7 @@ pages/          Page Object Model, one module per functional area, keyed on the
                 frontend's data-testid attributes
 tests/          One file per business module (test_m1_auth.py ... test_m9_*.py)
 diagnostics/    Scripts that reproduce and measure the failures described in the Execution Log
-tools/          make_results_table.py: JUnit XML -> ../Test_Execution/Selenium_Results.md
+tools/          make_results_table.py: JUnit XML -> ../../test-execution/Selenium_Results.md
 utils/
   config.py     Base URLs, seed account credentials
   api_client.py Thin requests wrapper for fast fixture setup and backend-truth assertions
@@ -55,14 +55,14 @@ back to `Test_Cases.csv`.
 pip install -r requirements.txt
 ```
 
-Start the application in test mode first (see [`../commands.md`](../commands.md)):
+Start the application in test mode first (see [`../../commands.md`](../../commands.md)):
 
 ```bash
 # terminal 1
-cd ../Application/backend
+cd ../../application/backend
 APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --reload
 # terminal 2
-cd ../Application/frontend
+cd ../../application/frontend
 npm run dev
 ```
 
@@ -71,7 +71,7 @@ Then, from this folder:
 ```bash
 pytest
 # or, with an HTML report:
-pytest --html=report.html --self-contained-html   # report.html is git-ignored here; the committed copy is Test_Execution/selenium_report.html
+pytest --html=report.html --self-contained-html   # report.html is git-ignored here; the committed copy is test-execution/selenium_report.html
 ```
 
 Chrome runs headless (`--headless=new`, set in `conftest.py`'s `driver` fixture); remove that
@@ -109,7 +109,7 @@ pytest -x                                  # stop at the first failure
 ## Flakiness and its causes
 
 The suite had intermittent timeouts. Investigation found real causes, listed in the
-[Execution Log](../Test_Execution/Execution_Log.md): DEF-003 (test-mode token expiry), DEF-007 (stale search
+[Execution Log](../../test-execution/Execution_Log.md): DEF-003 (test-mode token expiry), DEF-007 (stale search
 response), DEF-008 (session cleared when `/auth/me` is aborted) and, for the wishlist, DEF-006. Scripts that reproduce
 them are in [`diagnostics/`](diagnostics/). The remaining rules for stable runs:
 
@@ -120,6 +120,6 @@ them are in [`diagnostics/`](diagnostics/). The remaining rules for stable runs:
 ## Prerequisites
 
 - The backend running with `APP_ENV=test` and `FIXED_NOW=2026-11-10T09:00:00`, and the
-  frontend running (see [`../commands.md`](../commands.md)).
+  frontend running (see [`../../commands.md`](../../commands.md)).
 - Google Chrome installed. Selenium Manager fetches the matching driver.
 - Python 3.11+.

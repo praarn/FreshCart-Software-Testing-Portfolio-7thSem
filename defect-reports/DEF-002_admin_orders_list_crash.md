@@ -57,7 +57,7 @@ Changed the query in `admin_service.list_orders()` to
 `selectinload(Order.items).selectinload(OrderItem.product)`, matching every other order query
 in the codebase.
 
-**File changed:** `Application/backend/app/services/admin_service.py`
+**File changed:** `application/backend/app/services/admin_service.py`
 
 ## Status
 
@@ -69,5 +69,5 @@ offers" — the fix landed alongside the frontend work that surfaced it).
 ## Verification evidence
 
 - Regression test: Selenium `test_m6_order_lifecycle.py` and `test_m8_admin.py::test_admin_filters_orders_by_status` list orders as admin and pass.
-- Final run report: [`selenium_report.html`](../Test_Execution/selenium_report.html) (86 passed), [`newman_report.html`](../API_Testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-002 evidence](../Screenshots/13_pytest_html_report.png)
+- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-002 evidence](../evidence/screenshots/13_pytest_html_report.png)

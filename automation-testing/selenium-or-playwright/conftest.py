@@ -20,7 +20,7 @@ def _check_servers_up():
         pytest.exit(
             f"Backend not reachable at {API_URL} ({exc}). Start it with "
             f"APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --reload "
-            f"(see ../commands.md)."
+            f"(see ../../commands.md)."
         )
     try:
         r = requests.get(BASE_URL, timeout=5)
