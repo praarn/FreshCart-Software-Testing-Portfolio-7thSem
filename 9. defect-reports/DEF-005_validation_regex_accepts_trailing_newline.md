@@ -18,7 +18,7 @@ any Unicode decimal digit. A value that is not exactly N ASCII digits therefore 
 ## Steps to reproduce
 
 ```
-curl -X POST http://localhost:8001/api/auth/register -H 'content-type: application/json' \
+curl -X POST http://localhost:8001/api/auth/register -H 'content-type: "application/json"' \
   --data-binary '{"name":"Jane Doe\n","email":"nl1@example.com","password":"Passw0rd1","phone":"9123456789\n"}'
 ```
 
@@ -47,5 +47,5 @@ Fixed.
 ## Verification evidence
 
 - Regression test: `tests/unit/test_input_validation.py` (12 cases, 9 failed on the old code).
-- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-005 evidence](../evidence/screenshots/12_pytest_cov_unit_run.png)
+- Final run report: [`selenium_report.html`](../10.%20test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7.%20api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-005 evidence](../11.%20evidence/screenshots/12_pytest_cov_unit_run.png)

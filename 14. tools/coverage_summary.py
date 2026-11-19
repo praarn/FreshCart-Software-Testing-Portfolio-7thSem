@@ -1,6 +1,6 @@
 """Prints totals, per-module and per-function coverage from a `coverage json` file.
 
-Usage:  python tools/coverage_summary.py cov.json
+Usage:  python "14. tools/coverage_summary.py" cov.json
 """
 import json
 import sys

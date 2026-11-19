@@ -77,5 +77,5 @@ app\services\review_service.py        24     13      4      0    39%   16-40, 44
 app\services\wishlist_service.py      30     19      6      0    31%   15-21, 25-40, 44-50
 ------------------------------------------------------------------------------
 TOTAL                               1858    646    280      9    62%
-Coverage HTML written to dir ../../white-box-testing/coverage_html
+Coverage HTML written to dir ../../6. white-box-testing/coverage_html
 136 passed, 2 warnings in 31.20s

@@ -49,7 +49,7 @@ Added `.execution_options(populate_existing=True)` to the cart-fetching query in
 `_get_or_create_cart`, forcing SQLAlchemy to overwrite the already-loaded `items` collection
 (and its nested `product` relationship) with fresh data on every call.
 
-**File changed:** `application/backend/app/services/cart_service.py`
+**File changed:** `0. application/backend/app/services/cart_service.py`
 
 ## Status
 
@@ -59,5 +59,5 @@ and clears all reflect immediately). See commit `5cbed04` ("feat(catalog,cart): 
 ## Verification evidence
 
 - Regression test: Selenium `test_m3_cart.py` (add, re-add, update, remove, clear, totals: 8 cases) re-ran green after the fix.
-- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-001 evidence](../evidence/screenshots/13_pytest_html_report.png)
+- Final run report: [`selenium_report.html`](../10.%20test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7.%20api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-001 evidence](../11.%20evidence/screenshots/13_pytest_html_report.png)

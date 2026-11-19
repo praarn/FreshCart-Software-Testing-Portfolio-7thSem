@@ -27,7 +27,7 @@ when testing is considered done.
 3. No open Critical or High defects.
 
 The outcome against these criteria is assessed in the
-[Test Summary Report](../final-test-report/Test_Summary_Report.md).
+[Test Summary Report](../12.%20final-test-report/Test_Summary_Report.md).
 
 ## Out of scope
 
@@ -37,5 +37,5 @@ other than Chrome.
 
 ## Related
 
-- Spec the plan tests against: [`../application/docs/REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md)
-- Next step: [`../test-cases/`](../test-cases/)
+- Spec the plan tests against: [`../0. application/docs/REQUIREMENTS.md`](../0.%20application/docs/REQUIREMENTS.md)
+- Next step: [`../4. test-cases/`](../4.%20test-cases/)

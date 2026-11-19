@@ -4,7 +4,7 @@
 |---|---|
 | Project | FreshCart — online grocery shopping and delivery system |
 | Document | Test Plan |
-| Reference | [`application/docs/REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md) (authoritative rule list, R1.1–R9.3) |
+| Reference | [`0. application/docs/REQUIREMENTS.md`](../0.%20application/docs/REQUIREMENTS.md) (authoritative rule list, R1.1–R9.3) |
 | Environment under test | Backend FastAPI (`localhost:8000`), Frontend Next.js (`localhost:3000`), `APP_ENV=test`, `FIXED_NOW=2026-11-10T09:00:00` |
 
 ## 1. Introduction
@@ -20,10 +20,10 @@ UI — against the business rules in `REQUIREMENTS.md`.
 ### 2.1 In scope
 
 - White-box testing of the backend business logic with two methods: basis path testing (control flow graphs,
-  V(G), one test per independent path) and statement/branch/condition coverage: `white-box-testing/`.
+  V(G), one test per independent path) and statement/branch/condition coverage: `6. white-box-testing/`.
 - Black-box testing of the running application with two methods, equivalence partitioning and boundary value
-  analysis, executed as data-driven tests over HTTP: `black-box-testing/`.
-- API testing of every endpoint group with Postman/Newman: `api-testing/`.
+  analysis, executed as data-driven tests over HTTP: `5. black-box-testing/`.
+- API testing of every endpoint group with Postman/Newman: `7. api-testing/`.
 - All 42 business rules R1.1–R9.3 across modules M1–M9 (auth, catalog, cart, coupons,
   checkout, order lifecycle, reviews, admin, wishlist/banners/offers).
 - REST API contract: status codes, the `{status, error, message, field_errors}` error shape,
@@ -35,7 +35,7 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 ### 2.2 Out of scope
 
-- Load/performance/security penetration testing (functional correctness only). Mutation testing is not run (see `white-box-testing/README.md`).
+- Load/performance/security penetration testing (functional correctness only). Mutation testing is not run (see `6. white-box-testing/README.md`).
 - Payment gateway integration (checkout payment is explicitly mocked — no real gateway).
 - SMS/email delivery (the app has none — OTP is shown in-app, not sent externally).
 - Visual/pixel-level design regression testing (manual visual sanity only).
@@ -45,20 +45,20 @@ UI — against the business rules in `REQUIREMENTS.md`.
 
 | Item | Source |
 |---|---|
-| Backend REST API | `application/backend` |
-| WebSocket `/ws/orders/{id}` | `application/backend/app/routers/ws.py` |
-| Frontend web app (all routes) | `application/frontend` |
+| Backend REST API | `0. application/backend` |
+| WebSocket `/ws/orders/{id}` | `0. application/backend/app/routers/ws.py` |
+| Frontend web app (all routes) | `0. application/frontend` |
 
 ## 4. Test approach
 
 | Level | Method | Where |
 |---|---|---|
-| White-box method 1: basis path | CFG and V(G) for `validate_coupon`, `_validate_payment`, `complete_delivery`; one pytest test per independent path | `application/backend/tests/unit`, `white-box-testing/Basis_Path_Testing.md` |
-| White-box method 2: coverage | pytest + pytest-cov on `app/services` and `app/core`, isolated in-memory SQLite, statement and branch coverage, condition coverage by predicate | `application/backend/tests/unit`, `white-box-testing/Coverage_Report.md` |
-| Black-box method 1: equivalence partitioning | One representative per valid and invalid class, every input of M1-M9, sent over HTTP with no knowledge of the code | `black-box-testing/tests/test_ep_*.py` |
-| Black-box method 2: boundary value analysis | min-1, min, min+1, max-1, max, max+1 for every numeric and length rule, with exact money values built through the admin API | `black-box-testing/tests/test_bva_*.py` |
+| White-box method 1: basis path | CFG and V(G) for `validate_coupon`, `_validate_payment`, `complete_delivery`; one pytest test per independent path | `0. application/backend/tests/unit`, `6. white-box-testing/Basis_Path_Testing.md` |
+| White-box method 2: coverage | pytest + pytest-cov on `app/services` and `app/core`, isolated in-memory SQLite, statement and branch coverage, condition coverage by predicate | `0. application/backend/tests/unit`, `6. white-box-testing/Coverage_Report.md` |
+| Black-box method 1: equivalence partitioning | One representative per valid and invalid class, every input of M1-M9, sent over HTTP with no knowledge of the code | `5. black-box-testing/tests/test_ep_*.py` |
+| Black-box method 2: boundary value analysis | min-1, min, min+1, max-1, max, max+1 for every numeric and length rule, with exact money values built through the admin API | `5. black-box-testing/tests/test_bva_*.py` |
 | API-level functional | Postman collection run headless with Newman against the test-mode backend | `api-testing` |
-| UI functional / end-to-end | Automated, Selenium + pytest, Page Object Model | `automation-testing/selenium-or-playwright` |
+| UI functional / end-to-end | Automated, Selenium + pytest, Page Object Model | `8. automation-testing/selenium-or-playwright` |
 | Exploratory / manual | Manual pass for flows not automated (e.g. visual banner carousel, mobile layout) | `test-execution` |
 
 Equivalence partitioning and boundary value analysis are the two black-box methods the portfolio is graded on, so
@@ -69,7 +69,7 @@ stay as supporting design techniques.
 Test cases are designed in `test-cases` with equivalence partitioning, boundary value
 analysis, decision tables and state transition testing (one document each), plus explicit
 negative cases for every documented error response. Each test case traces to one or more rule
-IDs. Requirements were analysed first: [`Requirements_Analysis.md`](../requirements/Requirements_Analysis.md).
+IDs. Requirements were analysed first: [`Requirements_Analysis.md`](../2.%20requirements/Requirements_Analysis.md).
 
 ## 5. Test environment
 
@@ -132,9 +132,9 @@ IDs. Requirements were analysed first: [`Requirements_Analysis.md`](../requireme
 | `test-cases` | Test case specifications + requirements traceability matrix |
 | `test-execution` | Execution log: actual results of running the cases below |
 | `defect-reports` | Any defect found during execution |
-| `automation-testing/selenium-or-playwright` | The Selenium/pytest automation suite |
+| `8. automation-testing/selenium-or-playwright` | The Selenium/pytest automation suite |
 | `final-test-report` | Summary report: pass/fail counts, coverage, defect summary |
-| `evidence/screenshots` | Evidence captured during execution |
+| `11. evidence/screenshots` | Evidence captured during execution |
 | `white-box-testing` | CFGs, basis path testing, coverage report |
 | `black-box-testing` | Equivalence partitioning and boundary value analysis suites, results |
 | `api-testing` | Postman collection, Newman reports, API results |
@@ -155,4 +155,4 @@ A single-pass university project schedule (not a multi-sprint plan):
 | Test Analyst | Requirements analysis, test plan, test design techniques, traceability | Prapti R. N. (1MS23IS094) |
 | Test Engineer | Test execution, defect reports, white-box and unit tests, test reports | Poorvika G. J. (1MS23IS090) |
 
-Roles match the member table in the README; contributions are in `../reflections/Team_Learning_Reflection.md`.
+Roles match the member table in the README; contributions are in `../13. reflections/Team_Learning_Reflection.md`.

@@ -4,7 +4,7 @@ BASE_URL = os.environ.get("FRESHCART_BASE_URL", "http://localhost:3000")
 API_URL = os.environ.get("FRESHCART_API_URL", "http://localhost:8000/api")
 DEFAULT_TIMEOUT = 20
 
-# Seed accounts (see application/backend/app/seed.py)
+# Seed accounts (see 0. application/backend/app/seed.py)
 ADMIN = {"email": "admin@freshcart.test", "password": "Admin@1234"}
 DRIVER1 = {"email": "driver1@freshcart.test", "password": "Driver@1234"}
 DRIVER2 = {"email": "driver2@freshcart.test", "password": "Driver@1234"}

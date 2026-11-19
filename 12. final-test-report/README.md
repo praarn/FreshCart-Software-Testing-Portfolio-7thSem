@@ -24,4 +24,4 @@ The overall conclusion and lessons learned are in [`Conclusion.md`](Conclusion.m
 | Defects found and fixed in this verification | 6 (DEF-003 to DEF-008) |
 | Open defects | 0 |
 
-Coverage figures: [`../white-box-testing/Coverage_Report.md`](../white-box-testing/Coverage_Report.md).
+Coverage figures: [`../6. white-box-testing/Coverage_Report.md`](../6.%20white-box-testing/Coverage_Report.md).

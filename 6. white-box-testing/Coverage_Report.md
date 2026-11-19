@@ -60,7 +60,7 @@ Full per-module lists: `coverage_unit_summary.txt`, `coverage_api_summary.txt`.
 
 | Code | Why |
 |---|---|
-| `routers/ws.py` (29 of 40 statements missed in both runs) and most of `core/ws_manager.py` | The WebSocket is not driven by Newman or the unit tests. R6.7 is demonstrated in `evidence/screenshots/08_*` and in the demo. This is the largest gap. |
+| `routers/ws.py` (29 of 40 statements missed in both runs) and most of `core/ws_manager.py` | The WebSocket is not driven by Newman or the unit tests. R6.7 is demonstrated in `11. evidence/screenshots/08_*` and in the demo. This is the largest gap. |
 | `schemas/common.py` (10 statements, 0% in both runs) | No code imports it. Likely dead code. |
 | Unit run: `cart_service`, `admin_service`, `catalog_service`, `banner_service`, `review_service`, `wishlist_service`, `deps.py` | Mostly SQL and CRUD, not targeted by unit tests. The API suite covers them (about 90% or better). |
 | API run: `services/admin_service.py` branches (60%), `pricing_service.py` lines 35, 41, 44->46 | Error branches for unknown ids and the weekday and cap paths are covered by the unit tests, not by the API suite; the combined run closes them. |
@@ -78,21 +78,21 @@ Full per-module lists: `coverage_unit_summary.txt`, `coverage_api_summary.txt`.
 Unit tests:
 
 ```bash
-cd application/backend
-pytest --cov=app --cov-branch --cov-report=term-missing --cov-report=html:../../white-box-testing/coverage_html
+cd "0. application/backend"
+pytest --cov=app --cov-branch --cov-report=term-missing --cov-report=html:"../../6. white-box-testing/coverage_html"
 ```
 
 API suite (the backend runs under coverage; SQLAlchemy's async layer needs `concurrency=greenlet`, which
-`tools/run_instrumented_api.py` sets. Without it the DB-backed functions are under-counted, which happened on the
+`14. tools/run_instrumented_api.py` sets. Without it the DB-backed functions are under-counted, which happened on the
 first attempt and was discarded):
 
 ```bash
-cd application/backend
-APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 python ../../tools/run_instrumented_api.py 8001 .coverage.api
+cd "0. application/backend"
+APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 python "../../14. tools/run_instrumented_api.py" 8001 .coverage.api
 # in another terminal: newman run ... --env-var base_url=http://localhost:8001/api
 # then: touch stop.flag next to .coverage.api (stops the server and writes the data)
 coverage report --data-file=.coverage.api --show-missing
-coverage json --data-file=.coverage.api -o cov.json && python ../../tools/coverage_summary.py cov.json
+coverage json --data-file=.coverage.api -o cov.json && python "../../14. tools/coverage_summary.py" cov.json
 ```
 
-Screenshot of the HTML report: [`../evidence/screenshots/`](../evidence/screenshots/README.md).
+Screenshot of the HTML report: [`../11. evidence/screenshots/`](../11.%20evidence/screenshots/README.md).

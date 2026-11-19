@@ -1,7 +1,7 @@
 """Runs the FreshCart backend under coverage.py so the API suite's coverage can be measured.
 
-Usage (from application/backend, test mode env vars set):
-    python ../../tools/run_instrumented_api.py [port] [coverage_data_file]
+Usage (from 0. application/backend, test mode env vars set):
+    python ../../14. tools/run_instrumented_api.py [port] [coverage_data_file]
 Create the file `stop.flag` next to the data file (or press Ctrl+C) to stop the server and write the data.
 Then:  coverage report --data-file=<file> --include="app/*"
 """

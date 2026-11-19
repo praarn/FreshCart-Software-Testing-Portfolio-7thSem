@@ -1,6 +1,6 @@
 """Renders a saved terminal log as a PNG (dark terminal look) using headless Chrome.
 
-Usage:  python tools/render_terminal_png.py input.log output.png ["title"] [first_line] [last_line]
+Usage:  python "14. tools/render_terminal_png.py" input.log output.png ["title"] [first_line] [last_line]
 The PNG shows the log text unchanged (ANSI colour codes removed); only a line range is selected.
 """
 import html

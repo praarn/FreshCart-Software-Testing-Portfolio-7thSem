@@ -2,7 +2,7 @@
 
 Next.js (App Router) + React 19 + TypeScript + Tailwind CSS client for the FreshCart API.
 
-See the root [`application/README.md`](../README.md) for full run instructions. Quick start:
+See the root [`0. application/README.md`](../README.md) for full run instructions. Quick start:
 
 ```bash
 npm install

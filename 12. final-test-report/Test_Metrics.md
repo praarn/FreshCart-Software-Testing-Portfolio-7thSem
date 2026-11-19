@@ -1,12 +1,12 @@
 # Test metrics
 
-Every figure comes from a file in this repository (named in the Source column). Derived ratios are computed from those figures and the arithmetic is shown. The charts are in [`../evidence/screenshots/metrics/`](../evidence/screenshots/metrics/) and are regenerated with `python tools/make_evidence.py charts`.
+Every figure comes from a file in this repository (named in the Source column). Derived ratios are computed from those figures and the arithmetic is shown. The charts are in [`../11. evidence/screenshots/metrics/`](../11.%20evidence/screenshots/metrics/) and are regenerated with `python "14. tools/make_evidence.py" charts`.
 
 ## Design metrics
 
 | Metric | Value | Source |
 |---|---|---|
-| Business rules | 42 | `application/docs/REQUIREMENTS.md` |
+| Business rules | 42 | `0. application/docs/REQUIREMENTS.md` |
 | Rules with at least one test case | 42 (100%) | `Traceability_Matrix.md` |
 | Test cases designed | 169 | `Test_Cases.csv` |
 | Test cases per rule (average) | 4.0 (169 / 42) | derived |
@@ -37,7 +37,7 @@ The black-box suite runs 288 tests in the time Selenium needs for about 6, becau
 | Statements | 1,212 / 1,858 = 65.2% | 1,754 / 1,858 = 94.4% | 1,766 / 1,858 = **95.0%** |
 | Branches | 107 / 280 = 38.2% | 231 / 280 = 82.5% | 243 / 280 = **86.8%** |
 
-Source: `white-box-testing/coverage_*_summary.txt`, `coverage_combined_totals.txt`. The unit tests are aimed at 15 business-logic functions, not the whole backend, so 65.2% is expected. 14 of the 15 are at 100% statement and branch coverage; `cancel_order` is 9/10 statements and 5/6 branches.
+Source: `6. white-box-testing/coverage_*_summary.txt`, `coverage_combined_totals.txt`. The unit tests are aimed at 15 business-logic functions, not the whole backend, so 65.2% is expected. 14 of the 15 are at 100% statement and branch coverage; `cancel_order` is 9/10 statements and 5/6 branches.
 
 Basis path testing: `validate_coupon` V(G) = 10 (10 paths), `_validate_payment` 7 paths, `complete_delivery` 7 paths of which 6 are feasible. Each feasible path has a test.
 
@@ -53,7 +53,7 @@ Basis path testing: `validate_coupon` V(G) = 10 (10 paths), `_validate_payment` 
 | Open | 0 |
 | Defects found by the black-box EP/BVA suite | 0 (it closed four equivalence classes that had no test) |
 
-Source: `defect-reports/README.md`, `Test_Summary_Report.md`.
+Source: `9. defect-reports/README.md`, `Test_Summary_Report.md`.
 
 ## What these numbers do not show
 

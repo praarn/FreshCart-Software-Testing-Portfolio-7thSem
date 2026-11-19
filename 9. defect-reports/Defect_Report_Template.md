@@ -9,7 +9,7 @@ execution. One file per defect.
 **Title:**
 **Reported by:** (tester)
 **Date found:**
-**Found via:** (TC ID from `../test-cases/Test_Cases.csv`, or manual/exploratory)
+**Found via:** (TC ID from `../4. test-cases/Test_Cases.csv`, or manual/exploratory)
 **Module:** (M1-M9)
 **Rule ID(s) affected:**
 **Severity:** Critical / High / Medium / Low
@@ -31,7 +31,7 @@ One or two sentences: what's wrong.
 
 ## Evidence
 
-Screenshot(s) in `../evidence/screenshots/`, relevant log excerpt, etc.
+Screenshot(s) in `../11. evidence/screenshots/`, relevant log excerpt, etc.
 
 ## Root cause
 

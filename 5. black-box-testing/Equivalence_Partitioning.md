@@ -2,8 +2,8 @@
 
 Each input domain is split into classes the application should treat identically. One
 representative per class is enough. Rule IDs are from
-[`REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md); TC IDs from
-[`Test_Cases.csv`](../test-cases/Test_Cases.csv). Boundaries inside these classes are in
+[`REQUIREMENTS.md`](../0.%20application/docs/REQUIREMENTS.md); TC IDs from
+[`Test_Cases.csv`](../4.%20test-cases/Test_Cases.csv). Boundaries inside these classes are in
 [`Boundary_Value_Analysis.md`](Boundary_Value_Analysis.md).
 
 ## Name (R1.1): 2-50 chars, letters and spaces
@@ -68,7 +68,7 @@ representative per class is enough. Rule IDs are from
 ## Executed as a suite
 
 Equivalence partitioning is one of the two black-box methods of the portfolio. The classes above are the ones the
-UI and API suites touch; [`black-box-testing/`](../black-box-testing/README.md) runs **every** class, plus the
+UI and API suites touch; [`5. black-box-testing/`](../5.%20black-box-testing/README.md) runs **every** class, plus the
 classes added there, as one parametrized pytest case per class, with the class number in the test id (for example
 `TC-M1-029-EP5-no-letter`). Case IDs by domain:
 

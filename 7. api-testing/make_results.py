@@ -59,7 +59,7 @@ def main(path):
     out += [f"| {k} | {v} |" for k, v in folders.items()]
     out += ["", "## Results", "",
             "Expected status is the first assertion of each request; every request also asserts response shape or the "
-            "`{status, error, message, field_errors}` contract. TC IDs refer to `test-cases/Test_Cases.csv`; "
+            "`{status, error, message, field_errors}` contract. TC IDs refer to `4. test-cases/Test_Cases.csv`; "
             "`API-*` and `DEF-*` are API-only checks.", "",
             "| # | TC | Request | Call | Expected | Actual | Result | Rules |", "|---|---|---|---|---|---|---|---|"]
     out += [f"| {a} | {b} | {c} | `{d}` | {e} | {f} | {g} | {h} |" for a, b, c, d, e, f, g, h in rows]

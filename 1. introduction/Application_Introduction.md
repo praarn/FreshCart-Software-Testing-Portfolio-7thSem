@@ -1,8 +1,8 @@
 # 1. Introduction to the application
 
 **FreshCart** is an online grocery shopping and delivery system and is the application under test for this portfolio.
-Its source is in [`../application/`](../application/); the business rules and API reference are in
-[`../application/docs/REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md).
+Its source is in [`../0. application/`](../0.%20application/); the business rules and API reference are in
+[`../0. application/docs/REQUIREMENTS.md`](../0.%20application/docs/REQUIREMENTS.md).
 
 ## Roles
 
@@ -31,5 +31,5 @@ Its source is in [`../application/`](../application/); the business rules and AP
 
 ## Where to go next
 
-Requirements analysis: [`../requirements/`](../requirements/). Test plan: [`../test-plan/`](../test-plan/).
-How to run the application: [`../application/README.md`](../application/README.md).
+Requirements analysis: [`../2. requirements/`](../2.%20requirements/). Test plan: [`../3. test-plan/`](../3.%20test-plan/).
+How to run the application: [`../0. application/README.md`](../0.%20application/README.md).

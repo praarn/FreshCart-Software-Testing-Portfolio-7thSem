@@ -44,5 +44,5 @@ Fixed.
 ## Verification evidence
 
 - Regression test: Newman request `[TC-M5-004] Available slots honour the 2-hour lead time` (401 without a token, 200 for a customer).
-- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-004 evidence](../evidence/screenshots/16_newman_html_report.png)
+- Final run report: [`selenium_report.html`](../10.%20test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7.%20api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-004 evidence](../11.%20evidence/screenshots/16_newman_html_report.png)

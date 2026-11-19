@@ -1,6 +1,6 @@
 # Diagnostics
 
-Scripts used to find the root cause of failing Selenium tests. Run from `automation-testing/selenium-or-playwright` with the
+Scripts used to find the root cause of failing Selenium tests. Run from `8. automation-testing/selenium-or-playwright` with the
 stack up (backend in test mode, frontend running, preferably the production build).
 
 | Script | Question it answers | Finding |

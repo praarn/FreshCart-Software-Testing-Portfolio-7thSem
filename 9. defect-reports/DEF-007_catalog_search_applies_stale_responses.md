@@ -49,5 +49,5 @@ Fixed.
 ## Verification evidence
 
 - Regression test: Selenium `test_m2_catalog.py::test_inactive_product_hidden_from_customers`, passing in the final run.
-- Final run report: [`selenium_report.html`](../test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../api-testing/reports/newman_report.html) (0 failed)
-- Screenshot: ![DEF-007 evidence](../evidence/screenshots/13_pytest_html_report.png)
+- Final run report: [`selenium_report.html`](../10.%20test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7.%20api-testing/reports/newman_report.html) (0 failed)
+- Screenshot: ![DEF-007 evidence](../11.%20evidence/screenshots/13_pytest_html_report.png)

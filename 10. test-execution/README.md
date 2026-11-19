@@ -12,9 +12,9 @@ The record of actually running the test cases.
 | [`Formerly_Manual_Cases.md`](Formerly_Manual_Cases.md) | The 9 cases that were manual, now executed through Newman or unit tests, with actual results |
 | [`Execution_Log_2026-11-09_first_run.md`](Execution_Log_2026-11-09_first_run.md) | The original log (superseded) |
 
-API results per request are in [`../api-testing/API_Test_Results.md`](../api-testing/API_Test_Results.md);
-unit and coverage results in [`../white-box-testing/Coverage_Report.md`](../white-box-testing/Coverage_Report.md);
-black-box technique results in [`../black-box-testing/Black_Box_Results.md`](../black-box-testing/Black_Box_Results.md).
+API results per request are in [`../7. api-testing/API_Test_Results.md`](../7.%20api-testing/API_Test_Results.md);
+unit and coverage results in [`../6. white-box-testing/Coverage_Report.md`](../6.%20white-box-testing/Coverage_Report.md);
+black-box technique results in [`../5. black-box-testing/Black_Box_Results.md`](../5.%20black-box-testing/Black_Box_Results.md).
 
 ## Final results
 
@@ -28,13 +28,13 @@ black-box technique results in [`../black-box-testing/Black_Box_Results.md`](../
 ## Reproducing the Selenium run
 
 1. Start the backend in test mode and the frontend as a production build (see [`../commands.md`](../commands.md)).
-2. From [`../automation-testing/selenium-or-playwright/`](../automation-testing/selenium-or-playwright/):
+2. From [`../8. automation-testing/selenium-or-playwright/`](../8.%20automation-testing/selenium-or-playwright/):
    `pytest --html=report.html --self-contained-html --junitxml=junit.xml`, then
-   `python tools/make_results_table.py junit.xml`.
+   `python "14. tools/make_results_table.py" junit.xml`.
 
 ## Related
 
-- Plan: [`../test-plan/Test_Plan.md`](../test-plan/Test_Plan.md)
-- Cases: [`../test-cases/Test_Cases.csv`](../test-cases/Test_Cases.csv)
-- Defects: [`../defect-reports/`](../defect-reports/)
-- Rollup: [`../final-test-report/Test_Summary_Report.md`](../final-test-report/Test_Summary_Report.md)
+- Plan: [`../3. test-plan/Test_Plan.md`](../3.%20test-plan/Test_Plan.md)
+- Cases: [`../4. test-cases/Test_Cases.csv`](../4.%20test-cases/Test_Cases.csv)
+- Defects: [`../9. defect-reports/`](../9.%20defect-reports/)
+- Rollup: [`../12. final-test-report/Test_Summary_Report.md`](../12.%20final-test-report/Test_Summary_Report.md)

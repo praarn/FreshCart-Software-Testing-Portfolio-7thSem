@@ -1,6 +1,6 @@
 # Requirements Analysis
 
-Input: [`REQUIREMENTS.md`](../application/docs/REQUIREMENTS.md) (42 rules, R1.1-R9.3, 9 modules).
+Input: [`REQUIREMENTS.md`](../0.%20application/docs/REQUIREMENTS.md) (42 rules, R1.1-R9.3, 9 modules).
 Method: each rule was checked for testability (a single observable pass/fail outcome), then
 compared with the running code to find points where the written rule leaves room for two
 readings. Behaviour quoted below was observed in the code or the API, not assumed.
@@ -52,7 +52,7 @@ business clock; every UI element has a `data-testid`.
 | Order state machine | R6.1-R6.4 | Illegal moves skip steps (for example delivery without OTP) | 36-pair unit matrix, 8 invalid transitions in the API suite |
 | Role checks | R1.6 | Data exposure | 401/403 checks in every API folder |
 | Account lockout | R1.5 | Lockout bypass or permanent lockout | Unit tests for 14:59 / 15:00 boundary, API 4-then-success |
-| Input validation | R1.1-R1.4, R5.1 | Malformed data stored | EP and BVA cases, see `test-cases/` |
+| Input validation | R1.1-R1.4, R5.1 | Malformed data stored | EP and BVA cases, see `4. test-cases/` |
 
 ## 5. Test conditions derived per module
 
@@ -65,8 +65,8 @@ business clock; every UI element has a `data-testid`.
 | M5 | pincode range, slot lead/window/capacity, payment method x validity | EP, BVA, decision table | `Decision_Table.md` |
 | M6 | all (state, event) pairs; OTP attempts 2/3 | State transition | `State_Transition.md` |
 | M7 | delivered-only, one review per product, rating 1-5, comment 300 | EP, BVA | Test_Cases.csv |
-| M8, M9 | CRUD, filters, role access; product price, stock, name bounds; banner title and image bounds | EP, BVA | Test_Cases.csv, `api-testing/`, `black-box-testing/` |
+| M8, M9 | CRUD, filters, role access; product price, stock, name bounds; banner title and image bounds | EP, BVA | Test_Cases.csv, `7. api-testing/`, `5. black-box-testing/` |
 
 Every EP and BVA condition in this table is executed by the data-driven suite in
-[`black-box-testing/`](../black-box-testing/README.md); the white-box counterparts (basis paths and coverage)
-are in [`white-box-testing/`](../white-box-testing/README.md).
+[`5. black-box-testing/`](../5.%20black-box-testing/README.md); the white-box counterparts (basis paths and coverage)
+are in [`6. white-box-testing/`](../6.%20white-box-testing/README.md).

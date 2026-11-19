@@ -21,7 +21,7 @@ Defects found in FreshCart, each as its own report, plus a template for new ones
 None. DEF-001 and DEF-002 were found during development. DEF-003 to DEF-008 were found while re-verifying the
 automated results; each was fixed in its own commit (`fix(...)` referencing the ID) and has a regression check:
 DEF-003 and DEF-005 unit tests that fail on the old code, DEF-004 and DEF-005 Newman requests, DEF-007 and DEF-008
-diagnostic scripts in `automation-testing/selenium-or-playwright/diagnostics/`. DEF-006 was not independently reproduced before its fix.
+diagnostic scripts in `8. automation-testing/selenium-or-playwright/diagnostics/`. DEF-006 was not independently reproduced before its fix.
 
 ## Report structure
 
@@ -46,4 +46,4 @@ Priority is P1 (fix now), P2 (fix soon) or P3 (fix when convenient).
 1. Copy `Defect_Report_Template.md` to `DEF-NNN_short_description.md`, using the next free number.
 2. Fill in every section and cite the failing test case ID where there is one.
 3. Add a row to the table above and to the defects table in the
-   [Test Summary Report](../final-test-report/Test_Summary_Report.md).
+   [Test Summary Report](../12.%20final-test-report/Test_Summary_Report.md).
