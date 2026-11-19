@@ -10,16 +10,15 @@ Fill in the `TODO` fields yourselves. Nothing here is written on a member's beha
 | TODO: name | TODO | Test Engineer | TODO |
 | TODO: name | TODO | Automation and QA Engineer | TODO |
 
-## GitHub activity (from `git shortlog -sne HEAD`, generated 2026-11-14)
+## GitHub activity (from `git shortlog -sne HEAD`)
 
-| Author in the history | Commits |
-|---|---|
-| one identity (`praarn`) | 26 of 26 |
+| Author in the history | GitHub | Commits |
+|---|---|---|
+| praarn | [@praarn](https://github.com/praarn) | 22 of 42 |
+| poorvikagj | [@poorvikagj](https://github.com/poorvikagj) | 20 of 42 |
 
-All commits so far come from a single identity, and the repository has no pull requests or reviews. The
-assignment asks for commits, pull requests and reviews from all three members. This cannot be fixed by editing
-history. Each member needs to make real changes from their own account, for example the follow-ups listed
-under "Open items per role" below, each in a branch with a pull request reviewed by another member.
+The repository has no pull requests or reviews yet. The assignment asks for commits, pull requests and reviews
+from all three members, so the remaining open items below are best done in branches with reviewed pull requests.
 
 ## Deliverables by suggested role
 

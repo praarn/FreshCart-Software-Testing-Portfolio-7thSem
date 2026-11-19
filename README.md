@@ -20,6 +20,8 @@ black-box and white-box design, API and UI automation, execution results, defect
 | TODO: name | TODO | Test Engineer |
 | TODO: name | TODO | Automation and QA Engineer |
 
+Contributors: [@praarn](https://github.com/praarn) and [@poorvikagj](https://github.com/poorvikagj).
+
 Contributions and reflections: [`Team_Learning_Reflection.md`](Team_Learning_Reflection.md).
 
 ## Objectives
