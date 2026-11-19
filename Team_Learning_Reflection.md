@@ -6,9 +6,8 @@ Fill in the `TODO` fields yourselves. Nothing here is written on a member's beha
 
 | Member | Roll number | Role | GitHub username |
 |---|---|---|---|
-| TODO: name | TODO | Test Analyst | TODO |
-| TODO: name | TODO | Test Engineer | TODO |
-| TODO: name | TODO | Automation and QA Engineer | TODO |
+| Prapti R. N. | 1MS23IS094 | Test Analyst | [@praarn](https://github.com/praarn) |
+| Poorvika G. J. | 1MS23IS090 | Test Engineer | [@poorvikagj](https://github.com/poorvikagj) |
 
 ## GitHub activity (from `git shortlog -sne HEAD`)
 
@@ -41,21 +40,14 @@ The deliverables are listed under the role they naturally belong to. Confirm or 
 
 ## Individual contribution and reflection
 
-### Member 1: TODO name (Test Analyst)
+### Prapti R. N. (Test Analyst)
 
 - Contributions (from `git log --author`): TODO
 - What I learned: TODO (write in your own words)
 - What was difficult: TODO (write in your own words)
 - What I would do differently: TODO (write in your own words)
 
-### Member 2: TODO name (Test Engineer)
-
-- Contributions (from `git log --author`): TODO
-- What I learned: TODO (write in your own words)
-- What was difficult: TODO (write in your own words)
-- What I would do differently: TODO (write in your own words)
-
-### Member 3: TODO name (Automation and QA Engineer)
+### Poorvika G. J. (Test Engineer)
 
 - Contributions (from `git log --author`): TODO
 - What I learned: TODO (write in your own words)

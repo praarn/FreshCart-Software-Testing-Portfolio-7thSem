@@ -16,9 +16,8 @@ black-box and white-box design, API and UI automation, execution results, defect
 
 | Member | Roll number | Role |
 |---|---|---|
-| TODO: name | TODO | Test Analyst |
-| TODO: name | TODO | Test Engineer |
-| TODO: name | TODO | Automation and QA Engineer |
+| Prapti R. N. | 1MS23IS094 | Test Analyst |
+| Poorvika G. J. | 1MS23IS090 | Test Engineer |
 
 Contributors: [@praarn](https://github.com/praarn) and [@poorvikagj](https://github.com/poorvikagj).
 
