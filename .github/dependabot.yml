@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /0-application/backend
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /5-black-box-testing
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /8-automation-testing/selenium-or-playwright
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /0-application/frontend
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /0-application/backend
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /0-application/frontend
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
