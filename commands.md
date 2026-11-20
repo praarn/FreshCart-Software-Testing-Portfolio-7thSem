@@ -5,8 +5,8 @@ Pick **one** of: local (SQLite, two terminals, no external services) or Docker C
 (Postgres, one command). Local is faster to iterate on; Docker is closer to a real deploy
 and is what CI-equivalent `docker compose up` verification uses.
 
-Full explanation of what's being run: [`0. application/explanation.md`](0.%20application/explanation.md).
-Seed credentials and test-mode env vars: [`0. application/README.md`](0.%20application/README.md).
+Full explanation of what's being run: [`0-application/explanation.md`](0-application/explanation.md).
+Seed credentials and test-mode env vars: [`0-application/README.md`](0-application/README.md).
 
 ---
 
@@ -31,7 +31,7 @@ Seed credentials and test-mode env vars: [`0. application/README.md`](0.%20appli
 
 ```bash
 # Backend — terminal 1
-cd "0. application/backend"
+cd "0-application/backend"
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -42,7 +42,7 @@ uvicorn app.main:app --reload
 
 ```bash
 # Frontend — terminal 2
-cd "0. application/frontend"
+cd "0-application/frontend"
 npm install
 npm run dev
 ```
@@ -94,7 +94,7 @@ npm run dev
 Identical to the macOS/Linux block above, except the venv activation path uses `Scripts`:
 
 ```bash
-cd "0. application/backend"
+cd "0-application/backend"
 python -m venv .venv
 source .venv/Scripts/activate
 pip install -r requirements.txt
@@ -185,14 +185,14 @@ It talks to `http://127.0.0.1:8000/api` (set `FRESHCART_API_URL` for another add
 
 ```bash
 # Backend: run the unit tests (white box: basis path and coverage cases)
-cd "0. application/backend" && pytest
+cd "0-application/backend" && pytest
 
 # Backend: create a new migration after changing a model
-cd "0. application/backend" && alembic revision --autogenerate -m "describe the change"
+cd "0-application/backend" && alembic revision --autogenerate -m "describe the change"
 
 # Frontend: production build (what CI runs; also what the Docker image builds)
-cd "0. application/frontend" && npm run build
+cd "0-application/frontend" && npm run build
 
 # Frontend: lint
-cd "0. application/frontend" && npm run lint
+cd "0-application/frontend" && npm run lint
 ```
