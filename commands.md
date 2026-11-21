@@ -12,16 +12,15 @@ Seed credentials and test-mode env vars: [`0-application/README.md`](0-applicati
 
 ## Prerequisites
 
-- Python 3.11+ (3.12 recommended — see the note below if you're on a brand-new Python
-  release and `pip install` fails building wheels)
+- Python 3.12 (3.11 works; **3.13 and 3.14 do not**, see the note below)
 - Node.js 20+
 - Docker Desktop (only if using the Docker Compose path)
 
-> **Python version note:** on a very recently released Python (e.g. 3.14 at the time this
-> was built), some pinned dependencies may not yet publish prebuilt wheels, and building
-> them from source can fail. If `pip install -r requirements.txt` fails with a build error,
-> install a 3.12.x interpreter and create the virtual environment with that instead
-> (`py -3.12 -m venv .venv` on Windows, `python3.12 -m venv .venv` elsewhere).
+> **Python version note:** the pinned packages (`pydantic-core`, `asyncpg`) have no prebuilt wheels for
+> Python 3.13 or 3.14, so `pip install -r requirements.txt` fails with "Failed building wheel for
+> pydantic-core". If `python --version` shows 3.13 or newer, install 3.12 and create the virtual
+> environment with it (`py -3.12 -m venv .venv` on Windows, `python3.12 -m venv .venv` elsewhere).
+> Check with `py -0p` (Windows) that 3.12 is installed. Delete a broken `.venv` folder before recreating it.
 
 ---
 
@@ -32,12 +31,12 @@ Seed credentials and test-mode env vars: [`0-application/README.md`](0-applicati
 ```bash
 # Backend — terminal 1
 cd "0-application/backend"
-python3 -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-alembic upgrade head
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
 python -m app.seed
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 ```bash
@@ -51,18 +50,18 @@ npm run dev
 
 ```powershell
 # Backend — terminal 1
-cd Application\backend
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-alembic upgrade head
+cd 0-application\backend
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
 python -m app.seed
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 ```powershell
 # Frontend — terminal 2
-cd Application\frontend
+cd 0-application\frontend
 npm install
 npm run dev
 ```
@@ -74,17 +73,17 @@ npm run dev
 ### Windows — cmd.exe
 
 ```bat
-cd Application\backend
-python -m venv .venv
+cd 0-application\backend
+py -3.12 -m venv .venv
 .venv\Scripts\activate.bat
-pip install -r requirements.txt
-alembic upgrade head
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
 python -m app.seed
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 ```bat
-cd Application\frontend
+cd 0-application\frontend
 npm install
 npm run dev
 ```
@@ -95,12 +94,12 @@ Identical to the macOS/Linux block above, except the venv activation path uses `
 
 ```bash
 cd "0-application/backend"
-python -m venv .venv
+py -3.12 -m venv .venv
 source .venv/Scripts/activate
-pip install -r requirements.txt
-alembic upgrade head
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
 python -m app.seed
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 ### Once both are running
@@ -139,7 +138,7 @@ These only need to be set for the **backend** process.
 **macOS / Linux / Git Bash:**
 
 ```bash
-APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --reload
+APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 python -m uvicorn app.main:app --reload
 ```
 
 **Windows PowerShell:**
@@ -147,7 +146,7 @@ APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --reload
 ```powershell
 $env:APP_ENV = "test"
 $env:FIXED_NOW = "2026-11-10T09:00:00"
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 **Windows cmd.exe:**
@@ -155,7 +154,7 @@ uvicorn app.main:app --reload
 ```bat
 set APP_ENV=test
 set FIXED_NOW=2026-11-10T09:00:00
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 **Docker Compose:** set `APP_ENV` and `FIXED_NOW` under the `backend` service's
@@ -171,9 +170,9 @@ With the backend in test mode, the black-box suite (equivalence partitioning and
 runs the same way on every OS:
 
 ```bash
-cd black-box-testing
-pip install -r requirements.txt
-pytest --junitxml=results/black_box_junit.xml     # then: python make_results.py
+cd 5-black-box-testing
+python -m pip install -r requirements.txt
+python -m pytest --junitxml=results/black_box_junit.xml     # then: python make_results.py
 ```
 
 It talks to `http://127.0.0.1:8000/api` (set `FRESHCART_API_URL` for another address; `127.0.0.1` rather than
@@ -185,10 +184,10 @@ It talks to `http://127.0.0.1:8000/api` (set `FRESHCART_API_URL` for another add
 
 ```bash
 # Backend: run the unit tests (white box: basis path and coverage cases)
-cd "0-application/backend" && pytest
+cd "0-application/backend" && python -m pytest
 
 # Backend: create a new migration after changing a model
-cd "0-application/backend" && alembic revision --autogenerate -m "describe the change"
+cd "0-application/backend" && python -m alembic revision --autogenerate -m "describe the change"
 
 # Frontend: production build (what CI runs; also what the Docker image builds)
 cd "0-application/frontend" && npm run build

@@ -116,48 +116,103 @@ kept outside the repository.
 
 ## Quick start
 
-Local, with SQLite (two terminals):
+**Python 3.12 is required** (3.11 also works). Python 3.13 and 3.14 fail at `pip install` because `pydantic-core` and
+`asyncpg` have no wheels for them, so create the virtual environment with 3.12 explicitly. Also needed: Node 20 or newer,
+and Chrome for Selenium. All commands start from the repository root.
+
+**Windows (PowerShell)**
+
+```powershell
+# Terminal 1: backend  (http://localhost:8000, Swagger UI at /docs)
+cd 0-application\backend
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
+python -m app.seed
+python -m uvicorn app.main:app --reload
+```
+
+```powershell
+# Terminal 2: frontend  (http://localhost:3000)
+cd 0-application\frontend
+npm install
+npm run dev
+```
+
+If `Activate.ps1` is blocked, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first.
+
+**macOS / Linux**
 
 ```bash
 # Terminal 1: backend
-cd "0-application/backend"
-pip install -r requirements.txt
-alembic upgrade head
+cd 0-application/backend
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
 python -m app.seed
-uvicorn app.main:app --reload      # http://localhost:8000  (Swagger UI at /docs)
+python -m uvicorn app.main:app --reload
 
 # Terminal 2: frontend
-cd "0-application/frontend"
+cd 0-application/frontend
 npm install
-npm run dev                        # http://localhost:3000
+npm run dev
 ```
 
-Or `docker compose up --build` (PostgreSQL included). Prerequisites: Python 3.12, Node 20 or newer, Chrome for Selenium.
-Per-OS commands, including PowerShell, are in [`commands.md`](commands.md).
+Or `docker compose up --build` (PostgreSQL included). More shells (cmd, Git Bash) are in [`commands.md`](commands.md).
 
 ## Running the tests
 
+Start the backend in **test mode** (resettable database, frozen clock) in one terminal and leave it running. The
+black-box and API suites need it; the unit tests do not.
+
+```powershell
+# Terminal 1 (PowerShell): from the repo root
+cd 0-application\backend
+.\.venv\Scripts\Activate.ps1
+$env:APP_ENV = "test"; $env:FIXED_NOW = "2026-11-10T09:00:00"
+python -m uvicorn app.main:app --port 8000
+```
+
 ```bash
-# Backend in test mode (resettable database, frozen clock)
-cd "0-application/backend"
-APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000
+# Terminal 1 (macOS / Linux / Git Bash): from the repo root
+cd 0-application/backend
+source .venv/bin/activate          # Git Bash: source .venv/Scripts/activate
+APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 python -m uvicorn app.main:app --port 8000
+```
 
+Then, in a second terminal, from the repo root with the same virtual environment activated
+(`.\0-application\backend\.venv\Scripts\Activate.ps1` on Windows):
+
+```bash
 # Unit tests with coverage (no server needed): white-box basis path and coverage cases
-pytest --cov=app --cov-branch --cov-report=term-missing
+cd 0-application/backend
+python -m pytest --cov=app --cov-branch --cov-report=term-missing
+cd ../..
 
-# Black-box suite, equivalence partitioning and boundary value analysis (backend in test mode, about 3 minutes)
-cd ../../black-box-testing && pip install -r requirements.txt && pytest
-cd "../0-application/backend"
+# Black-box suite, equivalence partitioning and boundary value analysis (about 3 minutes)
+cd 5-black-box-testing
+python -m pip install -r requirements.txt
+python -m pytest --junitxml=results/black_box_junit.xml
+cd ..
 
-# Selenium (use a production build of the frontend: npm run build && npm start)
-cd "8-automation-testing/selenium-or-playwright" && pip install -r requirements.txt && pytest
+# Selenium (needs the frontend as a production build: in 0-application/frontend run npm run build, then npm start)
+cd 8-automation-testing/selenium-or-playwright
+python -m pip install -r requirements.txt
+python -m pytest
+cd ../..
 
-# API (about 6 minutes: the login rate limit is paced on purpose)
-cd api-testing && npx newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json
+# API with Newman (about 6 minutes: the login rate limit is paced on purpose)
+cd 7-api-testing
+npx --yes newman run FreshCart.postman_collection.json -e FreshCart.postman_environment.json
+cd ..
 
 # Check that every count quoted in the docs matches the tools' output
-python "14-tools/consistency_check.py"
+python 14-tools/consistency_check.py
 ```
+
+These blocks run unchanged in PowerShell, bash and zsh (forward slashes work in PowerShell).
 
 ## Seed accounts
 

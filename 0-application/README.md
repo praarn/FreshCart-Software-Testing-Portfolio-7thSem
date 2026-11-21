@@ -8,18 +8,20 @@ Software Testing portfolio. Full business-rule and API reference:
 
 ## Prerequisites
 
-- Python 3.11+ (tested on 3.12)
+- Python 3.12 (3.11 works; 3.13 and 3.14 fail to install the pinned packages)
 - Node.js 20+
 - SQLite needs no setup; PostgreSQL is only needed if you run via Docker Compose
 
 ## Run locally (SQLite, zero external services)
 
-```bash
-# Backend — from "0-application/backend"
-pip install -r requirements.txt
-alembic upgrade head
+```powershell
+# Backend, from "0-application/backend" (PowerShell; bash: python3.12 -m venv .venv && source .venv/bin/activate)
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
 python -m app.seed
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
 ```bash

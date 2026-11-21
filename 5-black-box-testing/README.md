@@ -53,14 +53,14 @@ starts with its case ID and ends with the class or boundary position, for exampl
 The backend must run in test mode with the frozen clock (a Tuesday; the weekday coupon and the slot edges depend on it):
 
 ```bash
-# terminal 1
-cd "0-application/backend"
-APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 uvicorn app.main:app --port 8000
+# terminal 1 (from the repo root; PowerShell: $env:APP_ENV="test"; $env:FIXED_NOW="2026-11-10T09:00:00")
+cd 0-application/backend
+APP_ENV=test FIXED_NOW=2026-11-10T09:00:00 python -m uvicorn app.main:app --port 8000
 
-# terminal 2
-cd black-box-testing
-pip install -r requirements.txt
-pytest --junitxml=results/black_box_junit.xml
+# terminal 2 (from the repo root, same Python 3.12 virtual environment activated)
+cd 5-black-box-testing
+python -m pip install -r requirements.txt
+python -m pytest --junitxml=results/black_box_junit.xml
 python make_results.py                  # rewrites Black_Box_Results.md from the JUnit file
 ```
 
