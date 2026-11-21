@@ -90,11 +90,11 @@ COUPONS = [
 ]
 
 BANNERS = [
-    dict(title="Fresh fruits, up to 20% off", image_url="https://picsum.photos/seed/freshcart-fruits/1200/400",
+    dict(title="Fresh fruits, up to 20% off", image_url="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&h=400&q=70",
          link_url="/?category_id=1", display_order=1, active=True),
-    dict(title="Daily essentials delivered fast", image_url="https://picsum.photos/seed/freshcart-daily/1200/400",
+    dict(title="Daily essentials delivered fast", image_url="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&h=400&q=70",
          link_url=None, display_order=2, active=True),
-    dict(title="Bakery favorites, baked fresh", image_url="https://picsum.photos/seed/freshcart-bakery/1200/400",
+    dict(title="Bakery favorites, baked fresh", image_url="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&h=400&q=70",
          link_url="/?category_id=4", display_order=3, active=True),
 ]
 
@@ -141,6 +141,8 @@ async def _get_or_create_coupon(db, **kwargs):
 async def _get_or_create_banner(db, title: str, now: datetime, **kwargs):
     banner = await db.scalar(select(Banner).where(Banner.title == title))
     if banner:
+        if "image_url" in kwargs and banner.image_url != kwargs["image_url"]:
+            banner.image_url = kwargs["image_url"]  # refresh older databases that still hold the previous image
         return banner
     banner = Banner(title=title, created_at=now, updated_at=now, **kwargs)
     db.add(banner)
