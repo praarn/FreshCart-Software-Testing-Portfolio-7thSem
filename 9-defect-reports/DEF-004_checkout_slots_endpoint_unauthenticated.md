@@ -33,16 +33,16 @@ router, declares `require_customer`.
 
 ## Fix
 
-Add `user=Depends(require_customer)` to `list_slots`. The only client is `/checkout` in the frontend, which is
+Proposed (and previously applied in `0c58076`): add `user=Depends(require_customer)` to `list_slots`. The only client is `/checkout` in the frontend, which is
 behind `RoleGuard` for CUSTOMER and already sends the token. Verified by the Newman request above (401
 without a token, 200 for a customer).
 
 ## Status
 
-Fixed.
+Open. Reopened on 2026-11-23 for the demo: the fix commit (`0c58076`) was backed out of the application code so the regression checks fail on purpose and the defect workflow can be shown. Re-applying that commit's code change closes it.
 
 ## Verification evidence
 
-- Regression test: Newman request `[TC-M5-004] Available slots honour the 2-hour lead time` (401 without a token, 200 for a customer).
-- Final run report: [`selenium_report.html`](../10-test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7-api-testing/reports/newman_report.html) (0 failed)
+- Failing check: Newman request `[API-CHK] Slots without a token` (expected 401, got 200; 2 assertions fail), run of 2026-11-23.
+- Run report: [`newman_report.html`](../7-api-testing/reports/newman_report.html) (23 assertions failed in the run, 2 of them for this defect)
 - Screenshot: ![DEF-004 evidence](../11-evidence/screenshots/16_newman_html_report.png)
