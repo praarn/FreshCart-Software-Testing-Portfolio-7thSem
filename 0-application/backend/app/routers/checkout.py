@@ -11,7 +11,7 @@ router = APIRouter(prefix="/checkout", tags=["checkout"])
 
 
 @router.get("/slots", response_model=list[SlotOut], summary="List available delivery slots (R5.2)")
-async def list_slots(db=Depends(get_db), now: datetime = Depends(get_now)):
+async def list_slots(db=Depends(get_db), user=Depends(require_customer), now: datetime = Depends(get_now)):
     return await checkout_service.list_available_slots(db, now)
 
 

@@ -6,9 +6,9 @@ Collection: [`FreshCart.postman_collection.json`](FreshCart.postman_collection.j
 |---|---|
 | Requests defined and executed | 245 |
 | Helper calls made by pre-request scripts (setup data, rate-limit probes) | 46 |
-| Assertions | 475 (23 failed) |
+| Assertions | 475 (0 failed) |
 | Requests expecting a 4xx status (negative checks) | 124 |
-| Requests passed / failed | 230 / 15 |
+| Requests passed / failed | 245 / 0 |
 
 ## Requests per folder
 
@@ -58,8 +58,8 @@ Expected status is the first assertion of each request; every request also asser
 | 24 | TC-M1-021 | Register 50-character name | `POST /api/auth/register` | 201 | 201 | PASS | R1.1 |
 | 25 | TC-M1-022 | Register 51-character name | `POST /api/auth/register` | 422 | 422 | PASS | R1.1 |
 | 26 | TC-M1-006 | Register 7-character password | `POST /api/auth/register` | 422 | 422 | PASS | R1.3 |
-| 27 | DEF-005 | Register name with a trailing newline (DEF-005) | `POST /api/auth/register` | 422 | 201 | FAIL | R1.1 |
-| 28 | DEF-005 | Register phone with a trailing newline (DEF-005) | `POST /api/auth/register` | 422 | 201 | FAIL | R1.4 |
+| 27 | DEF-005 | Register name with a trailing newline (DEF-005) | `POST /api/auth/register` | 422 | 422 | PASS | R1.1 |
+| 28 | DEF-005 | Register phone with a trailing newline (DEF-005) | `POST /api/auth/register` | 422 | 422 | PASS | R1.4 |
 | 29 | TC-M1-007 | Register 8-character password | `POST /api/auth/register` | 201 | 201 | PASS | R1.3 |
 | 30 | TC-M1-023 | Register 20-character password | `POST /api/auth/register` | 201 | 201 | PASS | R1.3 |
 | 31 | TC-M1-008 | Register 21-character password | `POST /api/auth/register` | 422 | 422 | PASS | R1.3 |
@@ -142,25 +142,25 @@ Expected status is the first assertion of each request; every request also asser
 | 108 | TC-M5-014 | Checkout with an empty cart | `POST /api/checkout` | 400 | 400 | PASS | R5.4 |
 | 109 | API-CHK | Checkout without a token | `POST /api/checkout` | 401 | 401 | PASS | R1.6 |
 | 110 | TC-M5-004 | Available slots honour the 2-hour lead time | `GET /api/checkout/slots` | 200 | 200 | PASS | R5.2 |
-| 111 | API-CHK | Slots without a token | `GET /api/checkout/slots` | 401 | 200 | FAIL | R5.2 |
+| 111 | API-CHK | Slots without a token | `GET /api/checkout/slots` | 401 | 401 | PASS | R5.2 |
 | 112 | API-CHK | Cart for checkout: Apple x2 | `POST /api/cart/items` | 200 | 200 | PASS | R3.1 |
 | 113 | TC-M5-002 | Non-serviceable pincode 560101 | `POST /api/checkout` | 400 | 400 | PASS | R5.1 |
 | 114 | TC-M5-002 | Pincode just below the range 560000 | `POST /api/checkout` | 400 | 400 | PASS | R5.1 |
 | 115 | API-CHK | Pincode with the wrong length | `POST /api/checkout` | 422 | 422 | PASS | R5.1 |
-| 116 | DEF-005 | Pincode with a trailing newline (DEF-005) | `POST /api/checkout` | 422 | 201 | FAIL | R5.1 |
+| 116 | DEF-005 | Pincode with a trailing newline (DEF-005) | `POST /api/checkout` | 422 | 422 | PASS | R5.1 |
 | 117 | TC-M5-003 | Address line1 of 4 characters | `POST /api/checkout` | 422 | 422 | PASS | R5.1 |
-| 118 | TC-M5-004 | Slot only 1 hour ahead (10:00) | `POST /api/checkout` | 400 | 400 | FAIL | R5.2 |
-| 119 | TC-M5-005 | Slot more than 3 days ahead | `POST /api/checkout` | 400 | 400 | FAIL | R5.2 |
+| 118 | TC-M5-004 | Slot only 1 hour ahead (10:00) | `POST /api/checkout` | 400 | 400 | PASS | R5.2 |
+| 119 | TC-M5-005 | Slot more than 3 days ahead | `POST /api/checkout` | 400 | 400 | PASS | R5.2 |
 | 120 | API-CHK | Slot off the 2-hour grid | `POST /api/checkout` | 400 | 400 | PASS | R5.2 |
 | 121 | TC-M5-008 | UPI id with a bad format | `POST /api/checkout` | 422 | 422 | PASS | R5.3 |
-| 122 | TC-M5-010 | Card always declined (4000000000000002) | `POST /api/checkout` | 400 | 400 | FAIL | R5.3 |
-| 123 | TC-M5-018 | Card failing the Luhn check | `POST /api/checkout` | 400 | 400 | FAIL | R5.3 |
-| 124 | TC-M5-011 | Card with a past expiry | `POST /api/checkout` | 400 | 400 | FAIL | R5.3 |
+| 122 | TC-M5-010 | Card always declined (4000000000000002) | `POST /api/checkout` | 400 | 400 | PASS | R5.3 |
+| 123 | TC-M5-018 | Card failing the Luhn check | `POST /api/checkout` | 400 | 400 | PASS | R5.3 |
+| 124 | TC-M5-011 | Card with a past expiry | `POST /api/checkout` | 400 | 400 | PASS | R5.3 |
 | 125 | API-CHK | Card with a 15-digit number | `POST /api/checkout` | 422 | 422 | PASS | R5.3 |
 | 126 | TC-M5-012 | Apple stock before any successful checkout | `GET /api/catalog/products/1` | 200 | 200 | PASS | R5.4 |
-| 127 | TC-M5-017 | Valid UPI checkout | `POST /api/checkout` | 201 | 400 | FAIL | R5.3,R5.4 |
+| 127 | TC-M5-017 | Valid UPI checkout | `POST /api/checkout` | 201 | 201 | PASS | R5.3,R5.4 |
 | 128 | TC-M5-012 | Cart is cleared after checkout | `GET /api/cart` | 200 | 200 | PASS | R5.4 |
-| 129 | TC-M5-012 | Stock was decremented | `GET /api/catalog/products/1` | 200 | 200 | FAIL | R5.4 |
+| 129 | TC-M5-012 | Stock was decremented | `GET /api/catalog/products/1` | 200 | 200 | PASS | R5.4 |
 | 130 | API-CHK | Cart for order 2: Apple x1 | `POST /api/cart/items` | 200 | 200 | PASS | R3.1 |
 | 131 | TC-M5-001 | COD checkout (order 2, 40.00 delivery fee) | `POST /api/checkout` | 201 | 201 | PASS | R5.1,R5.3 |
 | 132 | API-CHK | Cart for order 3: Apple x1 | `POST /api/cart/items` | 200 | 200 | PASS | R3.1 |
@@ -211,10 +211,10 @@ Expected status is the first assertion of each request; every request also asser
 | 177 | TC-M6-002 | DELIVERED is terminal | `PATCH /api/admin/orders/3/status` | 409 | 409 | PASS | R6.1 |
 | 178 | TC-M6-011 | Timeline lists every transition | `GET /api/orders/3` | 200 | 200 | PASS | R6.5 |
 | 179 | TC-M6-003 | Apple stock before the cancel | `GET /api/catalog/products/1` | 200 | 200 | PASS | R6.2 |
-| 180 | TC-M6-003 | Customer cancels order 1 while PLACED | `POST /api/orders/null/cancel` | 200 | 422 | FAIL | R6.2 |
-| 181 | TC-M6-003 | Cancelled order restored the stock | `GET /api/catalog/products/1` | 200 | 200 | FAIL | R6.2 |
-| 182 | API-ORD | Cancelling again is a conflict | `POST /api/orders/null/cancel` | 409 | 422 | FAIL | R6.2 |
-| 183 | TC-M6-015 | CANCELLED is terminal | `PATCH /api/admin/orders/null/status` | 409 | 422 | FAIL | R6.1 |
+| 180 | TC-M6-003 | Customer cancels order 1 while PLACED | `POST /api/orders/2/cancel` | 200 | 200 | PASS | R6.2 |
+| 181 | TC-M6-003 | Cancelled order restored the stock | `GET /api/catalog/products/1` | 200 | 200 | PASS | R6.2 |
+| 182 | API-ORD | Cancelling again is a conflict | `POST /api/orders/2/cancel` | 409 | 409 | PASS | R6.2 |
+| 183 | TC-M6-015 | CANCELLED is terminal | `PATCH /api/admin/orders/2/status` | 409 | 409 | PASS | R6.1 |
 | 184 | TC-M6-014 | Admin confirms order 3 | `PATCH /api/admin/orders/4/status` | 200 | 200 | PASS | R6.3 |
 | 185 | TC-M6-014 | Customer cancels order 3 while CONFIRMED | `POST /api/orders/4/cancel` | 200 | 200 | PASS | R6.2 |
 | 186 | TC-M6-012 | Another customer cannot cancel the order | `POST /api/orders/3/cancel` | 403 | 403 | PASS | R6.6 |

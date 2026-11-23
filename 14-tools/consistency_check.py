@@ -54,10 +54,9 @@ def main():
     check("business rules", r"\b(\d+) (?:business rules|rules \(R|rules, all)", t["rules"])
     check("selenium automated cases", r"\b(\d+) (?:Selenium|automated Selenium) (?:cases|tests)\b", t["selenium"])
     check("api requests", r"\b(\d+) requests,? (?:and )?\d+ assertions|Newman \((\d+) requests", t["api_requests"])
-    check("api assertions", r"\b(\d+) assertions\b(?! fail)", t["assertions"], [p for p in DOCS if p.name in ("README.md", "Conclusion.md", "Demo_Script.md", "Viva_QA.md")])
-    # DEF-004 and DEF-005 are open on purpose (2026-11-23), so Newman has failures; the docs must quote the same count.
-    check("api assertions failed", r"(\d+) (?:Newman )?assertions (?:failed|fail)|(\d+) assertions failed", t["assertions_failed"],
-          [p for p in DOCS if p.name in ("Test_Summary_Report.md", "Execution_Log.md")])
+    check("api assertions", r"\b(\d+) assertions\b", t["assertions"], [p for p in DOCS if p.name in ("README.md", "Conclusion.md", "Demo_Script.md", "Viva_QA.md")])
+    if t["assertions_failed"]:
+        fails.append("newman has failed assertions")
     r = subprocess.run([sys.executable, "-m", "pytest", "tests", "--collect-only", "-q", "-p", "no:cacheprovider"], cwd=ROOT / "0-application/backend", capture_output=True, text=True)
     m = re.search(r"(\d+) tests? collected", r.stdout)
     t["unit_tests"] = int(m.group(1)) if m else -1

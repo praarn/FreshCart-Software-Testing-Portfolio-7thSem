@@ -8,21 +8,18 @@ black-box and two white-box methods. All results below come from the runs record
 
 | Level | Tool | Result |
 |---|---|---|
-| UI end to end | Selenium + pytest, 86 cases | 86 passed, 0 failed (last run before DEF-004 and DEF-005 were reopened) |
-| API | Postman collection run with Newman, 245 requests, 475 assertions | 23 assertions failed, in 15 requests (DEF-004, DEF-005 and their knock-on effects) |
+| UI end to end | Selenium + pytest, 86 cases | 86 passed, 0 failed |
+| API | Postman collection run with Newman, 245 requests, 475 assertions | 0 failed |
 | Black box: EP and BVA | pytest over HTTP, 45 cases, 288 tests (one per class or boundary value) | 288 passed, 0 failed |
-| White box: basis path and coverage | pytest + pytest-cov, 136 unit tests | 136 run: 127 passed, 9 failed (DEF-005 regression tests) |
+| White box: basis path and coverage | pytest + pytest-cov, 136 unit tests | 136 passed |
 | Design | EP, BVA, decision tables, state transition; 169 cases tracing to 42 of 42 rules | n/a |
 
 Coverage (coverage.py, branch on): unit tests 65.2% of statements and 38.2% of branches; API suite 94.4% and 82.5%;
 combined 95.0% and 86.8%. The five functions chosen for white-box analysis are at 100% statement and branch coverage in
 the unit run. See [`6-white-box-testing/Coverage_Report.md`](../6-white-box-testing/Coverage_Report.md).
 
-Eight defects are recorded; two are open. Two came from development (DEF-001, DEF-002). Six were found while
-re-verifying the automated results (DEF-003 to DEF-008). DEF-004 and DEF-005 (both Low) were fixed and then reopened on
-2026-11-23 by backing out their code changes, so that the suites show failing tests: nine unit tests and 23 Newman
-assertions fail, and the black-box and Selenium suites do not notice. That gap is a finding in itself: the technique-based
-black-box suite has no case for a trailing newline or an anonymous call to the slots endpoint.
+Eight defects are recorded; none is open. Two came from development (DEF-001, DEF-002). Six were found while
+re-verifying the automated results (DEF-003 to DEF-008).
 
 ## What each technique found
 

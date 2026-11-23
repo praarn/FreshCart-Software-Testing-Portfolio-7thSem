@@ -192,9 +192,9 @@ def charts():
     bb = junit("5-black-box-testing/results/black_box_junit.xml")
     nt = (nj["timings"]["completed"] - nj["timings"]["started"]) / 1000
     suites = [("Selenium UI", sel["tests"], sel["failures"] + sel["errors"], sel["time"]),
-              ("Newman API requests", st["items"]["total"], len({f["source"]["id"] for f in nj["failures"]}), nt),
+              ("Newman API requests", st["items"]["total"], st["items"]["failed"], nt),
               ("Black-box EP/BVA", bb["tests"], bb["failures"] + bb["errors"], bb["time"]),
-              ("Unit (pytest)", 136, 9, None)]  # 2026-11-23 run: 9 DEF-005 regression tests fail, see 10-test-execution/unit_run_open_defects.txt
+              ("Unit (pytest)", 136, 0, None)]
     total = sum(s[1] for s in suites)
     fig, ax = plt.subplots(figsize=(9, 4.4))
     names = [s[0] for s in suites][::-1]
@@ -289,7 +289,6 @@ def charts():
     # 9 defects
     reg = (ROOT / "9-defect-reports/README.md").read_text(encoding="utf-8")
     sev = collections.Counter(re.findall(r"^\| \[DEF-\d+\].*\| (Critical|High|Medium|Low) \| (?:Fixed|Open)", reg, re.M))
-    n_open = len(re.findall(r"^\| \[DEF-\d+\].*\| Open \|$", reg, re.M))
     foundby = {"Development": 2, "Selenium re-run": 3, "Newman": 1, "Code reading + API": 1, "Code reading": 1}  # from Test_Summary_Report.md "Found by"
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10, 4.2))
     a1.bar(pr, [sev[p] for p in pr], color=[RED, ORANGE, YEL, AQUA], width=.55)
@@ -304,7 +303,7 @@ def charts():
         a2.text(v + .05, i, v, va="center", color=INK)
     vgrid(a2)
     a2.set_title("by how found", loc="left", fontsize=11, color=SUB)
-    save(fig, "09_defects.png", f"{sum(sev.values())} defects found, {n_open} open", f"{sum(sev.values()) - n_open} fixed and re-tested, {n_open} reopened (DEF-004, DEF-005). Source: 9-defect-reports/README.md, Test_Summary_Report.md.")
+    save(fig, "09_defects.png", f"{sum(sev.values())} defects found, 0 open", "All fixed and re-tested. Source: 9-defect-reports/README.md, Test_Summary_Report.md.")
 
     # 10 newman folders
     nm = (ROOT / "7-api-testing/API_Test_Results.md").read_text(encoding="utf-8")

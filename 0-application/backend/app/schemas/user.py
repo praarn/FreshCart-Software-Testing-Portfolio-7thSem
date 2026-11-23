@@ -4,9 +4,9 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.models.enums import Role, UserStatus
 
-NAME_RE = re.compile(r"^[A-Za-z ]{2,50}$")
-EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-PHONE_RE = re.compile(r"^[6-9]\d{9}$")
+NAME_RE = re.compile(r"^[A-Za-z ]{2,50}\Z", re.ASCII)
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+\Z", re.ASCII)
+PHONE_RE = re.compile(r"^[6-9]\d{9}\Z", re.ASCII)
 
 
 def validate_name(v: str) -> str:

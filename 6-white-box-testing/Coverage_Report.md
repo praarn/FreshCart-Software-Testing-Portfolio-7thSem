@@ -1,8 +1,7 @@
 # Coverage Report
 
 Tool: coverage.py 7.x through pytest-cov 7.1.0, branch coverage on, `source = app`. Run on 2026-11-14 against the
-code of that date (all 136 unit tests passed then; on 2026-11-23 nine of them fail because DEF-005 was reopened, see
-[`../10-test-execution/unit_run_open_defects.txt`](../10-test-execution/unit_run_open_defects.txt); the figures below were not re-measured). Raw output is next to this file; every number below is copied from it.
+final code. Raw output is next to this file; every number below is copied from it.
 
 | Run | What executed | Statements | Branches | Raw output |
 |---|---|---|---|---|

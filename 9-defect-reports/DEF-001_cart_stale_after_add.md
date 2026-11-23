@@ -59,5 +59,5 @@ and clears all reflect immediately). See commit `5cbed04` ("feat(catalog,cart): 
 ## Verification evidence
 
 - Regression test: Selenium `test_m3_cart.py` (add, re-add, update, remove, clear, totals: 8 cases) re-ran green after the fix.
-- Final run report: [`selenium_report.html`](../10-test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7-api-testing/reports/newman_report.html) (the 2026-11-23 run has 23 failed assertions, all from the reopened DEF-004 and DEF-005, none from this defect)
+- Final run report: [`selenium_report.html`](../10-test-execution/selenium_report.html) (86 passed), [`newman_report.html`](../7-api-testing/reports/newman_report.html) (0 failed)
 - Screenshot: ![DEF-001 evidence](../11-evidence/screenshots/13_pytest_html_report.png)
