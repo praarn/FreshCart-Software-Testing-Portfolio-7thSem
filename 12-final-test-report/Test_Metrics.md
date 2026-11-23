@@ -60,7 +60,7 @@ Source: `9-defect-reports/README.md`, `Test_Summary_Report.md`.
 - No performance, security or mutation figures exist; none were measured.
 - Coverage is for the backend only. The Next.js frontend has no coverage measurement.
 - Wall-clock times are from one Windows laptop and include browser start-up for Selenium.
-- A 100% pass rate with 0 defects from the black-box suite means the suite found no further defects, not that none remain.
+- A 100% pass rate with 0 defects from the black-box suite means the suite found no further defects, not that none remain. It also passed on 2026-11-23 while DEF-004 and DEF-005 were open, because it has no case for a trailing newline or an anonymous slots request; Newman and the unit tests caught both.
 
 ## Charts
 
