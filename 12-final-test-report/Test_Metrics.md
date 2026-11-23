@@ -21,12 +21,12 @@ Every figure comes from a file in this repository (named in the Source column). 
 | Suite | Executed | Passed | Failed | Wall-clock | Per test |
 |---|---|---|---|---|---|
 | Selenium UI | 86 | 86 | 0 | 2,056.7 s (34.3 min) | 23.9 s |
-| Newman API | 245 requests (291 HTTP calls, 475 assertions) | 245 requests, 475 assertions | 0 | 351.1 s (5.9 min) | 1.4 s |
+| Newman API | 245 requests (291 HTTP calls, 475 assertions) | 230 requests (452 assertions) | 15 requests (23 assertions) | 345.8 s (5.8 min) | 1.4 s |
 | Black-box EP/BVA | 288 | 288 | 0 | 141.6 s (2.4 min) | 0.49 s |
-| Unit (pytest) | 136 | 136 | 0 | not recorded | n/a |
-| **Total** | **755** (excluding assertions) | **755** | **0** | | |
+| Unit (pytest) | 136 | 127 | 9 | 15.6 s | 0.11 s |
+| **Total** | **755** (excluding assertions) | **731** | **24** | | |
 
-Pass rate: 755 / 755 = 100% in the final runs. Sources: `selenium_junit.xml`, `newman_report.json`, `black_box_junit.xml`, `Execution_Log.md`. The first Selenium run on 2026-11-09 is kept in `Execution_Log_2026-11-09_first_run.md`; the figures above are the final runs only.
+Pass rate: 731 / 755 = 96.8%. Newman, black-box and unit are from the 2026-11-23 runs (DEF-004 and DEF-005 reopened); Selenium is the 2026-11-14 run. Sources: `selenium_junit.xml`, `newman_report.json`, `black_box_junit.xml`, `Execution_Log.md`. The first Selenium run on 2026-11-09 is kept in `Execution_Log_2026-11-09_first_run.md`; the figures above are the final runs only.
 
 The black-box suite runs 288 tests in the time Selenium needs for about 6, because it uses HTTP and no browser.
 
@@ -49,8 +49,8 @@ Basis path testing: `validate_coupon` V(G) = 10 (10 paths), `_validate_payment` 
 | By severity | Critical 1, High 2, Medium 2, Low 3 |
 | Found during development / found while verifying | 2 / 6 |
 | Found by | Selenium 3 (DEF-003, 007, 008), Newman 1 (DEF-004), code reading plus API 1 (DEF-005), code reading 1 (DEF-006), development 2 (DEF-001, 002) |
-| Fixed and re-tested | 8 of 8 |
-| Open | 0 |
+| Fixed and re-tested | 6 of 8 |
+| Open | 2 (DEF-004, DEF-005, both Low; reopened 2026-11-23) |
 | Defects found by the black-box EP/BVA suite | 0 (it closed four equivalence classes that had no test) |
 
 Source: `9-defect-reports/README.md`, `Test_Summary_Report.md`.

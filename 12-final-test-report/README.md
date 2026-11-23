@@ -19,9 +19,9 @@ The overall conclusion and lessons learned are in [`Conclusion.md`](Conclusion.m
 | Test cases designed | 169 (86 Selenium, 22 API, 45 black-box EP/BVA, 16 unit) |
 | Black-box (EP and BVA) | 288 passed, 0 failed |
 | Selenium | 86 passed, 0 failed |
-| Newman | 245 requests, 475 assertions, 0 failed |
-| Unit tests | 136 passed |
-| Defects found and fixed in this verification | 6 (DEF-003 to DEF-008) |
-| Open defects | 0 |
+| Newman | 245 requests, 475 assertions: 23 assertions failed, in 15 requests |
+| Unit tests | 136 run: 127 passed, 9 failed |
+| Defects found in this verification | 6 (DEF-003 to DEF-008), 4 fixed |
+| Open defects | 2 (DEF-004, DEF-005), reopened for the demo |
 
 Coverage figures: [`../6-white-box-testing/Coverage_Report.md`](../6-white-box-testing/Coverage_Report.md).

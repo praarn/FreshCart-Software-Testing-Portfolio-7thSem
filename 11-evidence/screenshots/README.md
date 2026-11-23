@@ -22,10 +22,10 @@ Evidence from the running application and from the test runs.
 | File | Shows | Source |
 |---|---|---|
 | `11_pytest_selenium_run.png` | Terminal output of the final Selenium run, 86 passed | rendered from the saved pytest log by `14-tools/render_terminal_png.py` (text unchanged) |
-| `12_pytest_cov_unit_run.png` | Backend unit tests with the coverage table, 136 passed | rendered from `6-white-box-testing/coverage_term_unit.txt` |
+| `12_pytest_cov_unit_run.png` | Backend unit tests of 2026-11-23: 9 failed, 127 passed (DEF-005 regression tests) | rendered from `10-test-execution/unit_run_open_defects.txt` |
 | `13_pytest_html_report.png` | The pytest-html report (`10-test-execution/selenium_report.html`), 86 passed | headless Chrome |
 | `14_coverage_html_report.png` | The coverage.py HTML report (unit tests) | headless Chrome |
-| `15_newman_cli_summary.png` | End of the Newman run: 291 HTTP requests sent (245 defined plus helper calls), 475 assertions, 0 failed | rendered from the saved Newman log |
+| `15_newman_cli_summary.png` | End of the Newman run: 291 HTTP requests sent (245 defined plus helper calls), 475 assertions, 23 failed | rendered from the saved Newman log |
 | `16_newman_html_report.png` | The Newman htmlextra report | headless Chrome |
 | `17_swagger_ui.png` | Swagger UI at `/docs` | headless Chrome against the running backend |
 

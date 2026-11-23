@@ -13,7 +13,7 @@ every module M1–M9. The other 83 are covered at the API level (`A`, Newman), b
 | Stack | Selenium 4.27, pytest 8.3, requests, pytest-html |
 | Pattern | Page Object Model; locators use the frontend's `data-testid` attributes |
 | Tests | 86 automated cases across 9 files, one per business module |
-| Latest result | 86 passed, 0 failed (34 min 16 s, production build) - [`selenium_report.html`](../../10-test-execution/selenium_report.html) |
+| Latest result | 86 passed, 0 failed (34 min 16 s, production build; run before DEF-004 and DEF-005 were reopened, which the UI tests do not exercise) - [`selenium_report.html`](../../10-test-execution/selenium_report.html) |
 
 | Test file | Module | Tests |
 |---|---|---|

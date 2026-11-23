@@ -61,9 +61,9 @@ flowchart LR
 | Test cases designed | 169 (86 Selenium, 22 API, 45 black-box EP/BVA, 16 unit) |
 | Black-box suite (EP and BVA) | 288 passed, 0 failed |
 | Selenium suite | 86 passed, 0 failed |
-| API suite (Newman) | 245 requests, 475 assertions, 0 failed |
-| Unit tests | 136 passed; 65.2% statement and 38.2% branch coverage alone, 95.0% and 86.8% combined with the API suite |
-| Defects | 8 found (DEF-001 to DEF-008), 0 open |
+| API suite (Newman) | 245 requests, 475 assertions; 23 assertions failed, in 15 requests (DEF-004, DEF-005) |
+| Unit tests | 136 run: 127 passed, 9 failed (DEF-005); 65.2% statement and 38.2% branch coverage alone, 95.0% and 86.8% combined with the API suite |
+| Defects | 8 found (DEF-001 to DEF-008), 2 open (DEF-004, DEF-005, reopened for the demo) |
 | CI | GitHub Actions: backend with coverage, Newman, frontend build, Selenium and the black-box suite (all five jobs green on a hosted runner, 2026-11-19) |
 
 ## Test evidence
@@ -72,18 +72,18 @@ Every number above comes from a saved tool report, not from the Markdown. Open t
 
 | Test type | Result | Open the report | Screenshot |
 |---|---|---|---|
-| Selenium UI (pytest) | 86 passed, 0 failed | [`selenium_report.html`](10-test-execution/selenium_report.html), [`selenium_junit.xml`](10-test-execution/selenium_junit.xml) | [`13`](11-evidence/screenshots/13_pytest_html_report.png), [`11`](11-evidence/screenshots/11_pytest_selenium_run.png) |
+| Selenium UI (pytest, last run 2026-11-14) | 86 passed, 0 failed | [`selenium_report.html`](10-test-execution/selenium_report.html), [`selenium_junit.xml`](10-test-execution/selenium_junit.xml) | [`13`](11-evidence/screenshots/13_pytest_html_report.png), [`11`](11-evidence/screenshots/11_pytest_selenium_run.png) |
 | Black-box EP and BVA (pytest) | 288 passed, 0 failed | [`Black_Box_Results.md`](5-black-box-testing/Black_Box_Results.md), [`black_box_junit.xml`](5-black-box-testing/results/black_box_junit.xml) | |
-| API (Newman) | 245 requests, 475 assertions, 0 failed | [`newman_report.html`](7-api-testing/reports/newman_report.html), [`newman_report.json`](7-api-testing/reports/newman_report.json) | [`16`](11-evidence/screenshots/16_newman_html_report.png), [`15`](11-evidence/screenshots/15_newman_cli_summary.png) |
-| Unit and coverage (pytest-cov) | 136 passed | [`coverage_html/index.html`](6-white-box-testing/coverage_html/index.html), [`Coverage_Report.md`](6-white-box-testing/Coverage_Report.md) | [`14`](11-evidence/screenshots/14_coverage_html_report.png), [`12`](11-evidence/screenshots/12_pytest_cov_unit_run.png) |
+| API (Newman) | 245 requests, 475 assertions, 23 failed | [`newman_report.html`](7-api-testing/reports/newman_report.html), [`newman_report.json`](7-api-testing/reports/newman_report.json) | [`16`](11-evidence/screenshots/16_newman_html_report.png), [`15`](11-evidence/screenshots/15_newman_cli_summary.png) |
+| Unit and coverage (pytest-cov) | 136 run: 127 passed, 9 failed | [`coverage_html/index.html`](6-white-box-testing/coverage_html/index.html), [`Coverage_Report.md`](6-white-box-testing/Coverage_Report.md) | [`14`](11-evidence/screenshots/14_coverage_html_report.png), [`12`](11-evidence/screenshots/12_pytest_cov_unit_run.png) |
 | CI (GitHub Actions) | 5 of 5 jobs green on 2026-11-19 (run 44557615256) | [Actions tab](https://github.com/praarn/Software-Testing-Portfolio-7thSem/actions), reports kept as run artifacts | badge above |
-| Defects | 8 found, 0 open | [`9-defect-reports/`](9-defect-reports/), each with its regression test and screenshot | |
+| Defects | 8 found, 2 open | [`9-defect-reports/`](9-defect-reports/), each with its regression test and screenshot | |
 
 HTML reports show as source code on GitHub. Download the file and open it in a browser, or use the screenshots.
 
 ![Selenium report: 86 passed](11-evidence/screenshots/13_pytest_html_report.png)
 
-![Newman report: 0 failed](11-evidence/screenshots/16_newman_html_report.png)
+![Newman report: 23 assertions failed](11-evidence/screenshots/16_newman_html_report.png)
 
 ![Coverage report](11-evidence/screenshots/14_coverage_html_report.png)
 
